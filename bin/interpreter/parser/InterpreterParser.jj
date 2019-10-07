@@ -1,31 +1,33 @@
-PARSER_BEGIN(Parser)
+PARSER_BEGIN(InterpreterParser)
+
+package interpreter.parser;
 
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
 
 /** ID lister. */
-public class Parser {
+public class InterpreterParser {
 
 	/** Main entry point. */
   	public static void main(String args[]) {
-    	Parser parser = new Parser(System.in);
+    	InterpreterParser interpreterParser = new InterpreterParser(System.in);
     	ASTNode exp;
 
     	while (true) {
     		try {
-    			exp = parser.Start();
+    			exp = interpreterParser.Start();
     			System.out.println( exp.eval() );
     		}
     		catch (Exception e) {
       			System.out.println ("Syntax Error!");
-      			parser.ReInit(System.in);
+      			interpreterParser.ReInit(System.in);
     		}
     	}
   	}
 }
 
-PARSER_END(Parser)
+PARSER_END(InterpreterParser)
 
 SKIP :
 {

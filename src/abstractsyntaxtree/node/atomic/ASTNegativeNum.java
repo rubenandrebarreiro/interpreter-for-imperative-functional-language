@@ -42,7 +42,7 @@ public class ASTNegativeNum implements ASTNode {
 	 * 
 	 * @param numASTNodeValue the value of the A.S.T. Node, representing an atomic negative number
 	 */
-	public numASTNodeValue(int numASTNodeValue) {
+	public ASTNegativeNum(int numASTNodeValue) {
 		this.numASTNodeValue = numASTNodeValue;
 	}
 	
