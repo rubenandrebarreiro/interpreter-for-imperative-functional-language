@@ -99,7 +99,7 @@ ASTNode Fact() :
 {
    ( num = <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
 			| <MINUS> num = <Num> { node = new ASTNegativeNum(Integer.parseInt(num.image)); } 
-   			| <LPAR> node=Exp() <RPAR> )
+   			| <LPAR> node = Exp() <RPAR> )
    { return node; }
 }
 
