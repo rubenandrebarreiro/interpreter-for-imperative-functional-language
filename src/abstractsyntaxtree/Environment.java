@@ -17,13 +17,18 @@ public class Environment {
 	private Environment ancestor;
 	private Map<String, Integer> map;
 	
+	public Environment() {
+		map = new HashMap<String, Integer>();
+		ancestor = null;
+	}
+	
 	public Environment(Environment ancestor) {
 		map = new HashMap<String, Integer>();
 		this.ancestor = ancestor;
 	}
 	
 	public int find(String id) {
-		int value = map.get(id);
+		Integer value = map.get(id);
 //		if(value == null) {
 //			//Exception
 //		}
@@ -46,7 +51,10 @@ public class Environment {
 	};
 	
 	public Environment endScope() {
-		return ancestor;
+		if(ancestor != null)
+			return ancestor;
+		//TODO What happens here??
+		else return ancestor;
 	};
 	
 }
