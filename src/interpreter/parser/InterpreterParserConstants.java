@@ -28,6 +28,12 @@ public interface InterpreterParserConstants {
   int RPAR = 11;
   /** RegularExpression Id. */
   int EL = 12;
+  /** RegularExpression Id. */
+  int LET = 13;
+  /** RegularExpression Id. */
+  int IN = 14;
+  /** RegularExpression Id. */
+  int END = 15;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -47,6 +53,9 @@ public interface InterpreterParserConstants {
     "\"(\"",
     "\")\"",
     "\"\\n\"",
+    "\"Let\"",
+    "\"in\"",
+    "\"end\"",
   };
 
 }
