@@ -1,5 +1,7 @@
 package abstractsyntaxtree.node.atomic;
 
+import abstractsyntaxtree.Environment;
+
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -52,7 +54,7 @@ public class ASTNum implements ASTNode {
 	 * Evaluates the current Node of an Abstract Syntax Tree, returning its atomic number.
 	 */
 	@Override
-	public int eval() {
+	public int eval(Environment env) {
 		
 		// Returns A.S.T. Node, representing an atomic number
 		return this.numASTNodeValue;

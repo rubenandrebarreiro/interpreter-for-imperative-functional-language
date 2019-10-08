@@ -1,5 +1,6 @@
 package abstractsyntaxtree.node.arithmetic;
 
+import abstractsyntaxtree.Environment;
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -58,9 +59,9 @@ public class ASTAdd implements ASTNode {
 	 * Evaluates the current Node of an Abstract SyntaxTree, performing its Addition.
 	 */
 	@Override
-	public int eval() {
-		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval();
-		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval();
+	public int eval(Environment env) {
+		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval(env);
+		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval(env);
 		
 		// Returns the Addition of the A.S.T. Nodes Descendants
 		return leftASTNodeDescendantValue + rightASTNodeDescedantValue;

@@ -4,19 +4,21 @@ package interpreter.parser;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
+import abstractsyntaxtree.Environment;
 
 /** ID lister. */
 public class InterpreterParser implements InterpreterParserConstants {
 
         /** Main entry point. */
         public static void main(String args[]) {
+                Environment env = new Environment();
         InterpreterParser interpreterParser = new InterpreterParser(System.in);
         ASTNode exp;
 
         while (true) {
                 try {
                         exp = interpreterParser.Start();
-                        System.out.println( exp.eval() );
+                        System.out.println( exp.eval(env) );
                 }
                 catch (Exception e) {
                         System.out.println ("Syntax Error!");

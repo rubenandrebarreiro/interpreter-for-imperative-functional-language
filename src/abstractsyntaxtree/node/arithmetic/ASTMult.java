@@ -1,5 +1,7 @@
 package abstractsyntaxtree.node.arithmetic;
 
+import abstractsyntaxtree.Environment;
+
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -59,9 +61,9 @@ public class ASTMult implements ASTNode {
 	 * Evaluates the current Node of an Abstract SyntaxTree, performing its Subtraction.
 	 */
 	@Override
-	public int eval() {
-		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval();
-		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval();
+	public int eval(Environment env) {
+		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval(env);
+		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval(env);
 		
 		// Returns the Multiplication of the A.S.T. Nodes Descendants
 		return leftASTNodeDescendantValue * rightASTNodeDescedantValue;

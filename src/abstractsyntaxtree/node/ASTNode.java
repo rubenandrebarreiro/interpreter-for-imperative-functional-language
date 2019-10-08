@@ -1,5 +1,7 @@
 package abstractsyntaxtree.node;
 
+import abstractsyntaxtree.Environment;
+
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -30,5 +32,5 @@ public interface ASTNode {
 	/**
 	 * Evaluates the current Node of an Abstract Syntax Tree.
 	 */
-	int eval();
+	int eval(Environment env);
 }

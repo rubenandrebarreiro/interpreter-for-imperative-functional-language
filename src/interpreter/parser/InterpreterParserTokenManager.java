@@ -3,6 +3,7 @@ package interpreter.parser;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
+import abstractsyntaxtree.Environment;
 
 /** Token Manager. */
 public class InterpreterParserTokenManager implements InterpreterParserConstants
