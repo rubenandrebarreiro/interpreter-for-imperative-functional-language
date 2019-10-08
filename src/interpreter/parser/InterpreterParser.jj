@@ -110,22 +110,3 @@ ASTNode Fact() :
    			| <LPAR> node = Exp() <RPAR> )
    { return node; }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
