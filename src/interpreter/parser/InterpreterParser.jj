@@ -2,10 +2,10 @@ PARSER_BEGIN(InterpreterParser)
 
 package interpreter.parser;
 
+import abstractsyntaxtree.Environment;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
-import abstractsyntaxtree.Environment;
 
 /** ID lister. */
 public class InterpreterParser {
