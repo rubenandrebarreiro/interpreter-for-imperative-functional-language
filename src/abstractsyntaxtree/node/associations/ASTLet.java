@@ -16,6 +16,8 @@ import abstractsyntaxtree.node.ASTNode;
  */
 public class ASTLet implements ASTNode {
 
+	// TODO - Confirmar
+	
 	/**
 	 * The left A.S.T. Node descendant
 	 */
@@ -30,8 +32,10 @@ public class ASTLet implements ASTNode {
 	public int eval(Environment environment) {
 		environment.beginScope();
 		
+		int expressionEvaluated = rightASTNodeDescedant.eval(environment);
+		
 		try {
-			environment.addAssoc(leftASTNodeDescedant, rightASTNodeDescedant.eval(environment));
+			environment.addAssoc(leftASTNodeDescedant, expressionEvaluated);
 		}
 		catch (ASTInvalidIdentifierException astInvalidIdentifierException) {
 			astInvalidIdentifierException.printStackTrace();
@@ -39,6 +43,6 @@ public class ASTLet implements ASTNode {
 		
 		environment.endScope();
 		
-		return 0;
+		return expressionEvaluated;
 	}
 }
