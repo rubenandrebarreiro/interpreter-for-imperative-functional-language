@@ -18,7 +18,8 @@ import abstractsyntaxtree.Environment;
 import abstractsyntaxtree.node.ASTNode;
 
 /**
- * Class for the a Node of an Abstract Syntax Tree, performing the Addition of its descendants.
+ * Class for the Node of an Abstract Syntax Tree (A.S.T.),
+ * performing the Addition of its descendants.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -43,7 +44,7 @@ public class ASTAdd implements ASTNode {
 	// Constructors:
 	/**
 	 * Constructor #1:
-	 * - The Constructor of a Node of an Abstract Syntax Tree.
+	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
 	 * 
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
@@ -56,12 +57,18 @@ public class ASTAdd implements ASTNode {
 	
 	// Methods:
 	/**
-	 * Evaluates the current Node of an Abstract SyntaxTree, performing its Addition.
+	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope), where the current A.S.T. Node it's inside, performing its addition.
+	 * 
+	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
+	 * 
+	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside, performing its addition        
 	 */
 	@Override
-	public int eval(Environment env) {
-		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval(env);
-		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval(env);
+	public int eval(Environment environment) {
+		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval(environment);
+		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval(environment);
 		
 		// Returns the Addition of the A.S.T. Nodes Descendants
 		return leftASTNodeDescendantValue + rightASTNodeDescedantValue;

@@ -105,8 +105,9 @@ ASTNode Fact() :
 { Token num ; 
   ASTNode node;}
 {
-   ( num = <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
-			| <MINUS> num = <Num> { node = new ASTNegativeNum(Integer.parseInt(num.image)); } 
+   ( num = <LET>
+   			| <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
+			| <MINUS> { node = new ASTMult(new ASTNum(-1), node = Fact()); }
    			| <LPAR> node = Exp() <RPAR> )
    { return node; }
 }

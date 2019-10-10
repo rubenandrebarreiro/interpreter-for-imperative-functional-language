@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the AbstractSyntaxTree.Node.Arithmetic.
+ * Package for the AbstractSyntaxTree.Node.Associations.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -22,4 +22,4 @@
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-package abstractsyntaxtree.node.arithmetic;
+package abstractsyntaxtree.node.associations;

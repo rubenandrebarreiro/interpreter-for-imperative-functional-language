@@ -20,7 +20,7 @@ import abstractsyntaxtree.Environment;
 import abstractsyntaxtree.node.ASTNode;
 
 /**
- * Class for the a Node of an Abstract Syntax Tree, representing an atomic negative number.
+ * Class for the Node of an Abstract Syntax Tree, representing an atomic negative number.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

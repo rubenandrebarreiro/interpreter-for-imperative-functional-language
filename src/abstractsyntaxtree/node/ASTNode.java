@@ -30,7 +30,13 @@ public interface ASTNode {
 	
 	// Methods:
 	/**
-	 * Evaluates the current Node of an Abstract Syntax Tree.
+	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
+	 * 
+	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
+	 * 
+	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside        
 	 */
-	int eval(Environment env);
+	int eval(Environment environment);
 }
