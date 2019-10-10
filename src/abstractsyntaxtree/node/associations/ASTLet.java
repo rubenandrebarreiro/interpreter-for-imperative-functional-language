@@ -1,6 +1,7 @@
 package abstractsyntaxtree.node.associations;
 
 import abstractsyntaxtree.Environment;
+import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 
 /**
@@ -18,7 +19,7 @@ public class ASTLet implements ASTNode {
 	/**
 	 * The left A.S.T. Node descendant
 	 */
-	private ASTNode leftASTNodeDescedant;
+	private String leftASTNodeDescedant;
 	
 	/**
 	 * The right A.S.T. Node descendant
@@ -28,7 +29,13 @@ public class ASTLet implements ASTNode {
 	@Override
 	public int eval(Environment environment) {
 		environment.beginScope();
-		//environment.addAssoc(expressionID, expressionValue);
+		
+		try {
+			environment.addAssoc(leftASTNodeDescedant, rightASTNodeDescedant.eval(environment));
+		}
+		catch (ASTInvalidIdentifierException astInvalidIdentifierException) {
+			astInvalidIdentifierException.printStackTrace();
+		}
 		
 		environment.endScope();
 		
