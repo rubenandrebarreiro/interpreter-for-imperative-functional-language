@@ -60,9 +60,11 @@ TOKEN :
   |
   < LET: "Let" >
   |
+  < EQUAL: "=" >
+  | 
   < IN: "in" >
   |
-  < END: "end" >   
+  < END: "end" >  
 }
 
 ASTNode Start():
@@ -102,12 +104,20 @@ ASTNode Term() :
 
 
 ASTNode Fact() :
-{ Token num ; 
-  ASTNode node;}
+{ Token id, value, bodyExpression, num ; 
+  ASTNode node;
+  ASTID id;}
 {
-   ( num = <LET>
-   			| <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
-			| <MINUS> { node = new ASTMult(new ASTNum(-1), node = Fact()); }
-   			| <LPAR> node = Exp() <RPAR> )
+   ( <LET>
+		id = <ID> <EQUAL> value = Exp() <IN> bodyExpression = Exp() <END>
+		{
+		  node = new ASTLet(id, value, bodyExpression);
+		}
+		| id = <Id> {
+		  node = new ASTID(id.image);
+		} 
+		| <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
+		| <MINUS> { node = new ASTMult(new ASTNum(-1), node = Fact()); }
+		| <LPAR> node = Exp() <RPAR> )
    { return node; }
 }

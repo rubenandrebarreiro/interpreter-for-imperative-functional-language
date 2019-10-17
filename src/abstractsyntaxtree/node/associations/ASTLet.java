@@ -18,14 +18,19 @@ public class ASTLet implements ASTNode {
 	
 	// Global Variables:
 	/**
-	 * The left A.S.T. Node descendant
+	 * The Identifier of A.S.T. Let Node descendant
 	 */
-	private String leftASTNodeDescedant;
+	private String idASTLetNodeDescendant;
 	
 	/**
-	 * The right A.S.T. Node descendant
+	 * The Value of A.S.T. Let Node descendant
 	 */
-	private ASTNode rightASTNodeDescedant;
+	private ASTNode valueASTLetNodeDescendant;
+	
+	/**
+	 * The Body Expression of A.S.T. Let Node descendant
+	 */
+	private ASTNode bodyASTLetNodeDescendant;
 	
 	
 	// Constructors:
@@ -36,15 +41,17 @@ public class ASTLet implements ASTNode {
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 */
-	public ASTLet(String leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
+	public ASTLet(String idASTLetNodeDescendant, ASTNode valueASTLetNodeDescendant, ASTNode bodyASTLetNodeDescendant) {
 		
 		// The left side Descendant of the A.S.T. Node
 		// will be the name/identifier of the expression
-		this.leftASTNodeDescedant = leftASTNodeDescedant;
+		this.idASTLetNodeDescendant = idASTLetNodeDescendant;
 		
 		// The left side Descendant of the A.S.T. Node
 		// will be the value of the expression
-		this.rightASTNodeDescedant = rightASTNodeDescedant;
+		this.valueASTLetNodeDescendant = valueASTLetNodeDescendant;
+		
+		this.bodyASTLetNodeDescendant = bodyASTLetNodeDescendant;
 	}
 	
 	
@@ -69,12 +76,13 @@ public class ASTLet implements ASTNode {
 		environment.beginScope();
 		
 		// The evaluation of the right side Descendant
-		int expressionEvaluated = rightASTNodeDescedant.eval(environment);
+		int expressionEvaluated = this.bodyASTLetNodeDescendant.eval(environment);
 		
 		try {
 			// The addition of the association between the left side Descendant
 			// and the expression evaluated of the right side
-			environment.addAssoc(leftASTNodeDescedant, expressionEvaluated);
+			environment.addAssoc(this.idASTLetNodeDescendant,
+					             this.valueASTLetNodeDescendant.eval(environment));
 		}
 		catch (ASTInvalidIdentifierException astInvalidIdentifierException) {
 			astInvalidIdentifierException.printStackTrace();
