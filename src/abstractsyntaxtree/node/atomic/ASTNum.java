@@ -1,7 +1,5 @@
 package abstractsyntaxtree.node.atomic;
 
-import abstractsyntaxtree.Environment;
-
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -18,6 +16,7 @@ import abstractsyntaxtree.Environment;
  */
 
 import abstractsyntaxtree.node.ASTNode;
+import abstractsyntaxtree.scopes.Environment;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an atomic number.

@@ -1,4 +1,4 @@
-package abstractsyntaxtree;
+package abstractsyntaxtree.scopes;
 import java.util.HashMap;
 import java.util.Map;
 

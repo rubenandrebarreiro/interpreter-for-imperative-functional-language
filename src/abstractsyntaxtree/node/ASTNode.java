@@ -1,6 +1,7 @@
 package abstractsyntaxtree.node;
 
-import abstractsyntaxtree.Environment;
+import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import abstractsyntaxtree.scopes.Environment;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -37,6 +38,10 @@ public interface ASTNode {
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside        
+	 *
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes)
 	 */
-	int eval(Environment environment);
+	int eval(Environment environment) throws ASTInvalidIdentifierException;
 }

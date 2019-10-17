@@ -1,23 +1,7 @@
 package abstractsyntaxtree.node.atomic;
 
-import abstractsyntaxtree.Environment;
-
-/**
- * Interpreter for Imperative/Functional Language
- * 
- * Interpretation and Compilation of Programming Languages
- * 
- * Faculty of Science and Technology of New University of Lisbon
- * (FCT NOVA | FCT/UNL)
- * 
- * Integrated Master of Computer Science and Engineering
- * (BSc. + MSc. Bologna Degree)
- * 
- * Academic Year 2019/2020
- * 
- */
-
 import abstractsyntaxtree.node.ASTNode;
+import abstractsyntaxtree.scopes.Environment;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an atomic negative number.

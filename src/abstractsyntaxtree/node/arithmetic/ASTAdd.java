@@ -1,6 +1,6 @@
 package abstractsyntaxtree.node.arithmetic;
 
-import abstractsyntaxtree.Environment;
+import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -16,6 +16,7 @@ import abstractsyntaxtree.Environment;
  * 
  */
 import abstractsyntaxtree.node.ASTNode;
+import abstractsyntaxtree.scopes.Environment;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -64,9 +65,13 @@ public class ASTAdd implements ASTNode {
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside, performing its addition        
+	 *
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes) 
 	 */
 	@Override
-	public int eval(Environment environment) {
+	public int eval(Environment environment) throws ASTInvalidIdentifierException {
 		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval(environment);
 		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval(environment);
 		
