@@ -111,11 +111,7 @@ ASTNode Fact() :
   //ASTID id;
   }
 {
-   ( <LET>
-		id = <Id> <EQUAL> value = Exp() <IN> bodyExpression = Exp() <END>
-		{
-		  node = new ASTLet(id, value, bodyExpression);
-		}
+   ( <LET> node = Let()
 		| id = <Id> {
 		  node = new ASTID(id.image);
 		} 
@@ -123,4 +119,25 @@ ASTNode Fact() :
 		| <MINUS> { node = new ASTMult(new ASTNum(-1), node = Fact()); }
 		| <LPAR> node = Exp() <RPAR> )
    { return node; }
+}
+
+ASTNode Let() :
+{
+  Token id, value, bodyExpression;
+  ASTNode letNode, idNode, expressionNode;
+}
+{
+	(
+	  < LET > id = < Id > { idNode = ID(id); }  < EQUAL > value = < Id > < IN > expressionNode = Exp() < END >
+	  { letNode = new ASTLet(id.image, idNode, expressionNode); }	)
+	{ return letNode; }
+}
+
+ASTNode ID(Token id) : {
+  ASTNode node;
+}
+{
+  (	{ node = new ASTID(id.image); } )
+
+ { return node; }
 }
