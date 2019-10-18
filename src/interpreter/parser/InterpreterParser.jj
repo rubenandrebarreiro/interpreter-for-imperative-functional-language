@@ -5,7 +5,6 @@ package interpreter.parser;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.associations.*;
-import abstractsyntaxtree.node.associations.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
 
