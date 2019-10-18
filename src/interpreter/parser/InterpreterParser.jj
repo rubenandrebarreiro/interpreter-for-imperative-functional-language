@@ -41,6 +41,12 @@ SKIP :
 
 TOKEN :
 {
+  < LET: "Let" >
+  |
+  < IN: "in" >
+  |
+  < END: "end" >
+  | 
   < Id: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"] )* >
   |
   < Num: (["0"-"9"]) + >
@@ -59,13 +65,7 @@ TOKEN :
   |
   < EL: "\n" >
   |
-  < LET: "Let" >
-  |
   < EQUAL: "=" >
-  | 
-  < IN: "in" >
-  |
-  < END: "end" >  
 }
 
 ASTNode Start():
