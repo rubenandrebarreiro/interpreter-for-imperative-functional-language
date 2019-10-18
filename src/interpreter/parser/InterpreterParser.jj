@@ -2,7 +2,7 @@ PARSER_BEGIN(InterpreterParser)
 
 package interpreter.parser;
 
-import abstractsyntaxtree.Environment;
+import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
@@ -109,7 +109,7 @@ ASTNode Fact() :
   ASTID id;}
 {
    ( <LET>
-		id = <ID> <EQUAL> value = Exp() <IN> bodyExpression = Exp() <END>
+		id = <Id> <EQUAL> value = Exp() <IN> bodyExpression = Exp() <END>
 		{
 		  node = new ASTLet(id, value, bodyExpression);
 		}
