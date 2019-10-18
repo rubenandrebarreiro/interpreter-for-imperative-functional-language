@@ -5,6 +5,7 @@ package interpreter.parser;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.associations.*;
+import abstractsyntaxtree.node.associations.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
 
@@ -107,7 +108,8 @@ ASTNode Term() :
 ASTNode Fact() :
 { Token id, value, bodyExpression, num ; 
   ASTNode node;
-  ASTID id;}
+  //ASTID id;
+  }
 {
    ( <LET>
 		id = <Id> <EQUAL> value = Exp() <IN> bodyExpression = Exp() <END>
