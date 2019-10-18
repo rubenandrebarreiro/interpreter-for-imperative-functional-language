@@ -119,7 +119,7 @@ ASTNode Fact() :
 		| id = <Id> {
 		  node = new ASTID(id.image);
 		} 
-		| <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
+		| num = <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
 		| <MINUS> { node = new ASTMult(new ASTNum(-1), node = Fact()); }
 		| <LPAR> node = Exp() <RPAR> )
    { return node; }
