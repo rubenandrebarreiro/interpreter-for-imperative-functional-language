@@ -23,6 +23,7 @@ public class InterpreterParser {
     			System.out.println( exp.eval(env) );
     		}
     		catch (Exception e) {
+    		    e.printStackTrace();
       			System.out.println ("Syntax Error!");
       			interpreterParser.ReInit(System.in);
     		}
@@ -110,7 +111,7 @@ ASTNode Fact() :
   //ASTID id;
   }
 {
-   ( <LET> node = Let()
+   (    node = Let()
 		| id = <Id> {
 		  node = new ASTID(id.image);
 		} 
@@ -126,8 +127,28 @@ ASTNode Let() :
   ASTNode letNode, idNode, expressionNode;
 }
 {
+  
 	(
-	  < LET > id = < Id > { idNode = ID(id); }  < EQUAL > value = < Id > < IN > expressionNode = Exp() < END >
+
+//	<LET> id=<Id> {idNode = ID(id);} <EQUAL> value=<Id> <IN> expressionNode = Exp() <END>  
+	  
+	  { System.out.println("Entered Let"); }
+	  < LET >
+	  { System.out.println("Saw Let"); }
+	  id = < Id >
+	  { System.out.println("Saw id and read it as " + id.image); }
+	  { idNode = ID(id); }
+	  { System.out.println("Created idNode"); }
+	   < EQUAL >
+	  { System.out.println("Saw equal"); }
+	  value = < Num >
+	  { System.out.println("Read value and read it as " + value.image); }
+	  < IN >
+	  { System.out.println("Saw in"); }
+	  expressionNode = Exp()
+	  { System.out.println("Set expressionNode"); }
+	  < END >
+	  { System.out.println("Saw end"); }
 	  { letNode = new ASTLet(id.image, idNode, expressionNode); }	)
 	{ return letNode; }
 }
@@ -136,7 +157,9 @@ ASTNode ID(Token id) : {
   ASTNode node;
 }
 {
-  (	{ node = new ASTID(id.image); } )
+  (   { System.out.println("Entered ID"); }
+    
+    { node = new ASTID(id.image); } )
 
  { return node; }
 }
