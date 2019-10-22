@@ -5,7 +5,6 @@ package interpreter.parser;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.associations.*;
-import abstractsyntaxtree.node.associations.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
 
@@ -24,6 +23,7 @@ public class InterpreterParser {
     			System.out.println( exp.eval(env) );
     		}
     		catch (Exception e) {
+    		    e.printStackTrace();
       			System.out.println ("Syntax Error!");
       			interpreterParser.ReInit(System.in);
     		}
@@ -42,6 +42,12 @@ SKIP :
 
 TOKEN :
 {
+  < LET: "Let" >
+  |
+  < IN: "in" >
+  |
+  < END: "end" >
+  | 
   < Id: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"] )* >
   |
   < Num: (["0"-"9"]) + >
@@ -60,13 +66,7 @@ TOKEN :
   |
   < EL: "\n" >
   |
-  < LET: "Let" >
-  |
   < EQUAL: "=" >
-  | 
-  < IN: "in" >
-  |
-  < END: "end" >  
 }
 
 ASTNode Start():
@@ -111,11 +111,7 @@ ASTNode Fact() :
   //ASTID id;
   }
 {
-   ( <LET>
-		id = <Id> <EQUAL> value = Exp() <IN> bodyExpression = Exp() <END>
-		{
-		  node = new ASTLet(id, value, bodyExpression);
-		}
+   (    node = Let()
 		| id = <Id> {
 		  node = new ASTID(id.image);
 		} 
@@ -123,4 +119,26 @@ ASTNode Fact() :
 		| <MINUS> { node = new ASTMult(new ASTNum(-1), node = Fact()); }
 		| <LPAR> node = Exp() <RPAR> )
    { return node; }
+}
+
+ASTNode Let() :
+{
+  Token id, value, bodyExpression;
+  ASTNode letNode, valueNode, expressionNode;
+}
+{
+  
+	(
+
+//	<LET> id=<Id> {idNode = ID(id);} <EQUAL> value=<Id> <IN> expressionNode = Exp() <END>  
+	  
+	  < LET >
+	  id = < Id >
+      < EQUAL >
+	  { valueNode = Exp();}
+	  < IN >
+	  expressionNode = Exp()
+	  < END >
+	  { letNode = new ASTLet(id.image, valueNode, expressionNode); }	)
+	{ return letNode; }
 }
