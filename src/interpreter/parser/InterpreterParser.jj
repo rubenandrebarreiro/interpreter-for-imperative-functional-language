@@ -124,7 +124,7 @@ ASTNode Fact() :
 ASTNode Let() :
 {
   Token id, value, bodyExpression;
-  ASTNode letNode, idNode, expressionNode;
+  ASTNode letNode, valueNode, expressionNode;
 }
 {
   
@@ -132,34 +132,13 @@ ASTNode Let() :
 
 //	<LET> id=<Id> {idNode = ID(id);} <EQUAL> value=<Id> <IN> expressionNode = Exp() <END>  
 	  
-	  { System.out.println("Entered Let"); }
 	  < LET >
-	  { System.out.println("Saw Let"); }
 	  id = < Id >
-	  { System.out.println("Saw id and read it as " + id.image); }
-	  { idNode = ID(id); }
-	  { System.out.println("Created idNode"); }
-	   < EQUAL >
-	  { System.out.println("Saw equal"); }
-	  value = < Num >
-	  { System.out.println("Read value and read it as " + value.image); }
+      < EQUAL >
+	  { valueNode = Exp();}
 	  < IN >
-	  { System.out.println("Saw in"); }
 	  expressionNode = Exp()
-	  { System.out.println("Set expressionNode"); }
 	  < END >
-	  { System.out.println("Saw end"); }
-	  { letNode = new ASTLet(id.image, idNode, expressionNode); }	)
+	  { letNode = new ASTLet(id.image, valueNode, expressionNode); }	)
 	{ return letNode; }
-}
-
-ASTNode ID(Token id) : {
-  ASTNode node;
-}
-{
-  (   { System.out.println("Entered ID"); }
-    
-    { node = new ASTID(id.image); } )
-
- { return node; }
 }
