@@ -73,23 +73,23 @@ public class ASTLet implements ASTNode {
 	public int eval(Environment environment) throws ASTInvalidIdentifierException {
 		
 		// Stars the Scope (Environment) of the declared expression
-		environment.beginScope();
-		
-		// The evaluation of the right side Descendant
-		int expressionEvaluated = this.bodyASTLetNodeDescendant.eval(environment);
+		Environment newEnv = environment.beginScope();
 		
 		try {
 			// The addition of the association between the left side Descendant
 			// and the expression evaluated of the right side
-			environment.addAssoc(this.idASTLetNodeDescendant,
-					             this.valueASTLetNodeDescendant.eval(environment));
+			newEnv.addAssoc(this.idASTLetNodeDescendant,
+					             this.valueASTLetNodeDescendant.eval(newEnv));
 		}
 		catch (ASTInvalidIdentifierException astInvalidIdentifierException) {
 			astInvalidIdentifierException.printStackTrace();
 		}
 
+		// The evaluation of the right side Descendant
+		int expressionEvaluated = this.bodyASTLetNodeDescendant.eval(newEnv);
+		
 		// Ends the Scope (Environment) of the previously declared expression
-		environment.endScope();
+		newEnv.endScope();
 		
 		// Returns the expression evaluated
 		return expressionEvaluated;
