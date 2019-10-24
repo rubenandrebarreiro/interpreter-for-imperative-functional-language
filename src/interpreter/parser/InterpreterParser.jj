@@ -20,6 +20,8 @@ public class InterpreterParser {
     		try {
     			exp = interpreterParser.Start();
     			System.out.println( exp.eval(env) );
+    			// TODO inicializar classe de compilador
+    			// ClassCompiler 
     		}
     		catch (Exception e) {
       			System.out.println ("Syntax Error!");

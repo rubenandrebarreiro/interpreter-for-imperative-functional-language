@@ -74,7 +74,7 @@ public class Environment {
 		//   the initial Environment (Scope), on the Stack of Environments
 		// - Thus, it will never enter in this case
 		// - But if it would be the case, should return null
-		if(this.ancestorEnvironment != null) {
+		if(this.ancestorEnvironment == null) {
 			return null;
 		}
 		

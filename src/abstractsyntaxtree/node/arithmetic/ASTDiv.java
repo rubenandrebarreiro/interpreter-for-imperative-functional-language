@@ -1,7 +1,5 @@
 package abstractsyntaxtree.node.arithmetic;
 
-import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -17,6 +15,8 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
  * 
  */
 
+import java.util.List;
+import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 
@@ -79,5 +79,23 @@ public class ASTDiv implements ASTNode {
 		
 		// Returns the Division of the A.S.T. Nodes Descendants
 		return leftASTNodeDescendantValue / rightASTNodeDescedantValue;
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public void compile(Environment environment, List<String> codeInstructions) {
+		
+		// To Perform the Division of the 2 A.S.T. Nodes,
+		// it's necessary to evaluate the both left and right descendants
+		// and push their evaluation to the Execution Stack
+		this.leftASTNodeDescedant.compile(environment, codeInstructions);
+		this.rightASTNodeDescedant.compile(environment, codeInstructions);
+		
+		// Push the Code Instruction of Division (idiv) to the Execution Stack,
+		// in order to perform the Division of the 2 A.S.T. Nodes
+		String instructionAddition = String.format("idiv");
+		codeInstructions.add(instructionAddition);
 	}
 }

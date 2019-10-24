@@ -1,5 +1,7 @@
 package abstractsyntaxtree.node.arithmetic;
 
+import java.util.List;
+
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 
 /**
@@ -79,5 +81,23 @@ public class ASTSub implements ASTNode {
 		
 		// Returns the Subtraction of the A.S.T. Nodes Descendants
 		return leftASTNodeDescendantValue - rightASTNodeDescedantValue;
+	}
+
+	/**
+	 * Compiles the Code Instructions of this A.S.T. Nodes 
+	 */
+	@Override
+	public void compile(Environment environment, List<String> codeInstructions) {
+		
+		// To Perform the Subtraction of the 2 A.S.T. Nodes,
+		// it's necessary to evaluate the both left and right descendants
+		// and push their evaluation to the Execution Stack
+		this.leftASTNodeDescedant.compile(environment, codeInstructions);
+		this.rightASTNodeDescedant.compile(environment, codeInstructions);
+		
+		// Push the Code Instruction of Subtraction (isub) to the Execution Stack,
+		// in order to perform the Subtraction of the 2 A.S.T. Nodes
+		String instructionAddition = String.format("isub");
+		codeInstructions.add(instructionAddition);
 	}
 }

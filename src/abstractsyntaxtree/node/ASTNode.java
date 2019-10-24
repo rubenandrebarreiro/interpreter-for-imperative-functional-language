@@ -1,5 +1,7 @@
 package abstractsyntaxtree.node;
 
+import java.util.List;
+
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.scopes.Environment;
 
@@ -29,7 +31,7 @@ import abstractsyntaxtree.scopes.Environment;
  */
 public interface ASTNode {
 	
-	// Methods:
+	// Methods/Functions:
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
@@ -44,4 +46,17 @@ public interface ASTNode {
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes)
 	 */
 	int eval(Environment environment) throws ASTInvalidIdentifierException;
+	
+	/**
+	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope), where the current A.S.T. Node it's inside and
+	 * the List of the Code Instructions of the current Node of an
+	 * Abstract Syntax Tree (A.S.T.) will be kept.
+	 * 
+	 * @param environment the Environment (Scope), where the current Code Instructions of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
+	 * 
+	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 */
+	void compile(Environment environment, List<String> codeInstructions);
 }
