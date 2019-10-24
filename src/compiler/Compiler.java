@@ -81,6 +81,9 @@ public class Compiler {
 
 		// Writing of the Footer to the Output File of Compiler to be generated
 		
+		// A blank line
+		this.fileOutputStream.write("\n".getBytes());
+		
 		// The Starting of the Epilogue Code
 		this.fileOutputStream.write("	; --- START OF EPILOGUE JAVA BYTE CODE ---\n".getBytes());
 		
