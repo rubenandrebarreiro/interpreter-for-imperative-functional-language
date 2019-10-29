@@ -14,8 +14,10 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
  *
  */
 
-public class Environment {
 
+// TODO -  Fazer Generico com contariner <T>
+public class Environment {
+	
 	// Global Instance Variables:
 	/**
 	 * The Environment's ancestor on the Stack of Environments (Scopes)
@@ -126,6 +128,8 @@ public class Environment {
 	 */
 	public int find(String expressionID) throws ASTInvalidIdentifierException {
 		Integer expressionValue = dictionaryOfExpressions.get(expressionID);
+		
+		//int[] offeset
 		
 		// If the Value associated to the given ID, don't exist in the current Environment,
 		// And the current Environment don't have any parent, i.e., it's the initial Environment,

@@ -4,6 +4,7 @@ import java.util.List;
 
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -58,5 +59,5 @@ public interface ASTNode {
 	 * 
 	 * @param codeInstructions the List of the Code Instructions to be compiled
 	 */
-	void compile(Environment environment, List<String> codeInstructions);
+	void compile(Environment environment, /**List<String> codeInstructions**/ CodeBlockInstructions codeBlockInstructions);
 }
