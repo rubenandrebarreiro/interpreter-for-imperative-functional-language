@@ -8,6 +8,8 @@ import abstractsyntaxtree.node.associations.*;
 import abstractsyntaxtree.node.arithmetic.*;
 import abstractsyntaxtree.node.atomic.*;
 
+import java.util.*;
+
 /** ID lister. */
 public class InterpreterParser {
 
@@ -125,22 +127,31 @@ ASTNode Fact() :
 
 ASTNode Let() :
 {
-  Token id, value, bodyExpression;
-  ASTNode letNode, valueNode, expressionNode;
+  Token bodyExpression;
+  ASTNode expressionNode, letNode;
+  List<ASTNode> associations;
 }
 {
   
 	(
 
 //	<LET> id=<Id> {idNode = ID(id);} <EQUAL> value=<Id> <IN> expressionNode = Exp() <END>  
-	  
 	  < LET >
-	  id = < Id >
-      < EQUAL >
-	  { valueNode = Exp();}
+	  associations = GetAssociation() 
 	  < IN >
 	  expressionNode = Exp()
 	  < END >
-	  { letNode = new ASTLet(id.image, valueNode, expressionNode); }	)
+	  { letNode = new ASTLet(associations, expressionNode); }	)
 	{ return letNode; }
+}
+
+List<ASTNode> GetAssociation():
+{
+  Token id;
+  ASTNode associationsNode, idNode, valueNode;
+  List<ASTNode> associations = new ArrayList<ASTNode>();
+}
+{
+    (id = < Id > <EQUAL > { valueNode = Exp(); } { associations.add(new ASTAssociation(id.image, valueNode)); } )+
+    { return associations; }
 }

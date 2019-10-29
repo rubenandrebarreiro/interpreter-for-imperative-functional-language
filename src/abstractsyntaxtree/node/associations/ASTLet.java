@@ -1,5 +1,7 @@
 package abstractsyntaxtree.node.associations;
 
+import java.util.List;
+
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
@@ -20,12 +22,7 @@ public class ASTLet implements ASTNode {
 	/**
 	 * The Identifier of A.S.T. Let Node descendant
 	 */
-	private String idASTLetNodeDescendant;
-	
-	/**
-	 * The Value of A.S.T. Let Node descendant
-	 */
-	private ASTNode valueASTLetNodeDescendant;
+	private List<ASTNode> associations;
 	
 	/**
 	 * The Body Expression of A.S.T. Let Node descendant
@@ -41,15 +38,9 @@ public class ASTLet implements ASTNode {
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 */
-	public ASTLet(String idASTLetNodeDescendant, ASTNode valueASTLetNodeDescendant, ASTNode bodyASTLetNodeDescendant) {
+	public ASTLet(List<ASTNode> associations, ASTNode bodyASTLetNodeDescendant) {
 		
-		// The left side Descendant of the A.S.T. Node
-		// will be the name/identifier of the expression
-		this.idASTLetNodeDescendant = idASTLetNodeDescendant;
-		
-		// The left side Descendant of the A.S.T. Node
-		// will be the value of the expression
-		this.valueASTLetNodeDescendant = valueASTLetNodeDescendant;
+		this.associations = associations;
 		
 		this.bodyASTLetNodeDescendant = bodyASTLetNodeDescendant;
 	}
@@ -78,8 +69,9 @@ public class ASTLet implements ASTNode {
 		try {
 			// The addition of the association between the left side Descendant
 			// and the expression evaluated of the right side
-			newEnv.addAssoc(this.idASTLetNodeDescendant,
-					             this.valueASTLetNodeDescendant.eval(newEnv));
+			for (ASTNode astNode : associations) {
+				astNode.eval(newEnv);
+			}
 		}
 		catch (ASTInvalidIdentifierException astInvalidIdentifierException) {
 			astInvalidIdentifierException.printStackTrace();
@@ -93,5 +85,12 @@ public class ASTLet implements ASTNode {
 		
 		// Returns the expression evaluated
 		return expressionEvaluated;
+	}
+
+
+	@Override
+	public void compile(Environment environment, List<String> codeInstructions) {
+		// TODO Auto-generated method stub
+		
 	}
 }
