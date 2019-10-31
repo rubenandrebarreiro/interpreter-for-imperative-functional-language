@@ -1,11 +1,5 @@
 package abstractsyntaxtree.node;
 
-import java.util.List;
-
-import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import abstractsyntaxtree.scopes.Environment;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
-
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -21,8 +15,13 @@ import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
  * 
  */
 
+import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+
 /**
- * Interface for the a Node of an Abstract Syntax Tree.
+ * Interface for the Node of an Abstract Syntax Tree.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -59,5 +58,5 @@ public interface ASTNode {
 	 * 
 	 * @param codeInstructions the List of the Code Instructions to be compiled
 	 */
-	void compile(Environment environment, /**List<String> codeInstructions**/ CodeBlockInstructions codeBlockInstructions);
+	void compile(EnvironmentCompiler environmentCompiler/*Environment environment*/, CodeBlockInstructions codeBlockInstructions);
 }
