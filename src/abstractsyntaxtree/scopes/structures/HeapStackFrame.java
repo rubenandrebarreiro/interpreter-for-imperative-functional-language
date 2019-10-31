@@ -161,7 +161,7 @@ public class HeapStackFrame {
 		this.fileOutputStream.write(superClassReference.getBytes());
 		
 		// Write the code instruction, related to the Static Link to the ID of the Ancestor Heap Stack Frame, in Java Byte Code
-		this.fileOutputStream.write(String.format(".field			public sl L%s\n", staticLinkAncestorHeapFrameID).getBytes());
+		this.fileOutputStream.write(String.format(".field			public sl L%s\n", superClassReference).getBytes());
 		
 		// Write the code instructions, related to the all the fields of the Heap Stack Frame, in Java Byte Code
 		for(int numberOfField = 0; numberOfField < this.numberOfFields; numberOfField++) {

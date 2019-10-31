@@ -24,6 +24,7 @@ public class CodeBlockInstructions {
 		this.fileOutputStream = new FileOutputStream(filename);
 		
 		this.dumpHeader();
+		// TODO tratar astore e aload
 		this.dumpCodeBlockInstructionsSetJavaByteCode();
 		this.dumpFooter();
 	}
@@ -71,6 +72,7 @@ public class CodeBlockInstructions {
 		
 		// A blank line
 		this.fileOutputStream.write("\n".getBytes());
+		
 	}
 	
 	private void dumpCodeBlockInstructionsSetJavaByteCode() throws IOException {
