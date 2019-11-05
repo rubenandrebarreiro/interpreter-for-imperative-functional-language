@@ -2,6 +2,8 @@ package abstractsyntaxtree.node.atomic;
 
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an atomic negative number.
@@ -42,5 +44,12 @@ public class ASTNegativeNum implements ASTNode {
 		
 		// Returns A.S.T. Node, representing an atomic negative number
 		return (-1) * this.numASTNodeValue;
+	}
+
+
+	@Override
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
+		// TODO Auto-generated method stub
+		
 	}
 }

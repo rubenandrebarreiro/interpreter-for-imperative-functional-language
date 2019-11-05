@@ -5,6 +5,8 @@ import java.util.List;
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -87,9 +89,8 @@ public class ASTLet implements ASTNode {
 		return expressionEvaluated;
 	}
 
-
 	@Override
-	public void compile(Environment environment, List<String> codeInstructions) {
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
 		// TODO Auto-generated method stub
 		
 	}

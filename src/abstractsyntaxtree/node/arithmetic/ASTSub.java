@@ -19,6 +19,7 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 /**
@@ -86,7 +87,7 @@ public class ASTSub implements ASTNode {
 	 * Compiles the Code Instructions of this A.S.T. Nodes 
 	 */
 	@Override
-	public void compile(Environment environment, CodeBlockInstructions codeBlockInstructionsSet) {
+	public void compile(EnvironmentCompiler environment, CodeBlockInstructions codeBlockInstructionsSet) {
 		
 		// To Perform the Subtraction of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants

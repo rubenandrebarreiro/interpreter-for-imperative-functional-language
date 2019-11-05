@@ -1,10 +1,10 @@
 package abstractsyntaxtree.node.associations;
 
-import java.util.List;
-
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 public class ASTAssociation implements ASTNode {
 
@@ -23,9 +23,8 @@ public class ASTAssociation implements ASTNode {
 	}
 
 	@Override
-	public void compile(Environment environment, List<String> codeInstructions) {
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
 }

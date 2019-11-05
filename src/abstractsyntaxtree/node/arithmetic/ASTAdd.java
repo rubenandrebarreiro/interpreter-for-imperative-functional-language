@@ -18,6 +18,7 @@ package abstractsyntaxtree.node.arithmetic;
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 /**
@@ -85,7 +86,7 @@ public class ASTAdd implements ASTNode {
 	 * 
 	 */
 	@Override
-	public void compile(Environment environment, CodeBlockInstructions codeBlockInstructionsSet) {
+	public void compile(EnvironmentCompiler environment, CodeBlockInstructions codeBlockInstructionsSet) {
 		
 		// To Perform the Addition of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants

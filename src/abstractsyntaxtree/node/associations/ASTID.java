@@ -3,6 +3,8 @@ package abstractsyntaxtree.node.associations;
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -53,5 +55,12 @@ public class ASTID implements ASTNode {
 		// Returns the value associated to the Expression's ID,
 		// in the current Environment (Scope)
 		return environment.find(this.expressionID);
+	}
+
+
+	@Override
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
+		// TODO Auto-generated method stub
+		
 	}
 }
