@@ -60,7 +60,7 @@ public class ASTID implements ASTNode {
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
-		// TODO Auto-generated method stub
-		
+		//TODO Get value from environment.
+		codeBlockInstructions.addCodeInstruction("sipush ");
 	}
 }
