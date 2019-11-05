@@ -3,6 +3,8 @@ PARSER_BEGIN(InterpreterParser)
 package interpreter.parser;
 
 import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import compiler.Compiler;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.associations.*;
 import abstractsyntaxtree.node.arithmetic.*;
@@ -17,11 +19,14 @@ public class InterpreterParser {
   	public static void main(String args[]) {
   	  	Environment env = new Environment();
     	InterpreterParser interpreterParser = new InterpreterParser(System.in);
+    	EnvironmentCompiler environmentCompiler = new EnvironmentCompiler();
     	ASTNode exp;
 
     	while (true) {
     		try {
     			exp = interpreterParser.Start();
+    			Compiler compiler = new Compiler( exp );
+    			compiler.generateClassJavaByteCode("filename.txt");
     			System.out.println( exp.eval(env) );
     			// TODO inicializar classe de compilador
     			// ClassCompiler 
