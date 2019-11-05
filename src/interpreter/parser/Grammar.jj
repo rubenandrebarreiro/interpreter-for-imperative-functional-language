@@ -19,7 +19,6 @@ public class InterpreterParser {
   	public static void main(String args[]) {
   	  	Environment env = new Environment();
     	InterpreterParser interpreterParser = new InterpreterParser(System.in);
-    	EnvironmentCompiler environmentCompiler = new EnvironmentCompiler();
     	ASTNode exp;
 
     	while (true) {
