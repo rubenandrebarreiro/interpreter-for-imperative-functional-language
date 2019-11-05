@@ -3,18 +3,18 @@ package compiler;
 import java.io.IOException;
 
 import abstractsyntaxtree.node.ASTNode;
-import abstractsyntaxtree.scopes.Environment;
+import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 public class Compiler {
 	
-	private Environment environment;
+	private EnvironmentCompiler environment;
 	
 	private CodeBlockInstructions codeBlockIntructions;
 	
 	public Compiler(ASTNode rootNode) {
 		
-		this.environment = new Environment();
+		this.environment = new EnvironmentCompiler();
 		this.codeBlockIntructions = new CodeBlockInstructions();
 		
 		rootNode.compile(environment, codeBlockIntructions);
