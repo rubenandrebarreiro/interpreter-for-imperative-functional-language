@@ -7,10 +7,10 @@ public class HeapFieldOffsetLocations {
 	private Map<String, FieldAddress> offsetLocations;
 	
 	public HeapFieldOffsetLocations() {
-		this.offsetLocations = new HashMap<String, Integer>();
+		this.offsetLocations = new HashMap<String, FieldAddress>();
 	}
 	
 	public int findOffsetLocation(String field) {
-		return this.offsetLocations.get(field);
+		return this.offsetLocations.get(field).getOffsetField();
 	}
 }
