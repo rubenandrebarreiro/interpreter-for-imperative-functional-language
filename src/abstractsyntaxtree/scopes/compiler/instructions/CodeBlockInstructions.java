@@ -99,5 +99,14 @@ public class CodeBlockInstructions {
 		this.fileOutputStream.write("   invokestatic java/lang/String/valueOf(I)Ljava/lang/String;\n".getBytes());
 		this.fileOutputStream.write("   ; call println\n".getBytes());
 		this.fileOutputStream.write("   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n".getBytes());
+		
+		// A blank line
+		this.fileOutputStream.write("\n".getBytes());
+		
+		// The Return statement
+		this.fileOutputStream.write("   return\n".getBytes());
+		
+		// End of the method
+		this.fileOutputStream.write(".end method".getBytes());
 	}
 }
