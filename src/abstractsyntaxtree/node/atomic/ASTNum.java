@@ -65,6 +65,6 @@ public class ASTNum implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
 		// TODO Auto-generated method stub
-		
+		codeBlockInstructions.addCodeInstruction("sipush " + String.valueOf(this.numASTNodeValue));
 	}
 }
