@@ -77,7 +77,7 @@ public class CodeBlockInstructions {
 	
 	private void dumpCodeBlockInstructionsSetJavaByteCode() throws IOException {
 		for(String codeBlockInstruction : this.codeBlockInstructionsSet) {
-			this.fileOutputStream.write(codeBlockInstruction.getBytes());
+			this.fileOutputStream.write((codeBlockInstruction+"\n").getBytes());
 		}
 	}
 	
