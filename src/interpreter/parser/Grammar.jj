@@ -141,7 +141,8 @@ ASTNode Let() :
 
 //	<LET> id=<Id> {idNode = ID(id);} <EQUAL> value=<Id> <IN> expressionNode = Exp() <END>  
 	  < LET >
-	  associations = GetAssociation() 
+	  (	    associations = GetAssociation()
+	  )+
 	  < IN >
 	  expressionNode = Exp()
 	  < END >
