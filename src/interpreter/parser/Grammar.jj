@@ -25,7 +25,7 @@ public class InterpreterParser {
     		try {
     			exp = interpreterParser.Start();
     			Compiler compiler = new Compiler( exp );
-    			compiler.generateClassJavaByteCode("filename.txt");
+    			compiler.generateClassJavaByteCode("Main.j");
     			System.out.println( exp.eval(env) );
     			// TODO inicializar classe de compilador
     			// ClassCompiler 
