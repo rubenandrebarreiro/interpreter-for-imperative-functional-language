@@ -141,8 +141,7 @@ ASTNode Let() :
 
 //	<LET> id=<Id> {idNode = ID(id);} <EQUAL> value=<Id> <IN> expressionNode = Exp() <END>  
 	  < LET >
-	  (	    associations = GetAssociation()
-	  )+
+      associations = GetAssociation()
 	  < IN >
 	  expressionNode = Exp()
 	  < END >
@@ -157,6 +156,7 @@ List<ASTNode> GetAssociation():
   List<ASTNode> associations = new ArrayList<ASTNode>();
 }
 {
-    (id = < Id > <EQUAL > { valueNode = Exp(); } { associations.add(new ASTAssociation(id.image, valueNode)); } )+
+    (      id = < Id > <EQUAL > { valueNode = Exp(); } { associations.add(new ASTAssociation(id.image, valueNode)); }
+    )+
     { return associations; }
 }
