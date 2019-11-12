@@ -5,8 +5,8 @@ public class FieldAddress {
 	private int offsetField;
 	
 	public FieldAddress(int numberOfFrameLevel, int offsetField) {
-		this.numberOfFrameLevel = numberOfFrameLevel;
-		this.offsetField = offsetField;
+		this.numberOfFrameLevel = numberOfFrameLevel; //fi
+		this.offsetField = offsetField; //xi
 	}
 	
 	public int getNumberOfFrameLevel() {

@@ -25,6 +25,6 @@ public class ASTAssociation implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
 		// TODO Auto-generated method stub
-		
+		environmentCompiler.addAssoc(id, value.compile(environmentCompiler, codeBlockInstructions));
 	}
 }

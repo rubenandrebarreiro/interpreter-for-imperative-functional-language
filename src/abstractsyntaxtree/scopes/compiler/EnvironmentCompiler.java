@@ -78,6 +78,9 @@ public class EnvironmentCompiler {
 		return staticLinkAncestorHeapFrame == null ? true : false;
 	}
 	
+	public void addAssoc(String id, String value) {
+		offsetLocations.addAssoc(id, frameID, value);
+	}
 	
 	public int find(String expressionID) throws ASTInvalidIdentifierException {
 		
