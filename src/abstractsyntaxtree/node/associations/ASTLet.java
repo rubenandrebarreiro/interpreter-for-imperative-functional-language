@@ -92,6 +92,53 @@ public class ASTLet implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
 		// TODO Auto-generated method stub
+		EnvironmentCompiler newEnv = environmentCompiler.beginScope();
+		createFrame(newEnv, codeBlockInstructions);
+		for (ASTNode astNode : associations) {
+			astNode.compile(newEnv, codeBlockInstructions);
+		}
 		
+		this.bodyASTLetNodeDescendant.compile(newEnv, codeBlockInstructions);
+		
+//		newEnv.endScope();
+		removeFrame(newEnv, codeBlockInstructions);
+	}
+	
+	private void createFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
+		StringBuilder builder = new StringBuilder();
+		
+		EnvironmentCompiler ancestor = env.getAncestor();
+		
+		builder.append(";------------------Start new frame------------------\n");
+		builder.append("new f" + env.getFrameID() + "\n");
+		builder.append("dup\n");
+		builder.append("invokespecial f" + env.getFrameID() + "/<init>V\n");
+		builder.append("dup\n");
+		builder.append("aload 0\n");
+		if(ancestor == null)
+			builder.append("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object\n");
+		else
+			builder.append("putfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + "\n");
+		builder.append("astore 0\n");
+		builder.append(";------------------End new frame------------------\n");
+
+		codeInstructions.addCodeInstruction(builder.toString());
+	}
+	
+	private void removeFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
+		StringBuilder builder = new StringBuilder();
+		
+		EnvironmentCompiler ancestor = env.getAncestor();
+		builder.append("\n");
+		builder.append(";------------------Start remove frame------------------\n");
+		builder.append("aload 0\n");
+		if(ancestor == null)
+			builder.append("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object\n");
+		else
+			builder.append("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + "\n");
+		builder.append("astore 0\n");
+		builder.append(";------------------End remove frame------------------\n");
+		
+		codeInstructions.addCodeInstruction(builder.toString());
 	}
 }
