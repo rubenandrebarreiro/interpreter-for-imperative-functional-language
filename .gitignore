@@ -21,3 +21,7 @@ src/interpreter/parser/ParseException.java
 src/interpreter/parser/SimpleCharStream.java
 src/interpreter/parser/Token.java
 src/interpreter/parser/TokenMgrError.java
+
+# Compiler results
+f*.j
+Main.j
