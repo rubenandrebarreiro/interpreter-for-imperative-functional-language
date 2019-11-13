@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Exception classes.
+ * Package for the AbstractSyntaxTree.Exceptions.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
