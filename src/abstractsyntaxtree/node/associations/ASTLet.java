@@ -128,7 +128,7 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");
 		codeInstructions.addCodeInstruction("aload 0");
 		if(ancestor == null)
-			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
+			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
 		else
 			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + ";");
 		codeInstructions.addCodeInstruction("astore 0\n");
