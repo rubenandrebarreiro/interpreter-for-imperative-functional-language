@@ -62,13 +62,22 @@ public class ASTID implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
 		FieldAddress value = null;
+		EnvironmentCompiler tempEnv = environmentCompiler;
+		codeBlockInstructions.addCodeInstruction("aload 0");
 		try {
 			value = environmentCompiler.find(expressionID);
+			while(value == null) {
+				codeBlockInstructions.addCodeInstruction("getfield f" + tempEnv.getFrameID() + 
+						 "/sl Lf" + tempEnv.getAncestor().getFrameID() + ";");
+				tempEnv = tempEnv.getAncestor();
+				value = tempEnv.find(expressionID);
+			}
+			codeBlockInstructions.addCodeInstruction("getfield f" + value.getNumberOfFrameLevel() + 
+					 "/x" + value.getOffsetField() + " I");
 		} catch (ASTInvalidIdentifierException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		codeBlockInstructions.addCodeInstruction("getfield f" + value.getNumberOfFrameLevel() + 
-												 "/x" + value.getOffsetField() + " I");
+
 	}
 }

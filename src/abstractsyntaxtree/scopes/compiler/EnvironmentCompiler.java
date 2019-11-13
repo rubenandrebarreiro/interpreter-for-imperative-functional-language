@@ -92,13 +92,7 @@ public class EnvironmentCompiler {
 	}
 	
 	public FieldAddress find(String expressionID) throws ASTInvalidIdentifierException {
-		FieldAddress expressionValue = offsetLocations.findOffsetLocation(expressionID);
-//		Integer expressionValue = 0;
-		if(expressionValue == null && this.staticLinkAncestorHeapFrame == null)
-			throw new ASTInvalidIdentifierException("No Value with the following ID: \" + expressionID + \" !!!");
-		else if(expressionValue == null && this.staticLinkAncestorHeapFrame != null)
-			return this.staticLinkAncestorHeapFrame.find(expressionID);
-		else return expressionValue;
+		return offsetLocations.findOffsetLocation(expressionID);
 	}
 	
 	public int getLevelFromRoot() {
