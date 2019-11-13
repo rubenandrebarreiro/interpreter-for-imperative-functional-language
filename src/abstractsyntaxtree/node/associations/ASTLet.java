@@ -105,40 +105,35 @@ public class ASTLet implements ASTNode {
 	}
 	
 	private void createFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
-		StringBuilder builder = new StringBuilder();
-		
 		EnvironmentCompiler ancestor = env.getAncestor();
 		
-		builder.append(";------------------Start new frame------------------\n");
-		builder.append("new f" + env.getFrameID() + "\n");
-		builder.append("dup\n");
-		builder.append("invokespecial f" + env.getFrameID() + "/<init>V\n");
-		builder.append("dup\n");
-		builder.append("aload 0\n");
+		codeInstructions.addCodeInstruction(";------------------Start new frame------------------");
+		codeInstructions.addCodeInstruction("new f" + env.getFrameID());
+		codeInstructions.addCodeInstruction("dup");
+		codeInstructions.addCodeInstruction("invokespecial f" + env.getFrameID() + "/<init>V");
+		codeInstructions.addCodeInstruction("dup");
+		codeInstructions.addCodeInstruction("aload 0");
 		if(ancestor == null)
-			builder.append("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object\n");
+			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object");
 		else
-			builder.append("putfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + "\n");
-		builder.append("astore 0\n");
-		builder.append(";------------------End new frame------------------\n");
-
-		codeInstructions.addCodeInstruction(builder.toString());
+			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID());
+		codeInstructions.addCodeInstruction("astore 0");
+		codeInstructions.addCodeInstruction(";------------------End new frame------------------");
+		codeInstructions.addCodeInstruction("\n");
 	}
 	
 	private void removeFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
-		StringBuilder builder = new StringBuilder();
-		
 		EnvironmentCompiler ancestor = env.getAncestor();
-		builder.append("\n");
-		builder.append(";------------------Start remove frame------------------\n");
-		builder.append("aload 0\n");
+		codeInstructions.addCodeInstruction("\n");
+		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");
+		codeInstructions.addCodeInstruction("aload 0");
 		if(ancestor == null)
-			builder.append("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object\n");
+			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object");
 		else
-			builder.append("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + "\n");
-		builder.append("astore 0\n");
-		builder.append(";------------------End remove frame------------------\n");
+			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID());
+		codeInstructions.addCodeInstruction("astore 0\n");
+		codeInstructions.addCodeInstruction(";------------------End remove frame------------------");
 		
-		codeInstructions.addCodeInstruction(builder.toString());
+		codeInstructions.addCodeInstruction("\n");
 	}
 }
