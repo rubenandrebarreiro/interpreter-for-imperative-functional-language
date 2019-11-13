@@ -145,6 +145,15 @@ public class EnvironmentCompiler {
 			this.fileOutputStream.write(String.format(".field			public x_%s type\n", numberOfField).getBytes());
 		}
 		
+		this.fileOutputStream.write(String.format("\n").getBytes());
+		
+		this.fileOutputStream.write(String.format(".method			public <init>()V\n" + 
+				"			aload_0\r\n" + 
+				"			invokenonvirtual java/lang/Object/<init>()V\n" + 
+				"			return\n").getBytes());
+		
+
+		
 		// Write the code instruction,
 		// related to the end of the declaration of the class structure for this Heap Stack Frame, in Java Byte Code 
 		this.fileOutputStream.write(String.format(".end method\n").getBytes());

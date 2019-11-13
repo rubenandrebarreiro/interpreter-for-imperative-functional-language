@@ -110,7 +110,7 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction(";------------------Start new frame------------------");
 		codeInstructions.addCodeInstruction("new f" + env.getFrameID());
 		codeInstructions.addCodeInstruction("dup");
-		codeInstructions.addCodeInstruction("invokespecial f" + env.getFrameID() + "/<init>V");
+		codeInstructions.addCodeInstruction("invokespecial f" + env.getFrameID() + "/<init>()V");
 		codeInstructions.addCodeInstruction("dup");
 		codeInstructions.addCodeInstruction("aload 0");
 		if(ancestor == null)
