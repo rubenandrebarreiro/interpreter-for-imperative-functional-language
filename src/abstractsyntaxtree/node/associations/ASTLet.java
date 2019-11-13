@@ -1,5 +1,20 @@
 package abstractsyntaxtree.node.associations;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import java.util.List;
 
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
@@ -40,7 +55,7 @@ public class ASTLet implements ASTNode {
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 */
-	public ASTLet(List<ASTNode> associations, ASTNode bodyASTLetNodeDescendant) {
+	public ASTLet(ASTNode bodyASTLetNodeDescendant, List<ASTNode> associations) {
 		
 		this.associations = associations;
 		
@@ -91,17 +106,18 @@ public class ASTLet implements ASTNode {
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
-		// TODO Auto-generated method stub
-		EnvironmentCompiler newEnv = environmentCompiler.beginScope();
-		createFrame(newEnv, codeBlockInstructions);
-		for (ASTNode astNode : associations) {
-			astNode.compile(newEnv, codeBlockInstructions);
+		
+		EnvironmentCompiler newEnvironment = environmentCompiler.beginScope();
+
+		this.createFrame(newEnvironment, codeBlockInstructions);
+		
+		for(ASTNode associationASTNode : this.associations) {
+			associationASTNode.compile(newEnvironment, codeBlockInstructions);
 		}
 		
-		this.bodyASTLetNodeDescendant.compile(newEnv, codeBlockInstructions);
+		this.bodyASTLetNodeDescendant.compile(newEnvironment, codeBlockInstructions);
 		
-//		newEnv.endScope();
-		removeFrame(newEnv, codeBlockInstructions);
+		this.removeFrame(newEnvironment, codeBlockInstructions);
 	}
 	
 	private void createFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
@@ -113,10 +129,14 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction("invokespecial f" + env.getFrameID() + "/<init>()V");
 		codeInstructions.addCodeInstruction("dup");
 		codeInstructions.addCodeInstruction("aload 0");
-		if(ancestor == null)
+		
+		if(ancestor == null) {
 			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
-		else
+		}
+		else {
 			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + ";");
+		}
+		
 		codeInstructions.addCodeInstruction("astore 0");
 		codeInstructions.addCodeInstruction(";------------------End new frame------------------");
 		codeInstructions.addCodeInstruction("\n");

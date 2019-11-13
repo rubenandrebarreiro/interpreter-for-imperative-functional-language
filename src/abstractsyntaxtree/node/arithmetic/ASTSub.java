@@ -84,7 +84,8 @@ public class ASTSub implements ASTNode {
 	}
 
 	/**
-	 * Compiles the Code Instructions of this A.S.T. Nodes 
+	 * Compiles the Java Byte Code instructions, written in J.V.M.,
+	 * of this A.S.T. Node, in order to perform a Subtraction.  
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environment, CodeBlockInstructions codeBlockInstructionsSet) {

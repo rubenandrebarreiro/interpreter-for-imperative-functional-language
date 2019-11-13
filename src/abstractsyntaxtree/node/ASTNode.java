@@ -58,5 +58,5 @@ public interface ASTNode {
 	 * 
 	 * @param codeInstructions the List of the Code Instructions to be compiled
 	 */
-	void compile(EnvironmentCompiler environmentCompiler/*Environment environment*/, CodeBlockInstructions codeBlockInstructions);
+	void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions);
 }

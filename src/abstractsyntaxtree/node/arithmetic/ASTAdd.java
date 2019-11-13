@@ -82,17 +82,19 @@ public class ASTAdd implements ASTNode {
 		return leftASTNodeDescendantValue + rightASTNodeDescedantValue;
 	}
 
+
 	/**
-	 * 
+	 * Compiles the Java Byte Code instructions, written in J.V.M.,
+	 * of this A.S.T. Node, in order to perform an Addition.  
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environment, CodeBlockInstructions codeBlockInstructionsSet) {
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructionsSet) {
 		
 		// To Perform the Addition of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants
 		// and push their evaluation to the Execution Stack
-		this.leftASTNodeDescedant.compile(environment, codeBlockInstructionsSet);
-		this.rightASTNodeDescedant.compile(environment, codeBlockInstructionsSet);
+		this.leftASTNodeDescedant.compile(environmentCompiler, codeBlockInstructionsSet);
+		this.rightASTNodeDescedant.compile(environmentCompiler, codeBlockInstructionsSet);
 		
 		// Push the Code Instruction of Addition (iadd) to the Execution Stack,
 		// in order to perform the Addition of the 2 A.S.T. Nodes

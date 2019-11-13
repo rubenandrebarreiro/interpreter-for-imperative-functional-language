@@ -35,31 +35,42 @@ public class EnvironmentCompiler {
 	 */
 	private int numberOfFields;
 	
+	/**
+	 * 
+	 */
 	private int currentFieldCounter;
 	
 	public EnvironmentCompiler() {
-		//TODO Change these default values
-		offsetLocations = new HeapFieldOffsetLocations();
+		this.offsetLocations = new HeapFieldOffsetLocations();
+		
 		frameID = -1;
+		
 		staticLinkAncestorHeapFrame = null;
-		numberOfFields = 10;
+		
+		this.numberOfFields = 10;
 		currentFieldCounter = 0;
-		System.out.println("New root environment created;");
+		
+		System.out.println("New root environment created!!!");
 	}
 
-	public EnvironmentCompiler(int frameID, EnvironmentCompiler ancestor, int nFields) {
-		offsetLocations = new HeapFieldOffsetLocations();
+	public EnvironmentCompiler(int frameID, EnvironmentCompiler ancestor, int numberOfFields) {
+		
+		this.offsetLocations = new HeapFieldOffsetLocations();
+		
 		this.frameID = frameID + 1;
-		if(frameID < 0) staticLinkAncestorHeapFrame = null;
-		else staticLinkAncestorHeapFrame = ancestor;
-		numberOfFields = nFields;
-		currentFieldCounter = 0;
-		System.out.println("New environment created with frameID = " + this.frameID);
+		
+		this.staticLinkAncestorHeapFrame = (frameID < 0) ? null : ancestor;
+		
+		this.numberOfFields = numberOfFields;
+		this.currentFieldCounter = 0;
+		
+		System.out.println(String.format("New environment created with frameID = %d!!!", this.frameID));
+		
 		try {
 			generateAndDumpsHeapStackFrameFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}
+		catch (IOException inputOutputException) {
+			inputOutputException.printStackTrace();
 		}
 	}
 	
@@ -95,20 +106,40 @@ public class EnvironmentCompiler {
 		return offsetLocations.findOffsetLocation(expressionID);
 	}
 	
+	/**
+	 * Returns the level of the Heap Stack Frame,
+	 * from the current compiled Environment.
+	 * 
+	 * @return the level of the Heap Stack Frame,
+	 *         from the current compiled Environment
+	 */
 	public int getLevelFromRoot() {
-		int currentLevelHeapStackFrames = 0;
-		EnvironmentCompiler currentHeapStackFrame = this;
 		
-		while(currentHeapStackFrame.getAncestor() != null) {
+		// The level of the current Heap Stack Frame
+		int currentLevelHeapStackFrames = 0;
+		
+		// The current Heap Stack Frame, from the current compiled Environment
+		EnvironmentCompiler currentHeapStackFrameEnvironment = this;
+		
+		// While the current Heap Stack Frame has ancestors,
+		// doesn't reached the root node yet
+		while(currentHeapStackFrameEnvironment.getAncestor() != null) {
 			
-			currentHeapStackFrame = currentHeapStackFrame.getAncestor();
+			// The ancestor of the current Heap Stack Frame, from the current compiled Environment
+			currentHeapStackFrameEnvironment = currentHeapStackFrameEnvironment.getAncestor();
 			
+			// Jumps one more level from the current Heap Stack Frame
 			currentLevelHeapStackFrames++;
 		}
 		
 		return currentLevelHeapStackFrames;
 	}
 	
+	/**
+	 * Generates and dumps the content from the Heap Stack Frame to a file.
+	 * 
+	 * @throws IOException an Input/Output Exception
+	 */
 	public void generateAndDumpsHeapStackFrameFile() throws IOException {
 		
 		// The Heap Stack Frame Filename for this Heap Stack Frame
@@ -118,35 +149,46 @@ public class EnvironmentCompiler {
 		this.fileOutputStream = new FileOutputStream(heapStackFrameFilename);
 		
 		
-		// Start to write the code instructions, in Java Byte Code
-		
-		// Write the code instruction, related to the class ID of the Heap Stack Frame, in Java Byte Code
+		// Start of the set of Java Byte Code, writing J.V.M. instructions
+
+		// Write the code instruction, related to the class ID of the Heap Stack Frame,
+		// in Java Byte Code, writing J.V.M. instructions
 		this.fileOutputStream.write(String.format(".class			f%s\n", this.frameID).getBytes());
 		
-		// Get the code instruction, related to the superclass ID of the Heap Stack Frame, in Java Byte Code
+		// Get the code instruction, related to the superclass ID of the Heap Stack Frame,
+		// in Java Byte Code, writing J.V.M. instructions
 		String superClassReference = this.isEnvironmentRoot() ?
 				String.format("java/lang/Object") :
 					String.format("f%s", this.getAncestor().getFrameID()) ;
 		
-		// Write the code instruction, related to the superclass ID of the Heap Stack Frame, in Java Byte Code
+		// Write the code instruction, related to the superclass ID of the Heap Stack Frame,
+		// in Java Byte Code, writing J.V.M. instructions
 		this.fileOutputStream.write(String.format(".super			java/lang/Object\n").getBytes());
 
-		// Write the code instruction, related to the Static Link to the ID of the Ancestor Heap Stack Frame, in Java Byte Code
+		// Write the code instruction, related to the Static Link to the ID of the Ancestor Heap Stack Frame,
+		// in Java Byte Code, writing J.V.M. instructions
 		this.fileOutputStream.write(String.format(".field			public sl L%s;\n", superClassReference).getBytes());
 		
-		// Write the code instructions, related to the all the fields of the Heap Stack Frame, in Java Byte Code
+		// Write the code instructions, related to the all the fields of the Heap Stack Frame,
+		// in Java Byte Code, writing J.V.M. instructions
 		for(int numberOfField = 0; numberOfField < this.numberOfFields; numberOfField++) {
 			this.fileOutputStream.write(String.format(".field			public x%s I\n", numberOfField).getBytes());
 		}
 		
+		// Write a new break line in the file of the Heap Stack frame,
+		// in Java Byte Code, writing J.V.M. instructions
 		this.fileOutputStream.write(String.format("\n").getBytes());
 		
+		// Write J.V.M. Byte Code Instructions,
+		// such it's loaded the current frame from the position on the memory,
+		// initialise the Object of the current frame,
+		// to the respectively Frame file generated,
+		// in order to be placed in the Evaluation Stack
 		this.fileOutputStream.write(String.format(".method			public <init>()V\n" + 
 				"			aload_0\r\n" + 
 				"			invokenonvirtual java/lang/Object/<init>()V\n" + 
 				"			return\n").getBytes());
-		
-
+				
 		
 		// Write the code instruction,
 		// related to the end of the declaration of the class structure for this Heap Stack Frame, in Java Byte Code 
