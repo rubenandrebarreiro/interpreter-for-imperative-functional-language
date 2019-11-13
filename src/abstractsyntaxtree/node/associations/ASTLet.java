@@ -114,9 +114,9 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction("dup");
 		codeInstructions.addCodeInstruction("aload 0");
 		if(ancestor == null)
-			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object");
+			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
 		else
-			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID());
+			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + ";");
 		codeInstructions.addCodeInstruction("astore 0");
 		codeInstructions.addCodeInstruction(";------------------End new frame------------------");
 		codeInstructions.addCodeInstruction("\n");
@@ -128,9 +128,9 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");
 		codeInstructions.addCodeInstruction("aload 0");
 		if(ancestor == null)
-			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object");
+			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
 		else
-			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID());
+			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + ";");
 		codeInstructions.addCodeInstruction("astore 0\n");
 		codeInstructions.addCodeInstruction(";------------------End remove frame------------------");
 		
