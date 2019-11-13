@@ -129,14 +129,14 @@ public class EnvironmentCompiler {
 					String.format("f%s", this.getAncestor().getFrameID()) ;
 		
 		// Write the code instruction, related to the superclass ID of the Heap Stack Frame, in Java Byte Code
-		this.fileOutputStream.write(String.format(".super			%s\n", superClassReference).getBytes());
+		this.fileOutputStream.write(String.format(".super			java/lang/Object\n").getBytes());
 
 		// Write the code instruction, related to the Static Link to the ID of the Ancestor Heap Stack Frame, in Java Byte Code
 		this.fileOutputStream.write(String.format(".field			public sl L%s;\n", superClassReference).getBytes());
 		
 		// Write the code instructions, related to the all the fields of the Heap Stack Frame, in Java Byte Code
 		for(int numberOfField = 0; numberOfField < this.numberOfFields; numberOfField++) {
-			this.fileOutputStream.write(String.format(".field			public x_%s I\n", numberOfField).getBytes());
+			this.fileOutputStream.write(String.format(".field			public x%s I\n", numberOfField).getBytes());
 		}
 		
 		this.fileOutputStream.write(String.format("\n").getBytes());
