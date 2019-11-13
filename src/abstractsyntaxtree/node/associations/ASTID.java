@@ -5,6 +5,7 @@ import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.structures.FieldAddress;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -60,7 +61,14 @@ public class ASTID implements ASTNode {
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
-		//TODO Get value from environment.
-		codeBlockInstructions.addCodeInstruction("sipush ");
+		FieldAddress value = null;
+		try {
+			value = environmentCompiler.find(expressionID);
+		} catch (ASTInvalidIdentifierException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		codeBlockInstructions.addCodeInstruction("getfield f" + value.getNumberOfFrameLevel() + 
+												 "/x" + value.getOffsetField() + " I");
 	}
 }
