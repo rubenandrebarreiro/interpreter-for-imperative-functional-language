@@ -25,6 +25,14 @@ public class ASTAssociation implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
 		// TODO Auto-generated method stub
-		
+		int tempCurrentField = environmentCompiler.getCurrentField();
+		environmentCompiler.addAssoc(id);
+
+		codeBlockInstructions.addCodeInstruction(";------------------Start new assignment------------------");
+		codeBlockInstructions.addCodeInstruction("aload 0");
+		value.compile(environmentCompiler, codeBlockInstructions);
+		codeBlockInstructions.addCodeInstruction("putfield f" + environmentCompiler.getFrameID() + "/x" + tempCurrentField + " I");
+		codeBlockInstructions.addCodeInstruction(";------------------End new assignment------------------");
+		codeBlockInstructions.addCodeInstruction("\n");
 	}
 }

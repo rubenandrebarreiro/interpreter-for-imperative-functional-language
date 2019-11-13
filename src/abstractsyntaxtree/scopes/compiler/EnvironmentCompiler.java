@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import abstractsyntaxtree.scopes.structures.FieldAddress;
 import abstractsyntaxtree.scopes.structures.HeapFieldOffsetLocations;
 
 public class EnvironmentCompiler {
@@ -34,12 +35,15 @@ public class EnvironmentCompiler {
 	 */
 	private int numberOfFields;
 	
+	private int currentFieldCounter;
+	
 	public EnvironmentCompiler() {
 		//TODO Change these default values
 		offsetLocations = new HeapFieldOffsetLocations();
 		frameID = -1;
 		staticLinkAncestorHeapFrame = null;
 		numberOfFields = 10;
+		currentFieldCounter = 0;
 		System.out.println("New root environment created;");
 	}
 
@@ -49,6 +53,7 @@ public class EnvironmentCompiler {
 		if(frameID < 0) staticLinkAncestorHeapFrame = null;
 		else staticLinkAncestorHeapFrame = ancestor;
 		numberOfFields = nFields;
+		currentFieldCounter = 0;
 		System.out.println("New environment created with frameID = " + this.frameID);
 		try {
 			generateAndDumpsHeapStackFrameFile();
@@ -78,24 +83,16 @@ public class EnvironmentCompiler {
 		return staticLinkAncestorHeapFrame == null ? true : false;
 	}
 	
+	public void addAssoc(String id) {
+		offsetLocations.addAssoc(id, frameID, currentFieldCounter++);
+	}
 	
-	public int find(String expressionID) throws ASTInvalidIdentifierException {
-		
-		Integer expressionValue = offsetLocations.findOffsetLocation(expressionID);
-		
-		if(expressionValue == null && this.staticLinkAncestorHeapFrame == null) {
-			System.err.println("[" + this.getClass().getCanonicalName() + "]" + "DeadCode1!?");
-			throw new ASTInvalidIdentifierException("No Value with the following ID: " + expressionID + " !!!");
-		}
-
-		else if(expressionValue == null && this.staticLinkAncestorHeapFrame != null) {
-			System.err.println("[" + this.getClass().getCanonicalName() + "]" + "DeadCode2!?");
-			return this.staticLinkAncestorHeapFrame.find(expressionID);
-		}
-				
-		else {
-			return expressionValue;
-		}
+	public int getCurrentField() {
+		return currentFieldCounter;
+	}
+	
+	public FieldAddress find(String expressionID) throws ASTInvalidIdentifierException {
+		return offsetLocations.findOffsetLocation(expressionID);
 	}
 	
 	public int getLevelFromRoot() {
@@ -128,19 +125,28 @@ public class EnvironmentCompiler {
 		
 		// Get the code instruction, related to the superclass ID of the Heap Stack Frame, in Java Byte Code
 		String superClassReference = this.isEnvironmentRoot() ?
-				String.format("java/lang/Object\n") :
-					String.format("f%s\n", this.getAncestor().getFrameID()) ;
+				String.format("java/lang/Object") :
+					String.format("f%s", this.getAncestor().getFrameID()) ;
 		
 		// Write the code instruction, related to the superclass ID of the Heap Stack Frame, in Java Byte Code
-		this.fileOutputStream.write(String.format(".super			%s", superClassReference).getBytes());
+		this.fileOutputStream.write(String.format(".super			java/lang/Object\n").getBytes());
 
 		// Write the code instruction, related to the Static Link to the ID of the Ancestor Heap Stack Frame, in Java Byte Code
-		this.fileOutputStream.write(String.format(".field			public sl L%s\n", superClassReference).getBytes());
+		this.fileOutputStream.write(String.format(".field			public sl L%s;\n", superClassReference).getBytes());
 		
 		// Write the code instructions, related to the all the fields of the Heap Stack Frame, in Java Byte Code
 		for(int numberOfField = 0; numberOfField < this.numberOfFields; numberOfField++) {
-			this.fileOutputStream.write(String.format(".field			public x_%s type\n", numberOfField).getBytes());
+			this.fileOutputStream.write(String.format(".field			public x%s I\n", numberOfField).getBytes());
 		}
+		
+		this.fileOutputStream.write(String.format("\n").getBytes());
+		
+		this.fileOutputStream.write(String.format(".method			public <init>()V\n" + 
+				"			aload_0\r\n" + 
+				"			invokenonvirtual java/lang/Object/<init>()V\n" + 
+				"			return\n").getBytes());
+		
+
 		
 		// Write the code instruction,
 		// related to the end of the declaration of the class structure for this Heap Stack Frame, in Java Byte Code 

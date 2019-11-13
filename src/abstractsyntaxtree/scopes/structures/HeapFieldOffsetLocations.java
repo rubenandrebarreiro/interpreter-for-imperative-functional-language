@@ -10,7 +10,12 @@ public class HeapFieldOffsetLocations {
 		this.offsetLocations = new HashMap<String, FieldAddress>();
 	}
 	
-	public int findOffsetLocation(String field) {
-		return this.offsetLocations.get(field).getOffsetField();
+	public void addAssoc(String id, int frameID, int fieldValue) {
+		//TODO Confirm if it exists?
+		offsetLocations.put(id, new FieldAddress(frameID, fieldValue));
+	}
+	
+	public FieldAddress findOffsetLocation(String field) {
+		return this.offsetLocations.get(field);
 	}
 }

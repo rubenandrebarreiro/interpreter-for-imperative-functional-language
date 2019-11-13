@@ -13,6 +13,8 @@ public class CodeBlockInstructions {
 	
 	public CodeBlockInstructions() {
 		this.codeBlockInstructionsSet = new ArrayList<String>();
+		addCodeInstruction("aconst_null\n" + 
+						   "astore 0\n");
 	}
 	
 	public void addCodeInstruction(String codeInstruction) {
@@ -52,7 +54,7 @@ public class CodeBlockInstructions {
 		
 		// The Method of the Main Class of the Compiler Parser
 		this.fileOutputStream.write(".method public static main([Ljava/lang/String;)V\n".getBytes());
-		this.fileOutputStream.write("	; set limits used by this method".getBytes());
+		this.fileOutputStream.write("	; set limits used by this method\n".getBytes());
 		this.fileOutputStream.write("	.limit locals 10\n".getBytes());
 		this.fileOutputStream.write("	.limit stack 256\n".getBytes());
 		
