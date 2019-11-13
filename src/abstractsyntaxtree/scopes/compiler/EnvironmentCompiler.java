@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import abstractsyntaxtree.scopes.structures.FieldAddress;
 import abstractsyntaxtree.scopes.structures.HeapFieldOffsetLocations;
 
 public class EnvironmentCompiler {
@@ -34,12 +35,15 @@ public class EnvironmentCompiler {
 	 */
 	private int numberOfFields;
 	
+	private int currentFieldCounter;
+	
 	public EnvironmentCompiler() {
 		//TODO Change these default values
 		offsetLocations = new HeapFieldOffsetLocations();
 		frameID = -1;
 		staticLinkAncestorHeapFrame = null;
 		numberOfFields = 10;
+		currentFieldCounter = 0;
 		System.out.println("New root environment created;");
 	}
 
@@ -49,6 +53,7 @@ public class EnvironmentCompiler {
 		if(frameID < 0) staticLinkAncestorHeapFrame = null;
 		else staticLinkAncestorHeapFrame = ancestor;
 		numberOfFields = nFields;
+		currentFieldCounter = 0;
 		System.out.println("New environment created with frameID = " + this.frameID);
 		try {
 			generateAndDumpsHeapStackFrameFile();
@@ -78,27 +83,22 @@ public class EnvironmentCompiler {
 		return staticLinkAncestorHeapFrame == null ? true : false;
 	}
 	
-	public void addAssoc(String id, String value) {
-		offsetLocations.addAssoc(id, frameID, value);
+	public void addAssoc(String id) {
+		offsetLocations.addAssoc(id, frameID, currentFieldCounter++);
 	}
 	
-	public int find(String expressionID) throws ASTInvalidIdentifierException {
-		
-		Integer expressionValue = offsetLocations.findOffsetLocation(expressionID);
-		
-		if(expressionValue == null && this.staticLinkAncestorHeapFrame == null) {
-			System.err.println("[" + this.getClass().getCanonicalName() + "]" + "DeadCode1!?");
-			throw new ASTInvalidIdentifierException("No Value with the following ID: " + expressionID + " !!!");
-		}
-
-		else if(expressionValue == null && this.staticLinkAncestorHeapFrame != null) {
-			System.err.println("[" + this.getClass().getCanonicalName() + "]" + "DeadCode2!?");
+	public int getCurrentField() {
+		return currentFieldCounter;
+	}
+	
+	public FieldAddress find(String expressionID) throws ASTInvalidIdentifierException {
+		FieldAddress expressionValue = offsetLocations.findOffsetLocation(expressionID);
+//		Integer expressionValue = 0;
+		if(expressionValue == null && this.staticLinkAncestorHeapFrame == null)
+			throw new ASTInvalidIdentifierException("No Value with the following ID: \" + expressionID + \" !!!");
+		else if(expressionValue == null && this.staticLinkAncestorHeapFrame != null)
 			return this.staticLinkAncestorHeapFrame.find(expressionID);
-		}
-				
-		else {
-			return expressionValue;
-		}
+		else return expressionValue;
 	}
 	
 	public int getLevelFromRoot() {
