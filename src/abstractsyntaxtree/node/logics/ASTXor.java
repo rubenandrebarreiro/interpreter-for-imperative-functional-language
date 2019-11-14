@@ -54,7 +54,7 @@ public class ASTXor implements ASTNode {
 	/**
 	 * Constructor #1:
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.),
-	 *   representing an AND operation.
+	 *   representing an XOR operation.
 	 * 
 	 * @param leftASTNodeDescendant the left side Descendant of the A.S.T. Node
 	 * 

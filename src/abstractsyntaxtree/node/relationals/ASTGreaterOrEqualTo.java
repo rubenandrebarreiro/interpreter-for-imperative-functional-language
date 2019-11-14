@@ -27,7 +27,7 @@ import values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
- * performing the Less Than Comparison to its descendants.
+ * performing the Greater Or Equal To Comparison to its descendants.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -35,7 +35,7 @@ import values.exceptions.TypeErrorException;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTLessThan implements ASTNode {
+public class ASTGreaterOrEqualTo implements ASTNode {
 
 	// Global Variables:
 	
@@ -60,7 +60,7 @@ public class ASTLessThan implements ASTNode {
 	 * 
 	 * @param rightASTNodeDescedant the right side Descendant of the A.S.T. Node
 	 */
-	public ASTLessThan(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
+	public ASTGreaterOrEqualTo(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
 		this.leftASTNodeDescendant = leftASTNodeDescedant;
 		this.rightASTNodeDescendant = rightASTNodeDescedant;
 	}
@@ -70,13 +70,13 @@ public class ASTLessThan implements ASTNode {
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 * performing the Less Than Comparison.
+	 * performing the greater than relationship comparison.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 *  	   performing the Less Than Comparison
+	 *  	   performing the greater than relationship comparison
 	 *  
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
@@ -95,10 +95,10 @@ public class ASTLessThan implements ASTNode {
 		
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
-			// Returns the Less Than Comparison of the A.S.T. Nodes Descendants
-			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() < ((VInt) rightASTNodeDescedantValue).getValue());
+			// Returns the Greater Or Equal To Comparison of the A.S.T. Nodes Descendants
+			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() >= ((VInt) rightASTNodeDescedantValue).getValue());
 		}
-		throw new TypeErrorException("Illegal arguments to < (less than) operator!!!");
+		throw new TypeErrorException("Illegal arguments to >= (greater or equal to) operator!!!");
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class ASTLessThan implements ASTNode {
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
 	 * the List of the Code Instructions of the current Node of an
 	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
-	 * in order to, perform a Less Than Comparison, in the Evaluation Stack.
+	 * in order to, perform a Greater Than Comparison, in the Evaluation Stack.
 	 * 
 	 * @param environmentCompiler the Environment (Scope/Frame),
 	 * 		  where the current Code Instructions Set of
@@ -134,10 +134,10 @@ public class ASTLessThan implements ASTNode {
 		String instructionSubtraction = String.format("isub");
 		codeBlockInstructionsSet.addCodeInstruction(instructionSubtraction);
 		
-		// Push the Code Instruction of If Less Than (iflt) to the Execution Stack,
-		// in order to perform the Less Than Comparison between 2 A.S.T. Nodes
-		String instructionIfLessThan = String.format("iflt L1");
-		codeBlockInstructionsSet.addCodeInstruction(instructionIfLessThan);
+		// Push the Code Instruction of If Greater Or Equal To (ifge) to the Execution Stack,
+		// in order to perform the Greater Or Equal To Comparison between 2 A.S.T. Nodes
+		String instructionIfGreaterThan = String.format("ifge L1");
+		codeBlockInstructionsSet.addCodeInstruction(instructionIfGreaterThan);
 		
 		// Push the Code Instruction of Atomic Number 0 (Zero) to the Execution Stack,
 		String instructionAtomicNumberZero = "sipush " + String.valueOf(0);
@@ -145,19 +145,19 @@ public class ASTLessThan implements ASTNode {
 		
 		// Push the Code Instruction of a Jump (GoTo) to a predefined label on
 		// the Execution Stack, in order to perform a branch of
-		// a Less Than Comparison between 2 A.S.T. Nodes
+		// a Greater Or Equal To Comparison between 2 A.S.T. Nodes
 		String instructionGoToL2 = String.format("goto L2");
 		codeBlockInstructionsSet.addCodeInstruction(instructionGoToL2);
 		
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an Atomic Number 0 (Zero) to the Execution Stack,
-		// in order to perform a branch of a Less Than Comparison between 2 A.S.T. Nodes
+		// in order to perform a branch of a Greater Or Equal To Comparison between 2 A.S.T. Nodes
 		String instructionL1Label = String.format("L1: sipush " + String.valueOf(1));
 		codeBlockInstructionsSet.addCodeInstruction(instructionL1Label);
 				
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an obsolete Value to the Execution Stack,
-		// in order to perform a branch of a Less Than Comparison between 2 A.S.T. Nodes
+		// in order to perform a branch of a Greater Or Equal To Comparison between 2 A.S.T. Nodes
 		String instructionL2Label = String.format("L2:");
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
 	}	

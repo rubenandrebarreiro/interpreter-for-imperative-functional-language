@@ -101,9 +101,10 @@ public class ASTNot implements ASTNode {
 		// and push their evaluation to the Execution Stack
 		this.astNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		// Push the Code Instruction of Atomic Number 1 to the Execution Stack,
+		// Push the Code Instruction of Atomic Number 1 (One) to the Execution Stack,
 		// in order to perform the Negation of the A.S.T. Node
-		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(1));
+		String instructionAtomicNumberOne = "sipush " + String.valueOf(1);
+		codeBlockInstructionsSet.addCodeInstruction(instructionAtomicNumberOne);
 		
 		// Push the Code Instruction of Exclusive Disjunction (ixor) to the Execution Stack,
 		// in order to perform the Negation of the A.S.T. Node
