@@ -115,7 +115,8 @@ public class ASTMult implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-						CodeBlockInstructionsSet codeBlockInstructionsSet) throws ASTInvalidIdentifierException {
+						CodeBlockInstructionsSet codeBlockInstructionsSet)
+										throws ASTInvalidIdentifierException {
 		
 		// To Perform the Multiplication of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants
