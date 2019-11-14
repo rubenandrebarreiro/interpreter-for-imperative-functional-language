@@ -25,6 +25,6 @@ package values.atomic;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public interface IValue<T> {	
+public interface IValue<T> {
 	void show();
 }

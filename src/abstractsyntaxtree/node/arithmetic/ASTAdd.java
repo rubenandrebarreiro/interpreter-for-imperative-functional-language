@@ -20,6 +20,9 @@ import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import values.atomic.IValue;
+import values.atomic.VInt;
+import values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -75,14 +78,22 @@ public class ASTAdd implements ASTNode {
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
 	 * 		   Environment's ancestor on the Heap Stack of Environments (Scopes/Frames)
+	 * 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of the Type of a Value it's completely unknown to
+	 * 		   the recognised and acceptable Types for Values
 	 */
 	@Override
-	public int eval(Environment environment) throws ASTInvalidIdentifierException {
-		int leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
-		int rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
+	public IValue<Integer> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
+		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
+		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
-		// Returns the Addition of the A.S.T. Nodes Descendants
-		return ( leftASTNodeDescendantValue + rightASTNodeDescedantValue );
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
+
+			// Returns the Addition of the A.S.T. Nodes Descendants
+			return new VInt( ((VInt) leftASTNodeDescendantValue).getValue() + ((VInt) rightASTNodeDescedantValue).getValue());
+		}
+		throw new TypeErrorException("Illegal arguments to + (add) operator!!!");
 	}
 	
 	/**

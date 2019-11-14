@@ -57,13 +57,12 @@ public class VInt implements IValue<Integer> {
 	public int getValue() {
 		return this.value;
 	}
-	
+
 	/**
-	 * 
+	 * Prints the value of an Integer Value representation in String.
 	 */
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(this.value);
 	}
 }
