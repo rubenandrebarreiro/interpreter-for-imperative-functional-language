@@ -2,26 +2,53 @@ package test.java;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
-import main.java.interpreter.parser.*; 
+import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.scopes.Environment;
+import main.java.interpreter.parser.*;
+import main.java.values.atomic.IValue;
+import main.java.values.exceptions.TypeErrorException; 
 
+@RunWith(Parameterized.class)
 public class Tester {
 	
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 	private final PrintStream originalOut = System.out;
 	private final PrintStream originalErr = System.err;
-
+	
+	private String expected;
+	private ByteArrayInputStream input;
+	private InterpreterParser parser;
+	
+    @Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {     
+                 { "2+2", "4" },
+                 { "4-2", "2" },
+                 { "-2+12", "10" },
+                 { "5*5", "25" }, 
+                 { "-5*2", "-10" },
+                 { "3*2/4", "0" },
+                 { "(3*2)/4", "1" },
+                 { "Let x=2 in x+2 end", "4"}
+           });
+    }
+	
 	@Before
 	public void setUpStreams() {
 	    System.setOut(new PrintStream(outContent));
@@ -32,28 +59,26 @@ public class Tester {
 	public void restoreStreams() {
 	    System.setOut(originalOut);
 	    System.setErr(originalErr);
-	}	
-	
-	public void testSkel(String file, String solution) {
-		String[] args = null;
-		final InputStream original = System.in;
-		FileInputStream fips = null;
-		try {
-			fips = new FileInputStream(new File(file));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		System.setIn(fips);
-		InterpreterParser.mainTest(args);
-		setUpStreams();
-		assertEquals(solution, outContent.toString().trim());
-		restoreStreams();
+	}
+	  
+	public Tester(String input, String expected) {
+		this.input = new ByteArrayInputStream((input+"\n").getBytes());
+		this.expected = expected;
+//		parser = new InterpreterParser(this.input);
 	}
 	
 	@Test
-	public void sumTests() {
-		for (int i = 0; i < 1; i++) {
-			testSkel("res/tests/Basic Arithmetic/test1.txt", "2");
-		}
+	public void test1() throws ASTInvalidIdentifierException, TypeErrorException, ParseException {
+		System.setIn(input);
+		if(parser == null) {
+			parser = new InterpreterParser(input);
+		} else parser.ReInit(input);
+
+		Environment env = new Environment();
+        ASTNode exp = parser.Start();
+		exp.eval(env).show();
+		setUpStreams();
+		assertEquals(expected, outContent.toString().trim());
+		restoreStreams();
 	}
 }

@@ -1,19 +1,20 @@
 PARSER_BEGIN(InterpreterParser)
 
-package interpreter.parser;
+package main.java.interpreter.parser;
 
-import abstractsyntaxtree.scopes.Environment;
-import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.node.*;
-import abstractsyntaxtree.node.associations.*;
-import abstractsyntaxtree.node.arithmetic.*;
-import abstractsyntaxtree.node.atomics.*;
-import compiler.Compiler;
-import values.*;
-import values.atomic.*;
-import values.exceptions.*;
+import main.java.abstractsyntaxtree.scopes.Environment;
+import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import main.java.abstractsyntaxtree.node.*;
+import main.java.abstractsyntaxtree.node.associations.*;
+import main.java.abstractsyntaxtree.node.arithmetic.*;
+import main.java.abstractsyntaxtree.node.atomics.*;
+import main.java.compiler.Compiler;
+import main.java.values.*;
+import main.java.values.atomic.*;
+import main.java.values.exceptions.*;
 
 import java.util.*;
+import java.io.*;
 
 /** ID lister. */
 public class InterpreterParser {
@@ -23,8 +24,7 @@ public class InterpreterParser {
   	  	Environment env = new Environment();
     	InterpreterParser interpreterParser = new InterpreterParser(System.in);
     	ASTNode exp;
-
-    	while (true) {
+		while(true) { 
     		try {
     			exp = interpreterParser.Start();
     			Compiler compiler = new Compiler( exp );
@@ -37,8 +37,9 @@ public class InterpreterParser {
       			interpreterParser.ReInit(System.in);
     		}
     	}
-  	}
+	}
 }
+
 
 PARSER_END(InterpreterParser)
 
