@@ -30,8 +30,6 @@ public class InterpreterParser {
     			Compiler compiler = new Compiler( exp );
     			compiler.generateJavaByteCodeJVMInstructions("Main.j");
     			exp.eval(env).show();
-    			// TODO inicializar classe de compilador
-    			// ClassCompiler 
     		}
     		catch (Exception exception) {
     		    exception.printStackTrace();
