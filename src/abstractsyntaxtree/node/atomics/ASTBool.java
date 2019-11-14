@@ -80,9 +80,9 @@ public class ASTBool implements ASTNode {
 	 * @param codeInstructions the List of the Code Instructions to be compiled
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructions) {
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
 		int heapStackFrameJVMBooleanRepresentation = this.boolASTNodeValue.getValue() ? 1 : 0;
 		
-		codeBlockInstructions.addCodeInstruction("sipush " + String.valueOf(heapStackFrameJVMBooleanRepresentation));
+		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(heapStackFrameJVMBooleanRepresentation));
 	}
 }

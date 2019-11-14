@@ -81,7 +81,7 @@ public class ASTNum implements ASTNode {
 	 * @param codeInstructions the List of the Code Instructions to be compiled
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructions) {
-		codeBlockInstructions.addCodeInstruction("sipush " + String.valueOf(this.numASTNodeValue));
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
+		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(this.numASTNodeValue));
 	}
 }

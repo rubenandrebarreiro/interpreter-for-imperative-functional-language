@@ -60,9 +60,9 @@ public class ASTAnd implements ASTNode {
 	 * 
 	 * @param rightASTNodeDescendant the right side Descendant of the A.S.T. Node
 	 */
-	public ASTAnd(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
-		this.leftASTNodeDescendant = leftASTNodeDescedant;
-		this.rightASTNodeDescendant = rightASTNodeDescedant;
+	public ASTAnd(ASTNode leftASTNodeDescendant, ASTNode rightASTNodeDescendant) {
+		this.leftASTNodeDescendant = leftASTNodeDescendant;
+		this.rightASTNodeDescendant = rightASTNodeDescendant;
 	}
 	
 	// Methods:
