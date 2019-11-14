@@ -25,7 +25,7 @@ public class InterpreterParser {
     		try {
     			exp = interpreterParser.Start();
     			Compiler compiler = new Compiler( exp );
-    			compiler.generateClassJavaByteCode("Main.j");
+    			compiler.generateJavaByteCodeJVMInstructions("Main.j");
     			System.out.println( exp.eval(env) );
     			// TODO inicializar classe de compilador
     			// ClassCompiler 
@@ -145,7 +145,7 @@ ASTNode Let() :
 	  < IN >
 	  expressionNode = Exp()
 	  < END >
-	  { letNode = new ASTLet(associations, expressionNode); }	)
+	  { letNode = new ASTLet(expressionNode, associations); }	)
 	{ return letNode; }
 }
 
