@@ -63,5 +63,4 @@ public class VFloat implements IValue<Float> {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

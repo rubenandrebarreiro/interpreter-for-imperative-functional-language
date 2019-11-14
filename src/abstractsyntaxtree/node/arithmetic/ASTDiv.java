@@ -34,6 +34,7 @@ import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 public class ASTDiv implements ASTNode {
 
 	// Global Variables:
+	
 	/**
 	 * The left A.S.T. Node descendant
 	 */
@@ -46,6 +47,7 @@ public class ASTDiv implements ASTNode {
 	
 	
 	// Constructors:
+	
 	/**
 	 * Constructor #1:
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
@@ -60,18 +62,19 @@ public class ASTDiv implements ASTNode {
 	
 	
 	// Methods:
+	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope), where the current A.S.T. Node it's inside, performing its division.
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its division.
 	 * 
-	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
+	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside, performing its division       
+	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its division
 	 *  
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames)
+	 * 		   Environment's ancestor on the Heap Stack of Environments (Scopes/Frames)
 	 */
 	@Override
 	public int eval(Environment environment) throws ASTInvalidIdentifierException {
@@ -79,7 +82,7 @@ public class ASTDiv implements ASTNode {
 		int rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
 		// Returns the Division of the A.S.T. Nodes Descendants
-		return leftASTNodeDescendantValue / rightASTNodeDescedantValue;
+		return ( leftASTNodeDescendantValue / rightASTNodeDescedantValue );
 	}
 	
 	/**
@@ -96,7 +99,7 @@ public class ASTDiv implements ASTNode {
 	 * 
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 		   Environment's ancestor on the Heap Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
