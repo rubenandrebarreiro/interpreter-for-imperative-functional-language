@@ -1,4 +1,4 @@
-package abstractsyntaxtree.node.relationals;
+package abstractsyntaxtree.node.logics;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -26,7 +26,7 @@ import values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
- * performing the Conjunction of its descendants.
+ * performing the Negation of its descendant.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -34,19 +34,14 @@ import values.exceptions.TypeErrorException;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTAnd implements ASTNode {
+public class ASTNot implements ASTNode {
 	
 	// Global Instance Variables:
 	
 	/**
-	 * The left A.S.T. Node descendant
+	 * The A.S.T. Node descendant
 	 */
-	private ASTNode leftASTNodeDescendant;
-	
-	/**
-	 * The right A.S.T. Node descendant
-	 */
-	private ASTNode rightASTNodeDescendant;
+	private ASTNode astNodeDescendant;
 	
 	
 	// Constructors:
@@ -54,15 +49,13 @@ public class ASTAnd implements ASTNode {
 	/**
 	 * Constructor #1:
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.),
-	 *   representing an AND operation.
+	 *   representing a NOT operation.
 	 * 
-	 * @param leftASTNodeDescendant the left side Descendant of the A.S.T. Node
+	 * @param astNodeDescedant the left side Descendant of the A.S.T. Node
 	 * 
-	 * @param rightASTNodeDescendant the right side Descendant of the A.S.T. Node
 	 */
-	public ASTAnd(ASTNode leftASTNodeDescendant, ASTNode rightASTNodeDescendant) {
-		this.leftASTNodeDescendant = leftASTNodeDescendant;
-		this.rightASTNodeDescendant = rightASTNodeDescendant;
+	public ASTNot(ASTNode astNodeDescendant) {
+		this.astNodeDescendant = astNodeDescendant;
 	}
 	
 	// Methods:
@@ -70,13 +63,13 @@ public class ASTAnd implements ASTNode {
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 * performing its conjunction.
+	 * performing its exclusive disjunction.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 *         performing its conjunction
+	 *         performing its exclusive disjunction
 	 *  
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
@@ -88,15 +81,14 @@ public class ASTAnd implements ASTNode {
 	 */
 	@Override
 	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
-		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
-		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
+		IValue<?> astNodeDescendantValue = astNodeDescendant.eval(environment);
 		
-		if(leftASTNodeDescendantValue instanceof VBool && rightASTNodeDescedantValue instanceof VBool) {
+		if(astNodeDescendantValue instanceof VBool) {
 
-			// Returns the Conjunction of the A.S.T. Nodes Descendants
-			return new VBool( ((VBool) leftASTNodeDescendantValue).getValue() && ((VBool) rightASTNodeDescedantValue).getValue());
+			// Returns the Exclusive Disjunction of the A.S.T. Nodes Descendants
+			return new VBool( ((VBool) astNodeDescendantValue).getValue() ^ true);
 		}
-		throw new TypeErrorException("Illegal arguments to and (conjunction) operator!!!");
+		throw new TypeErrorException("Illegal arguments to xor (exclusive disjunction) operator!!!");
 	}
 
 	@Override
@@ -104,16 +96,18 @@ public class ASTAnd implements ASTNode {
 						CodeBlockInstructionsSet codeBlockInstructionsSet)
 										throws ASTInvalidIdentifierException {
 		
-		// To Perform the Conjunction of the 2 A.S.T. Nodes,
+		// To Perform the Exclusive Disjunction of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants
 		// and push their evaluation to the Execution Stack
-		this.leftASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
-		this.rightASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
+		this.astNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		// Push the Code Instruction of Conjunction (iand) to the Execution Stack,
-		// in order to perform the Conjunction of the 2 A.S.T. Nodes
-		String instructionConjunction = String.format("iand");
-		codeBlockInstructionsSet.addCodeInstruction(instructionConjunction);
+		// Push the Code Instruction of Atomic Number 1 to the Execution Stack,
+		// in order to perform the Negation of the A.S.T. Node
+		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(1));
 		
+		// Push the Code Instruction of Exclusive Disjunction (ixor) to the Execution Stack,
+		// in order to perform the Negation of the A.S.T. Node
+		String instructionExclusiveDisjunction = String.format("ixor");
+		codeBlockInstructionsSet.addCodeInstruction(instructionExclusiveDisjunction);	
 	}
 }

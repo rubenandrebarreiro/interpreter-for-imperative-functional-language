@@ -1,4 +1,4 @@
-package abstractsyntaxtree.node.relationals;
+package abstractsyntaxtree.node.logics;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -26,7 +26,7 @@ import values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
- * performing the Negation of its descendant.
+ * performing the Exclusive Disjunction of its descendants.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -34,14 +34,19 @@ import values.exceptions.TypeErrorException;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTNot implements ASTNode {
+public class ASTXor implements ASTNode {
 	
 	// Global Instance Variables:
 	
 	/**
-	 * The A.S.T. Node descendant
+	 * The left A.S.T. Node descendant
 	 */
-	private ASTNode astNodeDescendant;
+	private ASTNode leftASTNodeDescendant;
+	
+	/**
+	 * The right A.S.T. Node descendant
+	 */
+	private ASTNode rightASTNodeDescendant;
 	
 	
 	// Constructors:
@@ -49,13 +54,15 @@ public class ASTNot implements ASTNode {
 	/**
 	 * Constructor #1:
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.),
-	 *   representing a NOT operation.
+	 *   representing an AND operation.
 	 * 
-	 * @param astNodeDescedant the left side Descendant of the A.S.T. Node
+	 * @param leftASTNodeDescendant the left side Descendant of the A.S.T. Node
 	 * 
+	 * @param rightASTNodeDescendant the right side Descendant of the A.S.T. Node
 	 */
-	public ASTNot(ASTNode astNodeDescendant) {
-		this.astNodeDescendant = astNodeDescendant;
+	public ASTXor(ASTNode leftASTNodeDescendant, ASTNode rightASTNodeDescendant) {
+		this.leftASTNodeDescendant = leftASTNodeDescendant;
+		this.rightASTNodeDescendant = rightASTNodeDescendant;
 	}
 	
 	// Methods:
@@ -81,12 +88,13 @@ public class ASTNot implements ASTNode {
 	 */
 	@Override
 	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
-		IValue<?> astNodeDescendantValue = astNodeDescendant.eval(environment);
+		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
+		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
-		if(astNodeDescendantValue instanceof VBool) {
+		if(leftASTNodeDescendantValue instanceof VBool && rightASTNodeDescedantValue instanceof VBool) {
 
 			// Returns the Exclusive Disjunction of the A.S.T. Nodes Descendants
-			return new VBool( ((VBool) astNodeDescendantValue).getValue() ^ true);
+			return new VBool( ((VBool) leftASTNodeDescendantValue).getValue() ^ ((VBool) rightASTNodeDescedantValue).getValue());
 		}
 		throw new TypeErrorException("Illegal arguments to xor (exclusive disjunction) operator!!!");
 	}
@@ -99,14 +107,11 @@ public class ASTNot implements ASTNode {
 		// To Perform the Exclusive Disjunction of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants
 		// and push their evaluation to the Execution Stack
-		this.astNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
-		
-		// Push the Code Instruction of Atomic Number 1 to the Execution Stack,
-		// in order to perform the Negation of the A.S.T. Node
-		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(1));
+		this.leftASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
+		this.rightASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		
 		// Push the Code Instruction of Exclusive Disjunction (ixor) to the Execution Stack,
-		// in order to perform the Negation of the A.S.T. Node
+		// in order to perform the Exclusive Disjunction of the 2 A.S.T. Nodes
 		String instructionExclusiveDisjunction = String.format("ixor");
 		codeBlockInstructionsSet.addCodeInstruction(instructionExclusiveDisjunction);	
 	}
