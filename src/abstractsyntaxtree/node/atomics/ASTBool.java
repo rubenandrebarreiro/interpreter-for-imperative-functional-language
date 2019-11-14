@@ -20,7 +20,7 @@ import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 import values.atomic.IValue;
-import values.atomic.VInt;
+import values.atomic.VBool;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
@@ -31,49 +31,48 @@ import values.atomic.VInt;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTNum implements ASTNode {
-
+public class ASTBool implements ASTNode {
+	
 	// Global Instance Variables:
 
 	/**
-	 * The A.S.T. Node, representing an Atomic Number
+	 * The A.S.T. Node, representing an Atomic Boolean
 	 */
-	private VInt numASTNodeValue;
-		
+	private VBool boolASTNodeValue;
 	
 	// Constructors:
-	
+
 	/**
 	 * Constructor #1:
-	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Number.
+	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Boolean.
 	 * 
-	 * @param numASTNodeValue the value of the A.S.T. Node, representing an Atomic Number
+	 * @param boolASTNodeValue the value of the A.S.T. Node, representing an Atomic Boolean
 	 */
-	public ASTNum(VInt numASTNodeValue) {
-		this.numASTNodeValue = numASTNodeValue;
+	public ASTBool(VBool boolASTNodeValue) {
+		this.boolASTNodeValue = boolASTNodeValue;
 	}
 	
 	
 	// Methods:
 
 	/**
-	 * Evaluates the current Node of an Abstract Syntax Tree, returning its Atomic Number.
+	 * Evaluates the current Node of an Abstract Syntax Tree, returning its Atomic Boolean.
 	 * 
-	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Num)
+	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Bool)
 	 */
 	@Override
-	public IValue<Integer> eval(Environment environment) {
+	public IValue<Boolean> eval(Environment environment) {
 		
-		// Returns A.S.T. Node, representing an Atomic Number
-		return this.numASTNodeValue;
+		// Returns A.S.T. Node, representing an Atomic Boolean
+		return this.boolASTNodeValue;
 	}
-
+	
 	/**
 	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
 	 * the List of the Code Instructions of the current Node of an
 	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
-	 * pushing an Atomic Number to the Evaluation Stack.
+	 * pushing an Atomic Boolean to the Evaluation Stack.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
 	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
@@ -82,6 +81,8 @@ public class ASTNum implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
-		codeBlockInstructions.addCodeInstruction("sipush " + String.valueOf(this.numASTNodeValue));
+		int heapStackFrameJVMBooleanRepresentation = this.boolASTNodeValue.getValue() ? 1 : 0;
+		
+		codeBlockInstructions.addCodeInstruction("sipush " + String.valueOf(heapStackFrameJVMBooleanRepresentation));
 	}
 }

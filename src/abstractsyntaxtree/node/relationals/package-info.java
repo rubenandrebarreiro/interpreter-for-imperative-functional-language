@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the AbstractSyntaxTree.Node.Atomic.
+ * Package for the AbstractSyntaxTree.Node.Relationals.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -22,4 +22,4 @@
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-package abstractsyntaxtree.node.relationships;
+package abstractsyntaxtree.node.relationals;
