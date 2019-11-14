@@ -60,6 +60,12 @@ public class ASTAssociation implements ASTNode {
 	
 	/**
 	 * Evaluates the expression value of the expression, from an A.S.T. Association Node.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
+	 * 
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
 	public int eval(Environment environment) throws ASTInvalidIdentifierException {
@@ -68,12 +74,26 @@ public class ASTAssociation implements ASTNode {
 		return this.nodeValue.eval(environment);
 	}
 
+
 	/**
-	 * Compiles the Java Byte Code instructions, written in J.V.M.,
-	 * of this A.S.T. Node, in order to perform an Association.  
+	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
+	 * the List of the Code Instructions of the current Node of an
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
+	 * in order to, perform Association.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
+	 * 
+	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 * 
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
+	public void compile(EnvironmentCompiler environmentCompiler,
+			            CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		// The counter of the current Field of
 		// the variables in the Scope of the Environment 

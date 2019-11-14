@@ -30,9 +30,9 @@ public class InterpreterParser {
     			// TODO inicializar classe de compilador
     			// ClassCompiler 
     		}
-    		catch (Exception e) {
-    		    e.printStackTrace();
-      			System.out.println ("Syntax Error!");
+    		catch (Exception exception) {
+    		    exception.printStackTrace();
+      			System.err.println ("Syntax Error!!!");
       			interpreterParser.ReInit(System.in);
     		}
     	}
@@ -50,7 +50,7 @@ SKIP :
 
 TOKEN :
 {
-  < LET: "Let" >
+  < LET: "Let" | "let" | "Decl" | "decl">
   |
   < IN: "in" >
   |

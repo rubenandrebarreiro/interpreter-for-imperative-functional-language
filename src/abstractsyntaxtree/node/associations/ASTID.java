@@ -20,7 +20,7 @@ import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
-import abstractsyntaxtree.scopes.structures.FieldAddress;
+import abstractsyntaxtree.scopes.heap.structures.FieldAddress;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -74,25 +74,52 @@ public class ASTID implements ASTNode {
 	}
 
 
+	/**
+	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
+	 * the List of the Code Instructions of the current Node of an
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
+	 * in order to, perform Identification.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
+	 * 
+	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 * 
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
-		FieldAddress value = null;
-		EnvironmentCompiler tempEnv = environmentCompiler;
+	public void compile(EnvironmentCompiler environmentCompiler,
+						CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
+		
+		FieldAddress valueFieldAddress = null;
+		EnvironmentCompiler currentEnvironment = environmentCompiler;
+		
+		
 		codeBlockInstructions.addCodeInstruction("aload 0");
-		try {
-			value = environmentCompiler.find(expressionID);
-			while(value == null) {
-				codeBlockInstructions.addCodeInstruction("getfield f" + tempEnv.getFrameID() + 
-						 "/sl Lf" + tempEnv.getAncestor().getFrameID() + ";");
-				tempEnv = tempEnv.getAncestor();
-				value = tempEnv.find(expressionID);
+		
+		valueFieldAddress = environmentCompiler.find(this.expressionID);
+		
+		while(valueFieldAddress == null) {
+			
+			// If it was no found the pretended value and there's no more Ancestors in
+			// the Heap Stack of Environments (Scopes/Frames)
+			if(currentEnvironment.getAncestor() == null) {
+				throw new ASTInvalidIdentifierException("Invalid Identifier!!!\n"
+						+ "It was used an free occurrence not defined at any Heap Stack Frame!!!\n\n");
 			}
-			codeBlockInstructions.addCodeInstruction("getfield f" + value.getNumberOfFrameLevel() + 
-					 "/x" + value.getOffsetField() + " I");
-		} catch (ASTInvalidIdentifierException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			codeBlockInstructions.addCodeInstruction("getfield f" + currentEnvironment.getFrameID() + 
+					 "/sl Lf" + currentEnvironment.getAncestor().getFrameID() + ";");
+			currentEnvironment = currentEnvironment.getAncestor();
+			
+			valueFieldAddress = currentEnvironment.find(expressionID);
 		}
-
+		
+		codeBlockInstructions.addCodeInstruction("getfield f" + valueFieldAddress.getHeapStackFrameLevel() + 
+				 "/x" + valueFieldAddress.getOffsetField() + " I");
+	
 	}
 }

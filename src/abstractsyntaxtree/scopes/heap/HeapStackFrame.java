@@ -1,4 +1,4 @@
-package abstractsyntaxtree.scopes.structures;
+package abstractsyntaxtree.scopes.heap;
 
 /**
  * Interpreter for Imperative/Functional Language

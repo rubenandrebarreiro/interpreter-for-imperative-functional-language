@@ -1,7 +1,22 @@
 package abstractsyntaxtree.scopes;
+
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import java.util.HashMap;
 import java.util.Map;
-
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 
 /**
@@ -13,19 +28,16 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-
-
-// TODO -  Fazer Generico com contariner <T>
 public class Environment {
 	
 	// Global Instance Variables:
 	/**
-	 * The Environment's ancestor on the Stack of Environments (Scopes)
+	 * The Environment's ancestor on the Heap Stack of Environments (Scopes/Frames)
 	 */
 	private Environment ancestorEnvironment;
 	
 	/**
-	 * The dictionary of Expressions known by the current Environment (Scope),
+	 * The dictionary of Expressions known by the current Environment (Scope/Frame),
 	 * mapping each Expression's ID to its Value 
 	 */
 	private Map<String, Integer> dictionaryOfExpressions;
@@ -127,9 +139,7 @@ public class Environment {
 	 * @throws ASTInvalidIdentifierException if ID doesn't match any known Value
 	 */
 	public int find(String expressionID) throws ASTInvalidIdentifierException {
-		Integer expressionValue = dictionaryOfExpressions.get(expressionID);
-		
-		//int[] offeset
+		Integer expressionValue = this.dictionaryOfExpressions.get(expressionID);
 		
 		// If the Value associated to the given ID, don't exist in the current Environment,
 		// And the current Environment don't have any parent, i.e., it's the initial Environment,

@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the AbstractSyntaxTree.Scopes.Heap.
+ * Package for the AbstractSyntaxTree.Scopes.Heap.Structures.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -22,4 +22,4 @@
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-package abstractsyntaxtree.scopes.heap;
+package abstractsyntaxtree.scopes.heap.structures;

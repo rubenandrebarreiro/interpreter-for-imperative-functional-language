@@ -1,9 +1,26 @@
 package values.atomic;
 
+/**
+ * Class for the VCell, implementing IValue interface.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
 public class VCell implements IValue {
 
-	IValue value;
+	/**
+	 * 
+	 */
+	private IValue value;
 	
+	/**
+	 * 
+	 * 
+	 * @param value
+	 */
 	public VCell(IValue value) {
 		this.value = value;
 	}

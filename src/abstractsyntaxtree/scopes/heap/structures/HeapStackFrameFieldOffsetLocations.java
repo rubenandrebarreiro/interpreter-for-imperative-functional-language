@@ -1,12 +1,27 @@
-package abstractsyntaxtree.scopes.structures;
+package abstractsyntaxtree.scopes.heap.structures;
+
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class HeapFieldOffsetLocations {
+public class HeapStackFrameFieldOffsetLocations {
 	private Map<String, FieldAddress> offsetLocations;
 	
-	public HeapFieldOffsetLocations() {
+	public HeapStackFrameFieldOffsetLocations() {
 		this.offsetLocations = new HashMap<String, FieldAddress>();
 	}
 	
@@ -15,7 +30,7 @@ public class HeapFieldOffsetLocations {
 		offsetLocations.put(id, new FieldAddress(frameID, fieldValue));
 	}
 	
-	public FieldAddress findOffsetLocation(String field) {
-		return this.offsetLocations.get(field);
+	public FieldAddress findOffsetLocation(String expressionID) {
+		return this.offsetLocations.get(expressionID);
 	}
 }

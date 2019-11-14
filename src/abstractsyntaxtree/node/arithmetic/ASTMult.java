@@ -1,7 +1,5 @@
 package abstractsyntaxtree.node.arithmetic;
 
-import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -17,6 +15,7 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
  * 
  */
 
+import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -34,16 +33,17 @@ import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
  */
 public class ASTMult implements ASTNode {
 
-	// Global Variables:
+	// Global Instance Variables:
+	
 	/**
 	 * The left A.S.T. Node descendant
 	 */
-	private ASTNode leftASTNodeDescedant;
+	private ASTNode leftASTNodeDescendant;
 	
 	/**
 	 * The right A.S.T. Node descendant
 	 */
-	private ASTNode rightASTNodeDescedant;
+	private ASTNode rightASTNodeDescendant;
 	
 	
 	// Constructors:
@@ -55,8 +55,8 @@ public class ASTMult implements ASTNode {
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 */
 	public ASTMult(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
-		this.leftASTNodeDescedant = leftASTNodeDescedant;
-		this.rightASTNodeDescedant = rightASTNodeDescedant;
+		this.leftASTNodeDescendant = leftASTNodeDescedant;
+		this.rightASTNodeDescendant = rightASTNodeDescedant;
 	}
 	
 	
@@ -76,25 +76,39 @@ public class ASTMult implements ASTNode {
 	 */
 	@Override
 	public int eval(Environment environment) throws ASTInvalidIdentifierException {
-		int leftASTNodeDescendantValue = leftASTNodeDescedant.eval(environment);
-		int rightASTNodeDescedantValue = rightASTNodeDescedant.eval(environment);
+		int leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
+		int rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
 		// Returns the Multiplication of the A.S.T. Nodes Descendants
 		return leftASTNodeDescendantValue * rightASTNodeDescedantValue;
 	}
 
+
 	/**
-	 * Compiles the Java Byte Code instructions, written in J.V.M.,
-	 * of this A.S.T. Node, in order to perform a Subtraction.  
+	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
+	 * the List of the Code Instructions of the current Node of an
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
+	 * in order to, perform a Multiplication in the Evaluation Stack.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
+	 * 
+	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 * 
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructionsSet) {
+	public void compile(EnvironmentCompiler environmentCompiler,
+						CodeBlockInstructions codeBlockInstructionsSet) throws ASTInvalidIdentifierException {
 		
 		// To Perform the Multiplication of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants
 		// and push their evaluation to the Execution Stack
-		this.leftASTNodeDescedant.compile(environmentCompiler, codeBlockInstructionsSet);
-		this.rightASTNodeDescedant.compile(environmentCompiler, codeBlockInstructionsSet);
+		this.leftASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
+		this.rightASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		
 		// Push the Code Instruction of Multiplication (imul) to the Execution Stack,
 		// in order to perform the Multiplication of the 2 A.S.T. Nodes

@@ -43,20 +43,24 @@ public interface ASTNode {
 	 *
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Stack of Environments (Scopes)
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames)
 	 */
 	int eval(Environment environment) throws ASTInvalidIdentifierException;
 	
 	/**
 	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope), where the current A.S.T. Node it's inside and
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
 	 * the List of the Code Instructions of the current Node of an
-	 * Abstract Syntax Tree (A.S.T.) will be kept.
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions.
 	 * 
-	 * @param environment the Environment (Scope), where the current Code Instructions of
+	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
 	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
 	 * 
 	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 * 
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
-	void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions);
+	void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException;
 }

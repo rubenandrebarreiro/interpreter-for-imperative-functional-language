@@ -104,8 +104,26 @@ public class ASTLet implements ASTNode {
 		return expressionEvaluated;
 	}
 
+
+	/**
+	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
+	 * the List of the Code Instructions of the current Node of an
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
+	 * in order to, perform the Let/Declaration.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
+	 * 
+	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 * 
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
+	public void compile(EnvironmentCompiler environmentCompiler,
+			            CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		EnvironmentCompiler newEnvironment = environmentCompiler.beginScope();
 

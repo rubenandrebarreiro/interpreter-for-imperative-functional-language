@@ -15,13 +15,28 @@ package abstractsyntaxtree.node.atomic;
  * 
  */
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
 
 /**
- * Class for the Node of an Abstract Syntax Tree, representing an atomic number.
+ * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -31,7 +46,7 @@ import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
  */
 public class ASTNum implements ASTNode {
 
-	// Global Variables:
+	// Global Instance Variables:
 	/**
 	 * The A.S.T. Node, representing an atomic number
 	 */
@@ -62,9 +77,20 @@ public class ASTNum implements ASTNode {
 	}
 
 
+	/**
+	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
+	 * the List of the Code Instructions of the current Node of an
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
+	 * pushing a Number to the Evaluation Stack.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
+	 * 
+	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
-		// TODO Auto-generated method stub
 		codeBlockInstructions.addCodeInstruction("sipush " + String.valueOf(this.numASTNodeValue));
 	}
 }

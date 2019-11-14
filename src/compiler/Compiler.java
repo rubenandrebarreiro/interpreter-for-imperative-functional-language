@@ -2,6 +2,7 @@ package compiler;
 
 import java.io.IOException;
 
+import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
@@ -12,7 +13,7 @@ public class Compiler {
 	
 	private CodeBlockInstructions codeBlockIntructions;
 	
-	public Compiler(ASTNode rootNode) {
+	public Compiler(ASTNode rootNode) throws ASTInvalidIdentifierException {
 		
 		this.environment = new EnvironmentCompiler();
 		this.codeBlockIntructions = new CodeBlockInstructions();
