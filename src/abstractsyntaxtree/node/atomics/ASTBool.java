@@ -18,7 +18,7 @@ package abstractsyntaxtree.node.atomics;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import values.atomic.IValue;
 import values.atomic.VBool;
 
@@ -80,7 +80,7 @@ public class ASTBool implements ASTNode {
 	 * @param codeInstructions the List of the Code Instructions to be compiled
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) {
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructions) {
 		int heapStackFrameJVMBooleanRepresentation = this.boolASTNodeValue.getValue() ? 1 : 0;
 		
 		codeBlockInstructions.addCodeInstruction("sipush " + String.valueOf(heapStackFrameJVMBooleanRepresentation));

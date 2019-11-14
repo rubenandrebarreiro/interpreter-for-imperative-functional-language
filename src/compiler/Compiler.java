@@ -19,7 +19,7 @@ import java.io.IOException;
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -43,7 +43,7 @@ public class Compiler {
 	/**
 	 * The Code Block Instructions.
 	 */
-	private CodeBlockInstructions codeBlockIntructions;
+	private CodeBlockInstructionsSet codeBlockIntructions;
 	
 	
 	// Constructors:
@@ -63,7 +63,7 @@ public class Compiler {
 	public Compiler(ASTNode rootNode) throws ASTInvalidIdentifierException {
 		
 		this.environment = new EnvironmentCompiler();
-		this.codeBlockIntructions = new CodeBlockInstructions();
+		this.codeBlockIntructions = new CodeBlockInstructionsSet();
 		
 		rootNode.compile(environment, codeBlockIntructions);
 	}

@@ -19,7 +19,7 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import values.atomic.IValue;
 import values.exceptions.TypeErrorException;
 
@@ -97,7 +97,7 @@ public class ASTAssociation implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-			            CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
+			            CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		// The counter of the current Field of
 		// the variables in the Scope of the Environment 

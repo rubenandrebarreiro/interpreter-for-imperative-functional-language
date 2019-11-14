@@ -18,7 +18,7 @@ package abstractsyntaxtree.node;
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import values.atomic.IValue;
 import values.exceptions.TypeErrorException;
 
@@ -70,5 +70,7 @@ public interface ASTNode {
 	 * 		   in the case of an Identifier it's completely unknown in the
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
-	void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException;
+	void compile(EnvironmentCompiler environmentCompiler,
+			     CodeBlockInstructionsSet codeBlockInstructionsSet)
+			    		 			throws ASTInvalidIdentifierException;
 }

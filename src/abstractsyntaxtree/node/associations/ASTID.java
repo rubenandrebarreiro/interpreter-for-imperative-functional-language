@@ -19,7 +19,7 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import abstractsyntaxtree.scopes.heap.structures.FieldAddress;
 import values.atomic.IValue;
 
@@ -96,7 +96,7 @@ public class ASTID implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-						CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
+						CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		FieldAddress valueFieldAddress = null;
 		EnvironmentCompiler currentEnvironment = environmentCompiler;

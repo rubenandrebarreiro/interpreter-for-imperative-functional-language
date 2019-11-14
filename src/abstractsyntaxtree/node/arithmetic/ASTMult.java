@@ -19,7 +19,7 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import values.atomic.IValue;
 import values.atomic.VInt;
 import values.exceptions.TypeErrorException;
@@ -115,7 +115,7 @@ public class ASTMult implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-						CodeBlockInstructions codeBlockInstructionsSet) throws ASTInvalidIdentifierException {
+						CodeBlockInstructionsSet codeBlockInstructionsSet) throws ASTInvalidIdentifierException {
 		
 		// To Perform the Multiplication of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants

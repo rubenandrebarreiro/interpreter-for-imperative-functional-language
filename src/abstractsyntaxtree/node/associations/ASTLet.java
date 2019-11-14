@@ -21,7 +21,7 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import values.atomic.IValue;
 import values.exceptions.TypeErrorException;
 
@@ -130,7 +130,7 @@ public class ASTLet implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-			            CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
+			            CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		EnvironmentCompiler newEnvironment = environmentCompiler.beginScope();
 
@@ -145,7 +145,7 @@ public class ASTLet implements ASTNode {
 		this.removeFrame(newEnvironment, codeBlockInstructions);
 	}
 	
-	private void createFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
+	private void createFrame(EnvironmentCompiler env, CodeBlockInstructionsSet codeInstructions) {
 		EnvironmentCompiler ancestor = env.getAncestor();
 		
 		codeInstructions.addCodeInstruction(";------------------Start new frame------------------");
@@ -167,7 +167,7 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction("\n");
 	}
 	
-	private void removeFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
+	private void removeFrame(EnvironmentCompiler env, CodeBlockInstructionsSet codeInstructions) {
 		EnvironmentCompiler ancestor = env.getAncestor();
 		codeInstructions.addCodeInstruction("\n");
 		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");
