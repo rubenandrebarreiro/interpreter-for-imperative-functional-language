@@ -19,8 +19,9 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import abstractsyntaxtree.scopes.heap.structures.FieldAddress;
+import values.atomic.IValue;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -57,16 +58,19 @@ public class ASTID implements ASTNode {
 	// Methods:
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope), where the current A.S.T. Node it's inside, performing its association.
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its association.
 	 * 
-	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
+	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside, performing its association        
-	 * @throws ASTInvalidIdentifierException 
+	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its association
+	 *      
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
-	public int eval(Environment environment) throws ASTInvalidIdentifierException {
+	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException {
 		
 		// Returns the value associated to the Expression's ID,
 		// in the current Environment (Scope)
@@ -92,7 +96,7 @@ public class ASTID implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-						CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
+						CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		FieldAddress valueFieldAddress = null;
 		EnvironmentCompiler currentEnvironment = environmentCompiler;

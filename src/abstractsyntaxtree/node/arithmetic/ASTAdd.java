@@ -19,7 +19,10 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import values.atomic.IValue;
+import values.atomic.VInt;
+import values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -47,12 +50,15 @@ public class ASTAdd implements ASTNode {
 	
 	
 	// Constructors:
+	
 	/**
 	 * Constructor #1:
-	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
+	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.),
+	 *   representing an ADD operation.
 	 * 
-	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
-	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
+	 * @param leftASTNodeDescendant the left side Descendant of the A.S.T. Node
+	 * 
+	 * @param rightASTNodeDescendant the right side Descendant of the A.S.T. Node
 	 */
 	public ASTAdd(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
 		this.leftASTNodeDescendant = leftASTNodeDescedant;
@@ -61,26 +67,37 @@ public class ASTAdd implements ASTNode {
 	
 	
 	// Methods:
+	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its addition.
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
+	 * performing its addition.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its addition
+	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
+	 *  	   performing its addition
 	 *  
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames)
+	 * 		   Environment's ancestor on the Heap Stack of Environments (Scopes/Frames)
+	 * 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of the Type of a Value it's completely unknown to
+	 * 		   the recognised and acceptable Types for Values
 	 */
 	@Override
-	public int eval(Environment environment) throws ASTInvalidIdentifierException {
-		int leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
-		int rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
+	public IValue<Integer> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
+		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
+		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
-		// Returns the Addition of the A.S.T. Nodes Descendants
-		return leftASTNodeDescendantValue + rightASTNodeDescedantValue;
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
+
+			// Returns the Addition of the A.S.T. Nodes Descendants
+			return new VInt( ((VInt) leftASTNodeDescendantValue).getValue() + ((VInt) rightASTNodeDescedantValue).getValue());
+		}
+		throw new TypeErrorException("Illegal arguments to + (add) operator!!!");
 	}
 	
 	/**
@@ -101,7 +118,8 @@ public class ASTAdd implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-						CodeBlockInstructions codeBlockInstructionsSet) throws ASTInvalidIdentifierException {
+						CodeBlockInstructionsSet codeBlockInstructionsSet)
+										throws ASTInvalidIdentifierException {
 		
 		// To Perform the Addition of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants

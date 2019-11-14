@@ -18,6 +18,7 @@ package abstractsyntaxtree.scopes;
 import java.util.HashMap;
 import java.util.Map;
 import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import values.atomic.IValue;
 
 /**
  * Class for the Environment.
@@ -40,7 +41,7 @@ public class Environment {
 	 * The dictionary of Expressions known by the current Environment (Scope/Frame),
 	 * mapping each Expression's ID to its Value 
 	 */
-	private Map<String, Integer> dictionaryOfExpressions;
+	private Map<String, IValue<?>> dictionaryOfExpressions;
 	
 	
 	// Constructors:
@@ -49,7 +50,7 @@ public class Environment {
 	 * - The Constructor of an Environment (Scope) with no ancestor on the Stack of Environments (Scopes).
 	 */
 	public Environment() {
-		this.dictionaryOfExpressions = new HashMap<String, Integer>();
+		this.dictionaryOfExpressions = new HashMap<String, IValue<?>>();
 		this.ancestorEnvironment = null;
 	}
 	
@@ -61,7 +62,7 @@ public class Environment {
 	 *                            the Environment's ancestor on the Stack of Environments (Scopes)
 	 */
 	public Environment(Environment ancestorEnvironment) {
-		this.dictionaryOfExpressions = new HashMap<String, Integer>();
+		this.dictionaryOfExpressions = new HashMap<String, IValue<?>>();
 		this.ancestorEnvironment = ancestorEnvironment;
 	}
 	
@@ -107,7 +108,7 @@ public class Environment {
 	 * 
 	 * @throws ASTInvalidIdentifierException if Expression's ID already exists in the current Environment
 	 */
-	public void addAssoc(String expressionID, int expressionValue) throws ASTInvalidIdentifierException {
+	public void addAssoc(String expressionID, IValue<?> expressionValue) throws ASTInvalidIdentifierException {
 		
 		// This will never happen, but just in case:
 		// - If the case that, in the current Environment (Scope),
@@ -138,8 +139,8 @@ public class Environment {
 	 * 
 	 * @throws ASTInvalidIdentifierException if ID doesn't match any known Value
 	 */
-	public int find(String expressionID) throws ASTInvalidIdentifierException {
-		Integer expressionValue = this.dictionaryOfExpressions.get(expressionID);
+	public IValue<?> find(String expressionID) throws ASTInvalidIdentifierException {
+		IValue<?> expressionValue = this.dictionaryOfExpressions.get(expressionID);
 		
 		// If the Value associated to the given ID, don't exist in the current Environment,
 		// And the current Environment don't have any parent, i.e., it's the initial Environment,

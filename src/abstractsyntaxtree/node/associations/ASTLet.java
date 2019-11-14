@@ -21,7 +21,9 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import values.atomic.IValue;
+import values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -55,7 +57,7 @@ public class ASTLet implements ASTNode {
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 */
-	public ASTLet(ASTNode bodyASTLetNodeDescendant, List<ASTNode> associations) {
+	public ASTLet(List<ASTNode> associations, ASTNode bodyASTLetNodeDescendant) {
 		
 		this.associations = associations;
 		
@@ -75,10 +77,12 @@ public class ASTLet implements ASTNode {
 	 * 
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Stack of Environments (Scopes) 
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes)
+	 * 
+	 * @throws TypeErrorException 
 	 */
 	@Override
-	public int eval(Environment environment) throws ASTInvalidIdentifierException {
+	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
 		
 		// Stars the Scope (Environment) of the declared expression
 		Environment newEnv = environment.beginScope();
@@ -93,9 +97,12 @@ public class ASTLet implements ASTNode {
 		catch (ASTInvalidIdentifierException astInvalidIdentifierException) {
 			astInvalidIdentifierException.printStackTrace();
 		}
+		catch (TypeErrorException typeErrorException) {
+			typeErrorException.printStackTrace();
+		}
 
 		// The evaluation of the right side Descendant
-		int expressionEvaluated = this.bodyASTLetNodeDescendant.eval(newEnv);
+		IValue<?> expressionEvaluated = this.bodyASTLetNodeDescendant.eval(newEnv);
 		
 		// Ends the Scope (Environment) of the previously declared expression
 		newEnv.endScope();
@@ -123,7 +130,7 @@ public class ASTLet implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-			            CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
+			            CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		EnvironmentCompiler newEnvironment = environmentCompiler.beginScope();
 
@@ -138,7 +145,7 @@ public class ASTLet implements ASTNode {
 		this.removeFrame(newEnvironment, codeBlockInstructions);
 	}
 	
-	private void createFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
+	private void createFrame(EnvironmentCompiler env, CodeBlockInstructionsSet codeInstructions) {
 		EnvironmentCompiler ancestor = env.getAncestor();
 		
 		codeInstructions.addCodeInstruction(";------------------Start new frame------------------");
@@ -160,7 +167,7 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction("\n");
 	}
 	
-	private void removeFrame(EnvironmentCompiler env, CodeBlockInstructions codeInstructions) {
+	private void removeFrame(EnvironmentCompiler env, CodeBlockInstructionsSet codeInstructions) {
 		EnvironmentCompiler ancestor = env.getAncestor();
 		codeInstructions.addCodeInstruction("\n");
 		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");

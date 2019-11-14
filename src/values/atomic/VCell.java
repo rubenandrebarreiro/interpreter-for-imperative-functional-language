@@ -36,7 +36,5 @@ public class VCell implements IValue {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-
 	}
-
 }

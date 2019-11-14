@@ -63,5 +63,4 @@ public class VBool implements IValue<Boolean> {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

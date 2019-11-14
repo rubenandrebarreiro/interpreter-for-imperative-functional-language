@@ -19,7 +19,9 @@ import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import abstractsyntaxtree.node.ASTNode;
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructions;
+import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import values.atomic.IValue;
+import values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -66,9 +68,11 @@ public class ASTAssociation implements ASTNode {
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 
+	 * @throws TypeErrorException 
 	 */
 	@Override
-	public int eval(Environment environment) throws ASTInvalidIdentifierException {
+	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
 		environment.addAssoc(nodeID, this.nodeValue.eval(environment));
 		
 		return this.nodeValue.eval(environment);
@@ -93,7 +97,7 @@ public class ASTAssociation implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
-			            CodeBlockInstructions codeBlockInstructions) throws ASTInvalidIdentifierException {
+			            CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		// The counter of the current Field of
 		// the variables in the Scope of the Environment 

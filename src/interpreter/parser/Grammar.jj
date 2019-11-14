@@ -4,11 +4,14 @@ package interpreter.parser;
 
 import abstractsyntaxtree.scopes.Environment;
 import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import compiler.Compiler;
 import abstractsyntaxtree.node.*;
 import abstractsyntaxtree.node.associations.*;
 import abstractsyntaxtree.node.arithmetic.*;
-import abstractsyntaxtree.node.atomic.*;
+import abstractsyntaxtree.node.atomics.*;
+import compiler.Compiler;
+import values.*;
+import values.atomic.*;
+import values.exceptions.*;
 
 import java.util.*;
 
@@ -25,10 +28,8 @@ public class InterpreterParser {
     		try {
     			exp = interpreterParser.Start();
     			Compiler compiler = new Compiler( exp );
-    			compiler.generateClassJavaByteCode("Main.j");
-    			System.out.println( exp.eval(env) );
-    			// TODO inicializar classe de compilador
-    			// ClassCompiler 
+    			compiler.generateJavaByteCodeJVMInstructions("Main.j");
+    			exp.eval(env).show();
     		}
     		catch (Exception exception) {
     		    exception.printStackTrace();
@@ -123,8 +124,8 @@ ASTNode Fact() :
 		| id = <Id> {
 		  node = new ASTID(id.image);
 		} 
-		| num = <Num> { node = new ASTNum(Integer.parseInt(num.image)); }
-		| <MINUS> { node = new ASTMult(new ASTNum(-1), node = Fact()); }
+		| num = <Num> { node = new ASTNum(new VInt(Integer.parseInt(num.image))); }
+		| <MINUS> { node = new ASTMult(new ASTNum(new VInt(-1)), node = Fact()); }
 		| <LPAR> node = Exp() <RPAR> )
    { return node; }
 }
@@ -138,8 +139,6 @@ ASTNode Let() :
 {
   
 	(
-
-//	<LET> id=<Id> {idNode = ID(id);} <EQUAL> value=<Id> <IN> expressionNode = Exp() <END>  
 	  < LET >
       associations = GetAssociation()
 	  < IN >

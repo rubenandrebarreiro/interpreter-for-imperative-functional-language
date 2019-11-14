@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CodeBlockInstructions {
+public class CodeBlockInstructionsSet {
 	
 	private FileOutputStream fileOutputStream;
 	
 	private List<String> codeBlockInstructionsSet;
 	
-	public CodeBlockInstructions() {
+	public CodeBlockInstructionsSet() {
 		this.codeBlockInstructionsSet = new ArrayList<String>();
 		addCodeInstruction("aconst_null\n" + 
 						   "astore 0\n");
