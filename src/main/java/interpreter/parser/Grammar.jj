@@ -41,7 +41,7 @@ static InterpreterParser parser = null;
     	}
 	}
 
-	public static void test(InputStream in) {
+	public static void testInterpreter(InputStream in) {
   	  	Environment env = new Environment();
   	  	if(parser == null)
     		parser = new InterpreterParser(in);
@@ -54,7 +54,23 @@ static InterpreterParser parser = null;
     	} catch (Exception e) {
 			e.printStackTrace();
     	}
+	}
 
+		public static void testCompiler(InputStream in) {
+  	  	Environment env = new Environment();
+  	  	if(parser == null)
+    		parser = new InterpreterParser(in);
+    	else
+    		ReInit(in);
+    	ASTNode exp;
+    	try {
+    	    exp = parser.Start();
+    	    Compiler compiler = new Compiler( exp );
+    		compiler.generateJavaByteCodeJVMInstructions("Main.j");
+    		exp.eval(env);
+    	} catch (Exception e) {
+			e.printStackTrace();
+    	}
 	}
 }
 
