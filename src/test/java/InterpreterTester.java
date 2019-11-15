@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,15 +16,11 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.node.ASTNode;
-import main.java.abstractsyntaxtree.scopes.Environment;
-import main.java.compiler.Compiler;
 import main.java.interpreter.parser.*;
-import main.java.values.atomic.IValue;
 import main.java.values.exceptions.TypeErrorException; 
 
 @RunWith(Parameterized.class)
-public class Tester {
+public class InterpreterTester {
 
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -36,16 +31,18 @@ public class Tester {
 	private ByteArrayInputStream input;
 
 	@Parameters
-	public static Collection<Object[]> data() {
+	public static Collection<Object[]> arithmetic() {
 		return Arrays.asList(new Object[][] {     
 			{ "2+2", "4" },
 			{ "4-2", "2" },
 			{ "-2+12", "10" },
 			{ "5*5", "25" }, 
+			{ "6/2", "3" },
 			{ "-5*2", "-10" },
 			{ "3*2/4", "0" },
 			{ "(3*2)/4", "1" },
-			{ "Let x=2 in x+2 end", "4"}
+			{ "(20+5000)*0+3-1+3*(-5*(-1))", "17"},
+			{ "(20+5000)*0+((3-1+3*(-5*(-1))))", "17"}
 		});
 	}
 
@@ -61,7 +58,7 @@ public class Tester {
 		System.setErr(originalErr);
 	}
 
-	public Tester(String input, String expected) {
+	public InterpreterTester(String input, String expected) {
 		this.input = new ByteArrayInputStream((input+"\n").getBytes());
 		this.expected = expected;
 	}
