@@ -34,7 +34,6 @@ public class Tester {
 
 	private String expected;
 	private ByteArrayInputStream input;
-	private InterpreterParser parser;
 
 	@Parameters
 	public static Collection<Object[]> data() {
