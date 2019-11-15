@@ -8,6 +8,7 @@ import main.java.abstractsyntaxtree.node.*;
 import main.java.abstractsyntaxtree.node.associations.*;
 import main.java.abstractsyntaxtree.node.arithmetic.*;
 import main.java.abstractsyntaxtree.node.atomics.*;
+import main.java.abstractsyntaxtree.node.relationals.*;
 import main.java.compiler.Compiler;
 import main.java.values.*;
 import main.java.values.atomic.*;
@@ -91,10 +92,26 @@ TOKEN :
   < IN: "in" >
   |
   < END: "end" >
-  | 
+  |
   < Id: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"] )* >
   |
   < Num: (["0"-"9"]) + >
+  |
+  < GREATER_THAN : ">">
+  |
+  < GREATER_OR_EQUAL : ">=" >
+  |
+  < LESS_THAN: "<" >
+  |
+  < LESS_OR_EQUAL: "<=" >
+  |
+  < NOT: "Not" | "not" >
+  |
+  < AND: "And" | "and" >
+  |
+  < OR: "Or" | "or" >
+  |
+  < XOR: "Xor" | "xor" >
   |
   < PLUS : "+" >
   |
@@ -139,7 +156,9 @@ ASTNode Term() :
   ASTNode node1, node2;}
 {
      node1 = Fact() ( ( operation = <TIMES> | operation = <DIV> ) node2 = Term()
-				{ if (operation.kind == TIMES)
+				{ if (operation.kind == GREATER_THAN)
+						node1 = new ASTGreaterThan(node1, node2);
+				  else if (operation.kind == TIMES)
 						node1 = new ASTMult(node1, node2);
 				  else
 				        node1 = new ASTDiv(node1, node2);	
@@ -152,7 +171,6 @@ ASTNode Term() :
 ASTNode Fact() :
 { Token id, value, bodyExpression, num ; 
   ASTNode node;
-  //ASTID id;
   }
 {
    (    node = Let()
@@ -193,4 +211,18 @@ List<ASTNode> GetAssociation():
     (      id = < Id > <EQUAL > { valueNode = Exp(); } { associations.add(new ASTAssociation(id.image, valueNode)); }
     )+
     { return associations; }
+}
+
+ASTNode GetRelational() :
+{ Token operation;
+  ASTNode node1, node2;}
+{
+     node1 = Exp() ( ( operation = <GREATER_THAN> | operation = <GREATER_OR_EQUAL> ) node2 = Exp()
+				{ if (operation.kind == GREATER_THAN)
+						node1 = new ASTGreaterThan(node1, node2);
+				  else
+				        node1 = new ASTGreaterOrEqualTo(node1, node2);	
+				}
+     		 )*
+     { return node1; } 
 }
