@@ -19,6 +19,8 @@ import java.io.*;
 /** ID lister. */
 public class InterpreterParser {
 
+static InterpreterParser parser = null;
+
 	/** Main entry point. */
   	public static void main(String args[]) {
   	  	Environment env = new Environment();
@@ -37,6 +39,22 @@ public class InterpreterParser {
       			interpreterParser.ReInit(System.in);
     		}
     	}
+	}
+
+	public static void test(InputStream in) {
+  	  	Environment env = new Environment();
+  	  	if(parser == null)
+    		parser = new InterpreterParser(in);
+    	else
+    		ReInit(in);
+    	ASTNode exp;
+    	try {
+    	    exp = parser.Start();
+    		exp.eval(env).show();
+    	} catch (Exception e) {
+			e.printStackTrace();
+    	}
+
 	}
 }
 
