@@ -1,0 +1,196 @@
+PARSER_BEGIN(InterpreterParser)
+
+package main.java.interpreter.parser;
+
+import main.java.abstractsyntaxtree.scopes.Environment;
+import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import main.java.abstractsyntaxtree.node.*;
+import main.java.abstractsyntaxtree.node.associations.*;
+import main.java.abstractsyntaxtree.node.arithmetic.*;
+import main.java.abstractsyntaxtree.node.atomics.*;
+import main.java.compiler.Compiler;
+import main.java.values.*;
+import main.java.values.atomic.*;
+import main.java.values.exceptions.*;
+
+import java.util.*;
+import java.io.*;
+
+/** ID lister. */
+public class InterpreterParser {
+
+static InterpreterParser parser = null;
+
+	/** Main entry point. */
+  	public static void main(String args[]) {
+  	  	Environment env = new Environment();
+    	InterpreterParser interpreterParser = new InterpreterParser(System.in);
+    	ASTNode exp;
+		while(true) { 
+    		try {
+    			exp = interpreterParser.Start();
+    			Compiler compiler = new Compiler( exp );
+    			compiler.generateJavaByteCodeJVMInstructions("Main.j");
+    			exp.eval(env).show();
+    		}
+    		catch (Exception exception) {
+    		    exception.printStackTrace();
+      			System.err.println ("Syntax Error!!!");
+      			interpreterParser.ReInit(System.in);
+    		}
+    	}
+	}
+
+	public static void testInterpreter(InputStream in) {
+  	  	Environment env = new Environment();
+  	  	if(parser == null)
+    		parser = new InterpreterParser(in);
+    	else
+    		ReInit(in);
+    	ASTNode exp;
+    	try {
+    	    exp = parser.Start();
+    		exp.eval(env).show();
+    	} catch (Exception e) {
+			e.printStackTrace();
+    	}
+	}
+
+		public static void testCompiler(InputStream in) {
+  	  	Environment env = new Environment();
+  	  	if(parser == null)
+    		parser = new InterpreterParser(in);
+    	else
+    		ReInit(in);
+    	ASTNode exp;
+    	try {
+    	    exp = parser.Start();
+    	    Compiler compiler = new Compiler( exp );
+    		compiler.generateJavaByteCodeJVMInstructions("Main.j");
+    		exp.eval(env);
+    	} catch (Exception e) {
+			e.printStackTrace();
+    	}
+	}
+}
+
+
+PARSER_END(InterpreterParser)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\r"
+}
+
+TOKEN :
+{
+  < LET: "Let" | "let" | "Decl" | "decl">
+  |
+  < IN: "in" >
+  |
+  < END: "end" >
+  | 
+  < Id: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"] )* >
+  |
+  < Num: (["0"-"9"]) + >
+  |
+  < PLUS : "+" >
+  |
+  < MINUS : "-">
+  |
+  < TIMES : "*">
+  |
+  < DIV : "/">
+  |
+  < LPAR : "(" >
+  |
+  < RPAR : ")" >
+  |
+  < EL: "\n" >
+  |
+  < EQUAL: "=" >
+}
+
+ASTNode Start():
+{ ASTNode t; }
+{
+   t = Exp() <EL>
+   { return t; }
+}
+
+ASTNode Exp() :
+{ Token operation;
+  ASTNode node1, node2; }
+{
+     node1 = Term() ( ( operation = <PLUS> | operation = <MINUS> ) node2 = Term() 
+                 { if (operation.kind == PLUS) 
+                         node1 = new ASTAdd(node1, node2);
+                   else
+                   		 node1 = new ASTSub(node1, node2);
+                 } 
+             ) *
+     { return node1; } 
+}
+
+ASTNode Term() :
+{ Token operation;
+  ASTNode node1, node2;}
+{
+     node1 = Fact() ( ( operation = <TIMES> | operation = <DIV> ) node2 = Term()
+				{ if (operation.kind == TIMES)
+						node1 = new ASTMult(node1, node2);
+				  else
+				        node1 = new ASTDiv(node1, node2);	
+				}
+     		 )?
+     { return node1; } 
+}
+
+
+ASTNode Fact() :
+{ Token id, value, bodyExpression, num ; 
+  ASTNode node;
+  //ASTID id;
+  }
+{
+   (    node = Let()
+		| id = <Id> {
+		  node = new ASTID(id.image);
+		} 
+		| num = <Num> { node = new ASTNum(new VInt(Integer.parseInt(num.image))); }
+		| <MINUS> { node = new ASTMult(new ASTNum(new VInt(-1)), node = Fact()); }
+		| <LPAR> node = Exp() <RPAR> )
+   { return node; }
+}
+
+ASTNode Let() :
+{
+  Token bodyExpression;
+  ASTNode expressionNode, letNode;
+  List<ASTNode> associations;
+}
+{
+  
+	(
+	  < LET >
+      associations = GetAssociation()
+	  < IN >
+	  expressionNode = Exp()
+	  < END >
+	  { letNode = new ASTLet(associations, expressionNode); }	)
+	{ return letNode; }
+}
+
+List<ASTNode> GetAssociation():
+{
+  Token id;
+  ASTNode associationsNode, idNode, valueNode;
+  List<ASTNode> associations = new ArrayList<ASTNode>();
+}
+{
+    (      id = < Id > <EQUAL > { valueNode = Exp(); } { associations.add(new ASTAssociation(id.image, valueNode)); }
+    )+
+    { return associations; }
+}
