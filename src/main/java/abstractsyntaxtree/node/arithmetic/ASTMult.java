@@ -76,7 +76,7 @@ public class ASTMult implements ASTNode {
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
 			// Returns the Multiplication of the A.S.T. Nodes Descendants
-			return new VInt( ((VInt) leftASTNodeDescendantValue).getValue() + ((VInt) rightASTNodeDescedantValue).getValue());
+			return new VInt( ((VInt) leftASTNodeDescendantValue).getValue() * ((VInt) rightASTNodeDescedantValue).getValue());
 		}
 		throw new TypeErrorException("Illegal arguments to * (multiplication) operator!!!");
 	}
