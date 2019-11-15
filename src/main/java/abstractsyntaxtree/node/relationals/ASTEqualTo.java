@@ -1,4 +1,4 @@
-package abstractsyntaxtree.node.relationals;
+package main.java.abstractsyntaxtree.node.relationals;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -15,19 +15,19 @@ package abstractsyntaxtree.node.relationals;
  * 
  */
 
-import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import abstractsyntaxtree.node.ASTNode;
-import abstractsyntaxtree.scopes.Environment;
-import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
-import values.atomic.IValue;
-import values.atomic.VBool;
-import values.atomic.VInt;
-import values.exceptions.TypeErrorException;
+import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.scopes.Environment;
+import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.values.atomic.IValue;
+import main.java.values.atomic.VBool;
+import main.java.values.atomic.VInt;
+import main.java.values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
- * performing the Greater Or Equal To Comparison to its descendants.
+ * performing the Equal To Comparison to its descendants.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -35,7 +35,7 @@ import values.exceptions.TypeErrorException;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTGreaterOrEqualTo implements ASTNode {
+public class ASTEqualTo implements ASTNode {
 
 	// Global Variables:
 	
@@ -60,23 +60,24 @@ public class ASTGreaterOrEqualTo implements ASTNode {
 	 * 
 	 * @param rightASTNodeDescedant the right side Descendant of the A.S.T. Node
 	 */
-	public ASTGreaterOrEqualTo(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
+	public ASTEqualTo(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
 		this.leftASTNodeDescendant = leftASTNodeDescedant;
 		this.rightASTNodeDescendant = rightASTNodeDescedant;
 	}
+	
 	
 	// Methods:
 	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 * performing the greater than relationship comparison.
+	 * performing the Equal To Comparison.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 *  	   performing the greater than relationship comparison
+	 *  	   performing the Equal To Comparison
 	 *  
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
@@ -95,10 +96,10 @@ public class ASTGreaterOrEqualTo implements ASTNode {
 		
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
-			// Returns the Greater Or Equal To Comparison of the A.S.T. Nodes Descendants
-			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() >= ((VInt) rightASTNodeDescedantValue).getValue());
+			// Returns the Equal To Comparison of the A.S.T. Nodes Descendants
+			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() == ((VInt) rightASTNodeDescedantValue).getValue());
 		}
-		throw new TypeErrorException("Illegal arguments to >= (greater or equal to) operator!!!");
+		throw new TypeErrorException("Illegal arguments to = (equal to) operator!!!");
 	}
 
 	/**
@@ -106,7 +107,7 @@ public class ASTGreaterOrEqualTo implements ASTNode {
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
 	 * the List of the Code Instructions of the current Node of an
 	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
-	 * in order to, perform a Greater Than Comparison, in the Evaluation Stack.
+	 * in order to, perform a Equal To Comparison, in the Evaluation Stack.
 	 * 
 	 * @param environmentCompiler the Environment (Scope/Frame),
 	 * 		  where the current Code Instructions Set of
@@ -134,10 +135,10 @@ public class ASTGreaterOrEqualTo implements ASTNode {
 		String instructionSubtraction = String.format("isub");
 		codeBlockInstructionsSet.addCodeInstruction(instructionSubtraction);
 		
-		// Push the Code Instruction of If Greater Or Equal To (ifge) to the Execution Stack,
-		// in order to perform the Greater Or Equal To Comparison between 2 A.S.T. Nodes
-		String instructionIfGreaterThan = String.format("ifge L1");
-		codeBlockInstructionsSet.addCodeInstruction(instructionIfGreaterThan);
+		// Push the Code Instruction of If Equal (ifle) to the Execution Stack,
+		// in order to perform the Equal To Comparison between 2 A.S.T. Nodes
+		String instructionIfEqual = String.format("ifeq L1");
+		codeBlockInstructionsSet.addCodeInstruction(instructionIfEqual);
 		
 		// Push the Code Instruction of Atomic Number 0 (Zero) to the Execution Stack,
 		String instructionAtomicNumberZero = "sipush " + String.valueOf(0);
@@ -145,19 +146,19 @@ public class ASTGreaterOrEqualTo implements ASTNode {
 		
 		// Push the Code Instruction of a Jump (GoTo) to a predefined label on
 		// the Execution Stack, in order to perform a branch of
-		// a Greater Or Equal To Comparison between 2 A.S.T. Nodes
+		// an Equal To Comparison between 2 A.S.T. Nodes
 		String instructionGoToL2 = String.format("goto L2");
 		codeBlockInstructionsSet.addCodeInstruction(instructionGoToL2);
 		
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an Atomic Number 0 (Zero) to the Execution Stack,
-		// in order to perform a branch of a Greater Or Equal To Comparison between 2 A.S.T. Nodes
+		// in order to perform a branch of a Equal To Comparison between 2 A.S.T. Nodes
 		String instructionL1Label = String.format("L1: sipush " + String.valueOf(1));
 		codeBlockInstructionsSet.addCodeInstruction(instructionL1Label);
 				
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an obsolete Value to the Execution Stack,
-		// in order to perform a branch of a Greater Or Equal To Comparison between 2 A.S.T. Nodes
+		// in order to perform a branch of an Equal To Comparison between 2 A.S.T. Nodes
 		String instructionL2Label = String.format("L2:");
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
 	}	

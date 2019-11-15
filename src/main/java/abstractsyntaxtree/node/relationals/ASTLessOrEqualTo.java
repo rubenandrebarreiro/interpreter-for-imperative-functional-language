@@ -1,4 +1,4 @@
-package abstractsyntaxtree.node.relationals;
+package main.java.abstractsyntaxtree.node.relationals;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -15,15 +15,15 @@ package abstractsyntaxtree.node.relationals;
  * 
  */
 
-import abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import abstractsyntaxtree.node.ASTNode;
-import abstractsyntaxtree.scopes.Environment;
-import abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
-import values.atomic.IValue;
-import values.atomic.VBool;
-import values.atomic.VInt;
-import values.exceptions.TypeErrorException;
+import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.scopes.Environment;
+import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.values.atomic.IValue;
+import main.java.values.atomic.VBool;
+import main.java.values.atomic.VInt;
+import main.java.values.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
