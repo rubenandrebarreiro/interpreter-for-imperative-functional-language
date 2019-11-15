@@ -53,12 +53,14 @@ public class ASTSub implements ASTNode {
 	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its subtraction.
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
+	 * performing its subtraction.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its subtraction
+	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
+	 *  	   performing its subtraction
 	 *  
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
@@ -88,7 +90,7 @@ public class ASTSub implements ASTNode {
 	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
 	 * in order to, perform a Subtraction in the Evaluation Stack.
 	 * 
-	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
+	 * @param environmentCompiler the Environment (Scope/Frame), where the current Code Instructions Set of
 	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
 	 * 
 	 * @param codeInstructions the List of the Code Instructions to be compiled
@@ -98,19 +100,19 @@ public class ASTSub implements ASTNode {
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environment,
+	public void compile(EnvironmentCompiler environmentCompiler,
 			            CodeBlockInstructionsSet codeBlockInstructionsSet)
 			            				throws ASTInvalidIdentifierException {
 		
 		// To Perform the Subtraction of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants
 		// and push their evaluation to the Execution Stack
-		this.leftASTNodeDescendant.compile(environment, codeBlockInstructionsSet);
-		this.rightASTNodeDescendant.compile(environment, codeBlockInstructionsSet);
+		this.leftASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
+		this.rightASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		
 		// Push the Code Instruction of Subtraction (isub) to the Execution Stack,
 		// in order to perform the Subtraction of the 2 A.S.T. Nodes
-		String instructionAddition = String.format("isub");
-		codeBlockInstructionsSet.addCodeInstruction(instructionAddition);
+		String instructionSubtraction = String.format("isub");
+		codeBlockInstructionsSet.addCodeInstruction(instructionSubtraction);
 	}
 }

@@ -41,6 +41,7 @@ public class ASTDiv implements ASTNode {
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
 	 * 
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
+	 * 
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 */
 	public ASTDiv(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
@@ -53,12 +54,14 @@ public class ASTDiv implements ASTNode {
 	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its division.
+	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
+	 * performing its division.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its division
+	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
+	 *  	   performing its division
 	 *  
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
@@ -69,7 +72,9 @@ public class ASTDiv implements ASTNode {
 	 * 		   the recognised and acceptable Types for Values
 	 */
 	@Override
-	public IValue<Integer> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<Integer> eval(Environment environment)
+						   throws ASTInvalidIdentifierException, TypeErrorException {
+		
 		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
