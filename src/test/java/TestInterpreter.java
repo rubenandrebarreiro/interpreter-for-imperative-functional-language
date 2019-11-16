@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import interpreter.parser.InterpreterParser;
-import interpreter.parser.ParseException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.interpreter.parser.*;
 import main.java.values.exceptions.TypeErrorException; 
