@@ -218,11 +218,19 @@ ASTNode GetRelational() :
 { Token operation;
   ASTNode node1, node2;}
 {
-     node1 = Exp() ( ( operation = <GREATER_THAN> | operation = <GREATER_OR_EQUAL> ) node2 = Exp()
-				{ if (operation.kind == GREATER_THAN) {
-						node1 = new ASTGreaterThan(node1, node2); }
+     node1 = Exp() ( ( operation = <GREATER_THAN> | operation = <GREATER_OR_EQUAL> |
+     				   operation = <LESS_THAN> | operation = <LESS_OR_EQUAL> |
+     				   operation = <EQUAL> ) node2 = Exp()
+				{ if (operation.kind == GREATER_THAN) 
+						node1 = new ASTGreaterThan(node1, node2);
+				  else if (operation.kind == GREATER_OR_EQUAL)
+				        node1 = new ASTGreaterOrEqualTo(node1, node2);
+				  else if (operation.kind == LESS_THAN)
+				  		node1 = new ASTLessThan(node1, node2);
+				  else if (operation.kind == LESS_OR_EQUAL)
+				  		node1 = new ASTLessOrEqualTo(node1, node2);
 				  else
-				        node1 = new ASTGreaterOrEqualTo(node1, node2);	
+				  		node1 = new ASTEqualTo(node1, node2);	
 				}
      		 )*
      { return node1; } 
