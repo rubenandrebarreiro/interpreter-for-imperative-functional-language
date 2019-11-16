@@ -4,11 +4,11 @@ pipeline {
     stage('Compile') {
       steps {
         sh 'ls -la'
-        sh 'cd src/main/java/interpreter/parser/'
+        dir(path: 'src/main/java/interpreter/parser/')
         sh 'ls -la'
         sh ' java -classpath "../../../../../javacc-6.0/bin/lib/javacc.jar" javacc Grammar.jj'
         sh 'ls -la'
-        sh 'cd ../../../../../'
+        dir(path: '$WORKSPACE')
         sh 'ls -la'
         sh 'mvn clean compile'
       }
