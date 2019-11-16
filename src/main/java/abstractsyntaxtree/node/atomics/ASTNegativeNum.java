@@ -5,10 +5,10 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
-import main.java.values.atomic.VInt;
+import main.java.values.atomic.VNegativeInt;
 
 /**
- * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
+ * Class for the Node of an Abstract Syntax Tree, representing an Atomic Negative Number.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -16,41 +16,41 @@ import main.java.values.atomic.VInt;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTNum implements ASTNode {
+public class ASTNegativeNum implements ASTNode {
 
 	// Global Instance Variables:
 
 	/**
-	 * The A.S.T. Node, representing an Atomic Number
+	 * The A.S.T. Node, representing an Atomic Negative Number
 	 */
-	private VInt numASTNodeValue;
+	private VNegativeInt negativeNumASTNodeValue;
 		
 	
 	// Constructors:
 	
 	/**
 	 * Constructor #1:
-	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Number.
+	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Negative Number;
 	 * 
-	 * @param numASTNodeValue the value of the A.S.T. Node, representing an Atomic Number
+	 * @param negativeNumASTNodeValue the value of the A.S.T. Node, representing an Atomic Negative Number
 	 */
-	public ASTNum(VInt numASTNodeValue) {
-		this.numASTNodeValue = numASTNodeValue;
+	public ASTNegativeNum(VNegativeInt negativeNumASTNodeValue) {
+		this.negativeNumASTNodeValue = negativeNumASTNodeValue;
 	}
 	
 	
 	// Methods:
 
 	/**
-	 * Evaluates the current Node of an Abstract Syntax Tree, returning its Atomic Number.
+	 * Evaluates the current Node of an Abstract Syntax Tree, returning its Atomic Negative Number.
 	 * 
-	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Number)
+	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Negative Num)
 	 */
 	@Override
 	public IValue<Integer> eval(Environment environment) {
 		
-		// Returns A.S.T. Node, representing an Atomic Number
-		return this.numASTNodeValue;
+		// Returns A.S.T. Node, representing an Atomic Negative Number
+		return this.negativeNumASTNodeValue;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class ASTNum implements ASTNode {
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
 	 * the List of the Code Instructions of the current Node of an
 	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
-	 * pushing an Atomic Number to the Evaluation Stack.
+	 * pushing an Atomic Negative Number to the Evaluation Stack.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
 	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
@@ -67,6 +67,7 @@ public class ASTNum implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
-		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(this.numASTNodeValue.getValue()));
+		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(Math.abs(this.negativeNumASTNodeValue.getValue())));
+		codeBlockInstructionsSet.addCodeInstruction("ineg");
 	}
 }

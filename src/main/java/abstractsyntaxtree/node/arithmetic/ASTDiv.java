@@ -7,6 +7,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
 import main.java.values.atomic.VInt;
+import main.java.values.atomic.VNegativeInt;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -80,9 +81,40 @@ public class ASTDiv implements ASTNode {
 		
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
-			// Returns the Division of the A.S.T. Nodes Descendants
-			return new VInt( ((VInt) leftASTNodeDescendantValue).getValue() / ((VInt) rightASTNodeDescedantValue).getValue());
+			// Returns the Division of the A.S.T. Nodes Positive Descendants
+			int divResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+				          / ((VInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VInt(divResult);
 		}
+		
+		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VInt) {
+
+			// Returns the Division of the A.S.T. Nodes Positive/Negative Descendants
+			int divResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
+					      / ((VInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VNegativeInt(Math.abs(divResult));
+		}
+		
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
+
+			// Returns the Division of the A.S.T. Nodes Positive/Negative Descendants
+			int divResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+					      / ((VNegativeInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VNegativeInt(Math.abs(divResult));
+		}
+		
+		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
+
+			// Returns the Division of the A.S.T. Nodes Negative Descendants
+			int divResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
+					      / ((VNegativeInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VInt(divResult);
+		}
+		
 		throw new TypeErrorException("Illegal arguments to / (division) operator!!!");
 	}
 	
@@ -115,7 +147,7 @@ public class ASTDiv implements ASTNode {
 		
 		// Push the Code Instruction of Division (idiv) to the Execution Stack,
 		// in order to perform the Division of the 2 A.S.T. Nodes
-		String instructionAddition = String.format("idiv");
-		codeBlockInstructionsSet.addCodeInstruction(instructionAddition);
+		String instructionDivision = String.format("idiv");
+		codeBlockInstructionsSet.addCodeInstruction(instructionDivision);
 	}
 }

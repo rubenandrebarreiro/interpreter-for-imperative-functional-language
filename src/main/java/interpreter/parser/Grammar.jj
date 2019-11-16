@@ -8,6 +8,7 @@ import main.java.abstractsyntaxtree.node.*;
 import main.java.abstractsyntaxtree.node.associations.*;
 import main.java.abstractsyntaxtree.node.arithmetic.*;
 import main.java.abstractsyntaxtree.node.atomics.*;
+import main.java.abstractsyntaxtree.node.logics.*;
 import main.java.abstractsyntaxtree.node.relationals.*;
 import main.java.compiler.Compiler;
 import main.java.values.*;
@@ -87,6 +88,8 @@ SKIP :
 
 TOKEN :
 {
+  < BOOL_VALUE: ("true" | "false") >
+  |
   < LET: "Let" | "let" | "Decl" | "decl">
   |
   < IN: "in" >
@@ -105,21 +108,21 @@ TOKEN :
   |
   < LESS_OR_EQUAL: "<=" >
   |
-  < NOT: "Not" | "not" >
+  < NOT: "Not" | "not" | "~" >
   |
-  < AND: "And" | "and" >
+  < AND: "And" | "and" | "&&" >
   |
-  < OR: "Or" | "or" >
+  < OR: "Or" | "or" | "||" >
   |
-  < XOR: "Xor" | "xor" >
+  < XOR: "Xor" | "xor" | "^" >
   |
-  < PLUS : "+" >
+  < PLUS : "+" | "plus" >
   |
-  < MINUS : "-">
+  < MINUS : "-" | "minus">
   |
-  < TIMES : "*">
+  < TIMES : "*" | "times" > 
   |
-  < DIV : "/">
+  < DIV : "/" | "div" >
   |
   < LPAR : "(" >
   |
@@ -133,7 +136,7 @@ TOKEN :
 ASTNode Start():
 { ASTNode t; }
 {
-   t = Relational() <EL>
+   t = Exp() <EL>
    { return t; }
 }
 
@@ -156,9 +159,7 @@ ASTNode Term() :
   ASTNode node1, node2;}
 {
      node1 = Fact() ( ( operation = <TIMES> | operation = <DIV> ) node2 = Term()
-				{ if (operation.kind == GREATER_THAN)
-						node1 = new ASTGreaterThan(node1, node2);
-				  else if (operation.kind == TIMES)
+				{ if (operation.kind == TIMES)
 						node1 = new ASTMult(node1, node2);
 				  else
 				        node1 = new ASTDiv(node1, node2);	
@@ -169,18 +170,37 @@ ASTNode Term() :
 
 
 ASTNode Fact() :
-{ Token id, value, bodyExpression, num ; 
+{ Token id, value, bodyExpression, num, booleanValue; 
   ASTNode node;
   }
 {
-   (    node = Let()
+   (    booleanValue = <BOOL_VALUE> { node = new ASTBool(new VBool(Boolean.parseBoolean(booleanValue.image))); } 
+        | node = Let() 
 		| id = <Id> {
 		  node = new ASTID(id.image);
-		} 
+		}
 		| num = <Num> { node = new ASTNum(new VInt(Integer.parseInt(num.image))); }
-		| <MINUS> { node = new ASTMult(new ASTNum(new VInt(-1)), node = Fact()); }
+		| <MINUS> num = <Num> { node = new ASTNegativeNum(new VNegativeInt(Integer.parseInt(num.image))); }
 		| <LPAR> node = Exp() <RPAR> )
    { return node; }
+}
+
+ASTNode Logic() :
+{ Token operation;
+  ASTNode node1, node2;}
+{
+     node1 = Fact() ( ( operation = <AND> | operation = <OR> |
+     					operation = <XOR>) node2 = Fact()
+				{ if (operation.kind == AND) 
+						node1 = new ASTAnd(node1, node2);
+				  else if (operation.kind == OR)
+				        node1 = new ASTOr(node1, node2);
+				  else
+				  		node1 = new ASTXor(node1, node2);	
+				}
+     		 )*
+     { System.out.println("AAAAA");
+     return node1; } 
 }
 
 ASTNode Let() :
@@ -192,11 +212,11 @@ ASTNode Let() :
 {
   
 	(
-	  < LET >
+	  <LET>
       associations = Association()
-	  < IN >
+	  <IN>
 	  expressionNode = Exp()
-	  < END >
+	  <END>
 	  { letNode = new ASTLet(associations, expressionNode); }	)
 	{ return letNode; }
 }
@@ -208,7 +228,7 @@ List<ASTNode> Association():
   List<ASTNode> associations = new ArrayList<ASTNode>();
 }
 {
-    (      id = < Id > <EQUAL > { valueNode = Exp(); }
+    (      id = <Id> <EQUAL> { valueNode = Exp(); }
       { associations.add(new ASTAssociation(id.image, valueNode)); }
     )+
     { return associations; }

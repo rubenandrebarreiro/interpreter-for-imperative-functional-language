@@ -7,6 +7,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
 import main.java.values.atomic.VInt;
+import main.java.values.atomic.VNegativeInt;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -79,9 +80,40 @@ public class ASTAdd implements ASTNode {
 		
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
-			// Returns the Addition of the A.S.T. Nodes Descendants
-			return new VInt( ((VInt) leftASTNodeDescendantValue).getValue() + ((VInt) rightASTNodeDescedantValue).getValue());
+			// Returns the Addition of the A.S.T. Nodes Positive Descendants
+			int addResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+				          + ((VInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VInt(addResult);
 		}
+		
+		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VInt) {
+
+			// Returns the Addition of the A.S.T. Nodes Positive/Negative Descendants
+			int addResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
+					      + ((VInt) rightASTNodeDescedantValue).getValue();
+			
+			return (addResult > 0) ? new VInt(addResult) : new VNegativeInt(Math.abs(addResult));
+		}
+		
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
+
+			// Returns the Addition of the A.S.T. Nodes Positive/Negative Descendants
+			int addResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+					      + ((VNegativeInt) rightASTNodeDescedantValue).getValue();
+			
+			return (addResult > 0) ? new VInt(addResult) : new VNegativeInt(Math.abs(addResult));
+		}
+		
+		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
+
+			// Returns the Addition of the A.S.T. Nodes Negative Descendants
+			int addResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
+					      + ((VNegativeInt) rightASTNodeDescedantValue).getValue();
+			
+			return (addResult > 0) ? new VInt(addResult) : new VNegativeInt(Math.abs(addResult));
+		}
+		
 		throw new TypeErrorException("Illegal arguments to + (add) operator!!!");
 	}
 	

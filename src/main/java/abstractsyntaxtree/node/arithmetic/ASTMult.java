@@ -7,6 +7,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
 import main.java.values.atomic.VInt;
+import main.java.values.atomic.VNegativeInt;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -75,9 +76,40 @@ public class ASTMult implements ASTNode {
 		
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
-			// Returns the Multiplication of the A.S.T. Nodes Descendants
-			return new VInt( ((VInt) leftASTNodeDescendantValue).getValue() * ((VInt) rightASTNodeDescedantValue).getValue());
+			// Returns the Multiplication of the A.S.T. Nodes Positive Descendants
+			int mulResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+				          * ((VInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VInt(mulResult);
 		}
+		
+		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VInt) {
+
+			// Returns the Multiplication of the A.S.T. Nodes Positive/Negative Descendants
+			int mulResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
+					      * ((VInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VNegativeInt(Math.abs(mulResult));
+		}
+		
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
+
+			// Returns the Multiplication of the A.S.T. Nodes Positive/Negative Descendants
+			int mulResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+					      * ((VNegativeInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VNegativeInt(Math.abs(mulResult));
+		}
+		
+		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
+
+			// Returns the Multiplication of the A.S.T. Nodes Negative Descendants
+			int mulResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
+					      * ((VNegativeInt) rightASTNodeDescedantValue).getValue();
+			
+			return new VInt(mulResult);
+		}
+		
 		throw new TypeErrorException("Illegal arguments to * (multiplication) operator!!!");
 	}
 
