@@ -133,7 +133,7 @@ TOKEN :
 ASTNode Start():
 { ASTNode t; }
 {
-   t = GetRelational() <EL>
+   t = Relational() <EL>
    { return t; }
 }
 
@@ -193,7 +193,7 @@ ASTNode Let() :
   
 	(
 	  < LET >
-      associations = GetAssociation()
+      associations = Association()
 	  < IN >
 	  expressionNode = Exp()
 	  < END >
@@ -201,7 +201,7 @@ ASTNode Let() :
 	{ return letNode; }
 }
 
-List<ASTNode> GetAssociation():
+List<ASTNode> Association():
 {
   Token id;
   ASTNode associationsNode, idNode, valueNode;
@@ -214,7 +214,7 @@ List<ASTNode> GetAssociation():
     { return associations; }
 }
 
-ASTNode GetRelational() :
+ASTNode Relational() :
 { Token operation;
   ASTNode node1, node2;}
 {
