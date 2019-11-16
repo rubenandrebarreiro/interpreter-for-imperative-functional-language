@@ -58,9 +58,11 @@ public class VBool implements IValue<Boolean> {
 		return this.value;
 	}
 	
+	/**
+	 * Prints the value of an Boolean Value representation in String.
+	 */
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(this.value);
 	}
 }

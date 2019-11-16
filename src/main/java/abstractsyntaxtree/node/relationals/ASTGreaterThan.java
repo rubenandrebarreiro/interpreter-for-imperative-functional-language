@@ -94,7 +94,7 @@ public class ASTGreaterThan implements ASTNode {
 		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
-
+			
 			// Returns the Greater Than Comparison of the A.S.T. Nodes Descendants
 			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() > ((VInt) rightASTNodeDescedantValue).getValue());
 		}

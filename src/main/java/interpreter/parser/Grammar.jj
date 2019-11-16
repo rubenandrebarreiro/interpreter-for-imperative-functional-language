@@ -68,7 +68,7 @@ static InterpreterParser parser = null;
     	    exp = parser.Start();
     	    Compiler compiler = new Compiler( exp );
     		compiler.generateJavaByteCodeJVMInstructions("Main.j");
-    		exp.eval(env);
+    		exp.eval(env).show();
     	} catch (Exception e) {
 			e.printStackTrace();
     	}
@@ -133,7 +133,7 @@ TOKEN :
 ASTNode Start():
 { ASTNode t; }
 {
-   t = Exp() <EL>
+   t = GetRelational() <EL>
    { return t; }
 }
 
@@ -208,7 +208,8 @@ List<ASTNode> GetAssociation():
   List<ASTNode> associations = new ArrayList<ASTNode>();
 }
 {
-    (      id = < Id > <EQUAL > { valueNode = Exp(); } { associations.add(new ASTAssociation(id.image, valueNode)); }
+    (      id = < Id > <EQUAL > { valueNode = Exp(); }
+      { associations.add(new ASTAssociation(id.image, valueNode)); }
     )+
     { return associations; }
 }
@@ -218,8 +219,8 @@ ASTNode GetRelational() :
   ASTNode node1, node2;}
 {
      node1 = Exp() ( ( operation = <GREATER_THAN> | operation = <GREATER_OR_EQUAL> ) node2 = Exp()
-				{ if (operation.kind == GREATER_THAN)
-						node1 = new ASTGreaterThan(node1, node2);
+				{ if (operation.kind == GREATER_THAN) {
+						node1 = new ASTGreaterThan(node1, node2); }
 				  else
 				        node1 = new ASTGreaterOrEqualTo(node1, node2);	
 				}
