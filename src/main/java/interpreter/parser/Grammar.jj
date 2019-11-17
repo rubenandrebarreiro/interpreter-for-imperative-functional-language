@@ -170,7 +170,7 @@ ASTNode Start():
   ASTNode t;
 }
 {
-	t = Fact() <EL>
+	t = Relational() <EL>
    	{
    		return t;
    	}
@@ -333,6 +333,7 @@ ASTNode Let() :
 {
   Token bodyNum_Expression;
   ASTNode Num_ExpressionNode, letNode;
+  
   List<ASTNode> associations;
 }
 {
