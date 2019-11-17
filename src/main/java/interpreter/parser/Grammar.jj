@@ -311,7 +311,6 @@ ASTNode Fact() :
      	  	node = new ASTBool(new VBool(Boolean.parseBoolean(booleanValue.image)));
      	}
         | <NOT> booleanValue = <BOOL_VALUE> {
-         	System.out.println("ENTREIIII");
 		  	node = new ASTNotBool(new VBool(Boolean.parseBoolean(booleanValue.image)));
         } 
      	| id = <ID> {
