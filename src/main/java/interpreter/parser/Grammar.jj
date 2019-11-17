@@ -122,8 +122,8 @@ TOKEN :
   | 
   < LET: "Let" | "let" | "Decl" | "decl" >
   |
-  < LET_ASSIGN: "=" >
-  |
+//  < LET_ASSIGN: "=" >
+//  |
   < IN: "In" | "in" >
   |
   < END: "End" | "end" >
@@ -140,7 +140,7 @@ TOKEN :
   |
   < LESS_OR_EQUAL: "<=" >
   |
-  < EQUAL: "==" >
+  < EQUAL: "=" >
   |
   < NOT: "Not" | "not" | "~" >
   |
@@ -358,7 +358,7 @@ List<ASTNode> Association():
   List<ASTNode> associations = new ArrayList<ASTNode>();
 }
 {
-    (      id = <ID> <LET_ASSIGN>
+    (      id = <ID> <EQUAL>
       	{
       	  valueNode = Num_Exp();
       	}
