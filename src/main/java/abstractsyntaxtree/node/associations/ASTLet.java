@@ -38,6 +38,7 @@ import main.java.values.exceptions.TypeErrorException;
 public class ASTLet implements ASTNode {
 	
 	// Global Variables:
+	
 	/**
 	 * The Identifier of A.S.T. Let Node descendant
 	 */
@@ -50,6 +51,7 @@ public class ASTLet implements ASTNode {
 	
 	
 	// Constructors:
+	
 	/**
 	 * Constructor #1:
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
@@ -66,6 +68,7 @@ public class ASTLet implements ASTNode {
 	
 	
 	// Methods:
+	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope), where the current A.S.T. Node it's inside, performing its association.

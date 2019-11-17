@@ -43,9 +43,9 @@ public class TestCompiler {
 			{ "-5*2", "-10" },
 			{ "3*2/4", "0" },
 			{ "(3*2)/4", "1" }, //Nº8
-			//Let operations
 			{ "(20+5000)*0+3-1+3*(-5*(-1))", "17"}, //Nº9
 			{ "(20+5000)*0+((3-1+3*(-5*(-1))))", "17"},
+			//Let operations
 			{ "Let x=2 in x end", "2"},
 			{ "Let x=2 in 5 end", "5"},
 			{ "Let x=2 y=5 in x*y end", "10"},
