@@ -8,7 +8,7 @@ import main.java.values.atomic.IValue;
 import main.java.values.atomic.VBool;
 
 /**
- * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
+ * Class for the Node of an Abstract Syntax Tree, representing a Negated Atomic Boolean.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -16,12 +16,12 @@ import main.java.values.atomic.VBool;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTBool implements ASTNode {
+public class ASTNotBool implements ASTNode {
 	
 	// Global Instance Variables:
 
 	/**
-	 * The value of the A.S.T. Node, representing an Atomic Boolean
+	 * The value of the A.S.T. Node, representing a Negated Atomic Boolean
 	 */
 	private VBool boolASTNodeValue;
 	
@@ -29,19 +29,19 @@ public class ASTBool implements ASTNode {
 
 	/**
 	 * Constructor #1:
-	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Boolean.
+	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent a Negated Atomic Boolean.
 	 * 
-	 * @param boolASTNodeValue the value of the A.S.T. Node, representing an Atomic Boolean
+	 * @param boolASTNodeValue the value of the A.S.T. Node, representing a Negated Atomic Boolean
 	 */
-	public ASTBool(VBool boolASTNodeValue) {
-		this.boolASTNodeValue = boolASTNodeValue;
+	public ASTNotBool(VBool boolASTNodeValue) {
+		this.boolASTNodeValue = new VBool(!boolASTNodeValue.getValue());
 	}
 	
 	
 	// Methods:
 
 	/**
-	 * Evaluates the current Node of an Abstract Syntax Tree, returning its Atomic Boolean.
+	 * Evaluates the current Node of an Abstract Syntax Tree, returning its Negated Atomic Boolean.
 	 * 
 	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Bool)
 	 */
@@ -66,8 +66,18 @@ public class ASTBool implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
-		int heapStackFrameJVMBooleanRepresentation = this.boolASTNodeValue.getValue() ? 1 : 0;
+		int heapStackFrameJVMBooleanRepresentation = !this.boolASTNodeValue.getValue() ? 1 : 0;
 		
 		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(heapStackFrameJVMBooleanRepresentation));
+
+		// Push the Code Instruction of Atomic Number 1 (One) to the Execution Stack,
+		// in order to perform the Negation of the A.S.T. Node
+		String instructionAtomicNumberOne = "sipush " + String.valueOf(1);
+		codeBlockInstructionsSet.addCodeInstruction(instructionAtomicNumberOne);
+		
+		// Push the Code Instruction of Exclusive Disjunction (ixor) to the Execution Stack,
+		// in order to perform the Negation of the A.S.T. Node
+		String instructionExclusiveDisjunction = String.format("ixor");
+		codeBlockInstructionsSet.addCodeInstruction(instructionExclusiveDisjunction);
 	}
 }

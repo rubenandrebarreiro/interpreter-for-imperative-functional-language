@@ -21,7 +21,7 @@ public class ASTNegativeNum implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The A.S.T. Node, representing an Atomic Negative Number
+	 * The VNegativeInt, representing an Atomic Negative Number
 	 */
 	private VNegativeInt negativeNumASTNodeValue;
 		
