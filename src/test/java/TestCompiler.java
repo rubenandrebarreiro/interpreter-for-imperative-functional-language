@@ -61,13 +61,15 @@ public class TestCompiler {
 			{ "Let x=2 y=3 in Let x=20 in x+y end +x end", "25" }, // #17
 			
 			// Relational operations
+			/*
 			{ "3>4", "false"}, // #18
 			{ "10>8", "true"}, // #19
 			{ "10>10", "false"}, // #20
 			{ "10>=10", "true"}, // #21
 			{ "10<10", "false"}, // #22
 			{ "10<=10", "true"}, // #23
-			{ "4>3", "true"} // #24
+			{ "4>3", "true"} // #24 
+			*/
 		});
 	}
 
