@@ -135,7 +135,7 @@ public class ASTEqualTo implements ASTNode {
 		String instructionSubtraction = String.format("isub");
 		codeBlockInstructionsSet.addCodeInstruction(instructionSubtraction);
 		
-		// Push the Code Instruction of If Equal (ifle) to the Execution Stack,
+		// Push the Code Instruction of If Equal (ifeq) to the Execution Stack,
 		// in order to perform the Equal To Comparison between 2 A.S.T. Nodes
 		String instructionIfEqual = String.format("ifeq L1");
 		codeBlockInstructionsSet.addCodeInstruction(instructionIfEqual);
