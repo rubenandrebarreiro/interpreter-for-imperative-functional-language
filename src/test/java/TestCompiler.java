@@ -92,6 +92,7 @@ public class TestCompiler {
 
 		if(expected.equals("true") || expected.equals("false"))
 			expected = translateBoolean(expected);
+		
 		assertEquals(expected, line);
 	}
 	
