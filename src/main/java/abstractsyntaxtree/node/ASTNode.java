@@ -23,8 +23,6 @@ public interface ASTNode {
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
 	 * 
-	 * @param <T>
-	 * 
 	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
@@ -38,7 +36,7 @@ public interface ASTNode {
 	 * 		   in the case of the Type of a Value it's completely unknown to
 	 * 		   the recognised and acceptable Types for Values
 	 */
-	IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException;
+	IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException;
 	
 	/**
 	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),

@@ -46,7 +46,7 @@ public class ASTBool implements ASTNode {
 	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Bool)
 	 */
 	@Override
-	public IValue<Boolean> eval(Environment environment) {
+	public IValue<?> eval(Environment<?> environment) {
 		
 		// Returns A.S.T. Node, representing an Atomic Boolean
 		return this.boolASTNodeValue;

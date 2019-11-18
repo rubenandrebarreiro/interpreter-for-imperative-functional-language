@@ -30,13 +30,13 @@ import main.java.values.atomic.IValue;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class Environment {
+public class Environment<T> {
 	
 	// Global Instance Variables:
 	/**
 	 * The Environment's ancestor on the Heap Stack of Environments (Scopes/Frames)
 	 */
-	private Environment ancestorEnvironment;
+	private Environment<T> ancestorEnvironment;
 	
 	/**
 	 * The dictionary of Expressions known by the current Environment (Scope/Frame),
@@ -62,7 +62,7 @@ public class Environment {
 	 * @param ancestorEnvironment the previous Environment (Scope), i.e.,
 	 *                            the Environment's ancestor on the Stack of Environments (Scopes)
 	 */
-	public Environment(Environment ancestorEnvironment) {
+	public Environment(Environment<T> ancestorEnvironment) {
 		this.dictionaryOfExpressions = new HashMap<String, IValue<?>>();
 		this.ancestorEnvironment = ancestorEnvironment;
 	}
@@ -74,8 +74,8 @@ public class Environment {
 	 * 
 	 * @return new Environment (Scope) with this one as its ancestor
 	 */
-	public Environment beginScope() {
-		return new Environment(this);
+	public Environment<T> beginScope() {
+		return new Environment<T>(this);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ public class Environment {
 	 * 
 	 * @return the ancestor of the currently ended Environment (Scope)
 	 */
-	public Environment endScope() {
+	public Environment<T> endScope() {
 		
 		// This only happens in the initial Environment (Scope):
 		// - It will never be called the Environment's ancestor of
@@ -109,7 +109,8 @@ public class Environment {
 	 * 
 	 * @throws ASTInvalidIdentifierException if Expression's ID already exists in the current Environment
 	 */
-	public void addAssoc(String expressionID, IValue<?> expressionValue) throws ASTInvalidIdentifierException {
+	public void addAssoc(String expressionID, IValue<?> expressionValue) 
+											  throws ASTInvalidIdentifierException {
 		
 		// This will never happen, but just in case:
 		// - If the case that, in the current Environment (Scope),

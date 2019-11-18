@@ -55,7 +55,7 @@ public class ASTID implements ASTNode {
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
-	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException {
+	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException {
 		
 		// Returns the value associated to the Expression's ID,
 		// in the current Environment (Scope)

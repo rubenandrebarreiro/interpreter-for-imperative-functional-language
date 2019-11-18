@@ -72,7 +72,7 @@ public class ASTXor implements ASTNode {
 	 * 		   the recognised and acceptable Types for Values
 	 */
 	@Override
-	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		

@@ -42,6 +42,7 @@ public class ASTSub implements ASTNode {
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
 	 * 
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
+	 * 
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 */
 	public ASTSub(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
@@ -72,7 +73,9 @@ public class ASTSub implements ASTNode {
 	 * 		   the recognised and acceptable Types for Values
 	 */
 	@Override
-	public IValue<Integer> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<Integer> eval(Environment<?> environment) 
+				throws ASTInvalidIdentifierException, TypeErrorException {
+		
 		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		

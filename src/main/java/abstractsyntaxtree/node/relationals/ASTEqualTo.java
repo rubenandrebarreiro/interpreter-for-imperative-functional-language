@@ -88,7 +88,7 @@ public class ASTEqualTo implements ASTNode {
 	 * 		   the recognised and acceptable Types for Values
 	 */
 	@Override
-	public IValue<Boolean> eval(Environment environment)
+	public IValue<Boolean> eval(Environment<?> environment)
 				throws ASTInvalidIdentifierException, TypeErrorException {
 		
 		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
