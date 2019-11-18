@@ -85,10 +85,10 @@ public class ASTLet implements ASTNode {
 	 * @throws TypeErrorException 
 	 */
 	@Override
-	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 		
 		// Stars the Scope (Environment) of the declared expression
-		Environment newEnv = environment.beginScope();
+		Environment<?> newEnv = environment.beginScope();
 		
 		try {
 			// The addition of the association between the left side Descendant

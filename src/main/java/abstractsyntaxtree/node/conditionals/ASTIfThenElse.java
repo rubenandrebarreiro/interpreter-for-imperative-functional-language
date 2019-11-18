@@ -45,13 +45,13 @@ public class ASTIfThenElse implements ASTNode {
 	private ASTNode ifASTConditionalNodeDescendant;
 
 	/**
-	 * The THEN (procedure, in the case of verification be TRUE) part/component of
+	 * The THEN part/component (procedure, in the case of verification be TRUE) of
 	 * the A.S.T. Conditional Node descendant
 	 */
 	private ASTNode thenASTConditionalNodeDescendant;
 
 	/**
-	 * The ELSE (procedure, in the case of verification be FALSE) part/component of
+	 * The ELSE part/component (procedure, in the case of verification be FALSE) of
 	 * the A.S.T. Conditional Node descendant
 	 */
 	private ASTNode elseASTConditionalNodeDescendant;
@@ -79,16 +79,19 @@ public class ASTIfThenElse implements ASTNode {
 	}
 	
 	@Override
-	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<?> eval(Environment<?> environment) 
+					throws ASTInvalidIdentifierException, TypeErrorException {
 		
-		IValue<?> ifASTConditionalNodeDescendantResult = ifASTConditionalNodeDescendant.eval(environment);
+		IValue<?> ifASTConditionalNodeDescendantResult = 
+							this.ifASTConditionalNodeDescendant.eval(environment);
 		
 		if(ifASTConditionalNodeDescendantResult instanceof VBool) {
 			
-			boolean ifComponentBooleanResult = ( (VBool) ifASTConditionalNodeDescendantResult ).getValue();
+			boolean ifComponentBooleanResult = 
+							( (VBool) ifASTConditionalNodeDescendantResult ).getValue();
 			
 			// Stars the Scope (Environment) of the declared expression
-			Environment newEnv = environment.beginScope();
+			Environment<?> newEnv = environment.beginScope();
 			
 			IValue<?> finalThenElseResultEvaluation = 
 					ifComponentBooleanResult ? 

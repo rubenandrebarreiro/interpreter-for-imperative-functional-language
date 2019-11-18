@@ -18,7 +18,7 @@ import main.java.values.exceptions.TypeErrorException;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class ASTAssociation implements ASTNode {
+public class ASTAssociation<T> implements ASTNode {
 
 	// Global Instance Variables:
 	/**
@@ -57,8 +57,8 @@ public class ASTAssociation implements ASTNode {
 	 * @throws TypeErrorException 
 	 */
 	@Override
-	public IValue<?> eval(Environment environment) throws ASTInvalidIdentifierException, TypeErrorException {
-		environment.addAssoc(nodeID, this.nodeValue.eval(environment));
+	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
+		environment.addAssoc(nodeID, ( (IValue<?>) this.nodeValue.eval(environment) ));
 		
 		return this.nodeValue.eval(environment);
 	}
