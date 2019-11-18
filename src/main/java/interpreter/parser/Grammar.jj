@@ -10,6 +10,7 @@ import main.java.abstractsyntaxtree.node.arithmetic.*;
 import main.java.abstractsyntaxtree.node.atomics.*;
 import main.java.abstractsyntaxtree.node.conditionals.*;
 import main.java.abstractsyntaxtree.node.logics.*;
+import main.java.abstractsyntaxtree.node.loops.*;
 import main.java.abstractsyntaxtree.node.relationals.*;
 import main.java.compiler.Compiler;
 import main.java.values.*;
@@ -322,7 +323,7 @@ ASTNode Fact() :
 		| <NEW_REF> node = Fact()
 		| <EXCLAMATION_DREF> node = Fact()
 	    | node = Conditional()
-	    //| node = Loop()
+	    | node = Loop()
 	)
     {
       return node;
@@ -390,5 +391,26 @@ ASTNode Conditional():
 	)
 	{
 	  return ifThenElseNode;
+	}
+}
+
+ASTNode Loop() :
+{
+  ASTNode conditionWhileNode, instructionSetWhileNode,
+          whileNode;
+}
+{
+	(
+		<WHILE>
+      	conditionWhileNode = Relational()
+	  	<DO>
+	  	instructionSetWhileNode = NumExp()
+	  	<END>
+	  	{
+	  	  whileNode = new ASTWhile(conditionWhileNode, instructionSetWhileNode);
+	  	}
+	)
+	{
+	  return whileNode;
 	}
 }
