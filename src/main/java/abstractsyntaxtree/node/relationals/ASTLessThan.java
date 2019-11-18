@@ -153,7 +153,7 @@ public class ASTLessThan implements ASTNode {
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an Atomic Number 0 (Zero) to the Execution Stack,
 		// in order to perform a branch of a Less Than Comparison between 2 A.S.T. Nodes
-		String instructionL1Label = String.format("L1: sipush " + String.valueOf(1));
+		String instructionL1Label = String.format("L1:\nsipush " + String.valueOf(1));
 		codeBlockInstructionsSet.addCodeInstruction(instructionL1Label);
 				
 		// Push the Code Instruction of a predefined label related to a
