@@ -124,8 +124,10 @@ TOKEN :
   | 
   < LET: "Let" | "let" | "Decl" | "decl" >
   |
-//  < LET_ASSIGN: "=" >
-//  |
+  < EQUAL: "==" >
+  | 
+  < LET_ASSIGN: "=" >
+  |
   < IN: "In" | "in" >
   |
   < END: "End" | "end" >
@@ -139,8 +141,6 @@ TOKEN :
   < LESS_THAN: "<" >
   |
   < LESS_OR_EQUAL: "<=" >
-  |
-  < EQUAL: "=" >
   |
   < NOT: "Not" | "not" | "~" >
   |
@@ -172,10 +172,48 @@ ASTNode Start():
   ASTNode t;
 }
 {
-	t = Relational() <EL>
+	t = BoolExp() <EL>
    	{
    		return t;
    	}
+}
+
+ASTNode BoolExp() :
+{
+  Token operation;
+  ASTNode node1, node2;
+}
+{
+     node1 = BoolTerm() (
+		( operation = <OR> | operation = <XOR> ) node2 = BoolExp()
+			{
+		  		if (operation.kind == OR) 
+                	node1 = new ASTOr(node1, node2);
+                else
+                	node1 = new ASTXor(node1, node2);
+             } 
+        )*
+     {
+     	return node1;
+     } 
+}
+
+ASTNode BoolTerm() :
+{
+  Token operation;
+  ASTNode node1, node2;
+}
+{
+     node1 = Relational() (
+	 	( operation = <AND> ) node2 = BoolTerm()
+	 		{
+        		if (operation.kind == AND)
+			 		node1 = new ASTAnd(node1, node2);	
+			 }
+     	)?
+     {
+     	return node1;
+     } 
 }
 
 ASTNode Relational() :
@@ -224,7 +262,7 @@ ASTNode NumExp() :
   ASTNode node1, node2;
 }
 {
-     node1 = NumTerm() (
+     (       node1 = NumTerm() (
      	( operation = <PLUS> | operation = <MINUS> ) node2 = NumTerm() 
      		{
 				if (operation.kind == PLUS) 
@@ -233,6 +271,7 @@ ASTNode NumExp() :
                    	node1 = new ASTSub(node1, node2);
             } 
         )*
+        )
      {
      	return node1;
      } 
@@ -255,44 +294,6 @@ ASTNode NumTerm() :
      	)?
      {
        return node1;
-     } 
-}
-
-ASTNode BoolExp() :
-{
-  Token operation;
-  ASTNode node1, node2;
-}
-{
-     node1 = BoolTerm() (
-		( operation = <OR> | operation = <XOR> ) node2 = BoolTerm()
-			{
-		  		if (operation.kind == OR) 
-                	node1 = new ASTOr(node1, node2);
-                else
-                	node1 = new ASTXor(node1, node2);
-             } 
-        )*
-     {
-     	return node1;
-     } 
-}
-
-ASTNode BoolTerm() :
-{
-  Token operation;
-  ASTNode node1, node2;
-}
-{
-     node1 = Fact() (
-	 	( operation = <AND> ) node2 = BoolTerm()
-	 		{
-        		if (operation.kind == AND)
-			 		node1 = new ASTAnd(node1, node2);	
-			 }
-     	)?
-     {
-     	return node1;
      } 
 }
 
@@ -319,7 +320,7 @@ ASTNode Fact() :
 		  	node = new ASTID(id.image);
 		} 
         | node = Let()
-		| <LPAR> node = NumExp() <RPAR>
+		| <LPAR> node = BoolExp() <RPAR>
 		| <NEW_REF> node = Fact()
 		| <EXCLAMATION_DREF> node = Fact()
 	    | node = Conditional()
@@ -359,7 +360,7 @@ List<ASTNode> Association():
   List<ASTNode> associations = new ArrayList<ASTNode>();
 }
 {
-    (      id = <ID> <EQUAL>
+    (      id = <ID> <LET_ASSIGN>
       	{
       	  valueNode = NumExp();
       	}
@@ -380,11 +381,11 @@ ASTNode Conditional():
 {
 	(
 		<IF>
-      	ifASTNode = Relational()
+      	ifASTNode = BoolExp()
 	  	<THEN>
-	  	thenASTNode = NumExp()
+	  	thenASTNode = BoolExp()
 	  	<ELSE>
-	  	elseASTNode = NumExp()
+	  	elseASTNode = BoolExp()
 	  	{
 	  	  ifThenElseNode = new ASTIfThenElse(ifASTNode, thenASTNode, elseASTNode);
 	  	}
