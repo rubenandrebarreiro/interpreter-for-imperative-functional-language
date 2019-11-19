@@ -65,7 +65,7 @@ public class DataArguments {
 			{ "true ^ false", "true" }, // #45
 			{ "false ^ true", "true" }, // #46
 			{ "false ^ false", "false" }, // #47
-			{ "2=>2 && 5<10", "true" }, // #48
+			{ "2>=2 && 5<10", "true" }, // #48
 			{ "3>4 && 4<3", "false" }, // #49
 			{ "2==2 || 0==1", "true" }, // #50
 			{ "2==2 || 2>=2", "true" }, // #51
