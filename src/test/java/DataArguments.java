@@ -65,28 +65,28 @@ public class DataArguments {
 			{ "true ^ false", "true" }, // #45
 			{ "false ^ true", "true" }, // #46
 			{ "false ^ false", "false" }, // #47
-//			{ "2>=2 && 5<10", "true" } // #48
-//			{ "3>4 && 4<3", "false" }, // #49
-//			{ "2==2 || 0==1", "true" }, // #50
-//			{ "2==2 || 2>=2", "true" }, // #51
-//			{ "3>5 || 5<3", "false" }, // #52
-//			{ "3==0 ^ 5==5", "true" }, // #53
-//			{ "5<=2 ^ 2==3", "false" }, // #54
-//			{ "50<=100 ^ 123>=1", "false" }, // #55
-//			{ "5<10 || 2==2 && 3==57", "true" }, // #56
-//			{ "5==2 && 2>3 || 3>3", "false" }, // #57
-//			{ "3-2==5-4 ^ 10-10>5 && 5>Let x=5 in Let y=3 in x-y end end", "true" }, // #58
-//			{ "2==2 || (Let x=2 y=3 in Let z=x+y in z+x+y end end==10) && (2<3) ^ 5<=4", "true"}, // #59
-//			
-//			// Conditional operations
-//			{ "if true then true else false", "true"}, // #60
-//			{ "if false then true else false", "false"}, // #61
-//			{ "if (true && false) then 1 else 2", "2"}, // #62
-//			{ "if true && false then 1 else 2", "2"}, // #63
-//			{ "if Let x=1 y=2 z=3 in Let q=x+y+z in Let x=x in q+q end end end > 10 then true else false", "true" }, // #64
-//			{ "if true ^ true then 9001 else true || false", "true"}, // #65
-//			{ "if true ^ true then 9001 else true && false", "false"}, // #66
-//			{ "if true ^ true then 9001 else 2==2 ^ 3<=Let y=3 in y+y+3 end", "false"} // #67
+			{ "2>=2 && 5<10", "true" }, // #48
+			{ "3>4 && 4<3", "false" }, // #49
+			{ "2==2 || 0==1", "true" }, // #50
+			{ "2==2 || 2>=2", "true" }, // #51
+			{ "3>5 || 5<3", "false" }, // #52
+			{ "3==0 ^ 5==5", "true" }, // #53
+			{ "5<=2 ^ 2==3", "false" }, // #54
+			{ "50<=100 ^ 123>=1", "false" }, // #55
+			{ "5<10 || 2==2 && 3==57", "true" }, // #56
+			{ "5==2 && 2>3 || 3>3", "false" }, // #57
+			{ "3-2==5-4 ^ 10-10>5 && 5>Let x=5 in Let y=3 in x-y end end", "true" }, // #58
+			{ "2==2 || (Let x=2 y=3 in Let z=x+y in z+x+y end end==10) && (2<3) ^ 5<=4", "true"}, // #59
+			
+			// Conditional operations
+			{ "if true then true else false", "true"}, // #60
+			{ "if false then true else false", "false"}, // #61
+			{ "if (true && false) then 1 else 2", "2"}, // #62
+			{ "if true && false then 1 else 2", "2"}, // #63
+			{ "if Let x=1 y=2 z=3 in Let q=x+y+z in Let x=x in q+q end end end > 10 then true else false", "true" }, // #64
+			{ "if true ^ true then 9001 else true || false", "true"}, // #65
+			{ "if true ^ true then 9001 else true && false", "false"}, // #66
+			{ "if true ^ true then 9001 else 2==2 ^ 3<=Let y=3 in y+y+3 end", "false"} // #67
 
 		});
 	}
