@@ -403,9 +403,9 @@ ASTNode Loop() :
 {
 	(
 		<WHILE>
-      	conditionWhileNode = Relational()
+      	conditionWhileNode = BoolExp()
 	  	<DO>
-	  	instructionSetWhileNode = NumExp()
+	  	instructionSetWhileNode = BoolExp() //ASTSeq()
 	  	<END>
 	  	{
 	  	  whileNode = new ASTWhile(conditionWhileNode, instructionSetWhileNode);
