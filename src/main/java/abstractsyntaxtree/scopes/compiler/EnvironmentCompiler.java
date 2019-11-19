@@ -57,6 +57,10 @@ public class EnvironmentCompiler {
 	 */
 	private int currentNumberOfFields;
 	
+	/**
+	 * The Current number used for labels Lx
+	 */
+	private int currentLabelNumber;
 	
 	// Constructors:
 	/**
@@ -71,6 +75,7 @@ public class EnvironmentCompiler {
 		
 		this.maxNumberOfFields = 10;
 		this.currentNumberOfFields = 0;
+		this.currentLabelNumber = 0;
 		
 		// Uncomment to debugging, if you want
 		//System.out.println();
@@ -88,6 +93,7 @@ public class EnvironmentCompiler {
 		
 		this.maxNumberOfFields = maxNumberOfFields;
 		this.currentNumberOfFields = 0;
+		this.currentLabelNumber = 0;
 
 		// Uncomment to debugging, if you want
 		//System.out.println();
@@ -124,6 +130,10 @@ public class EnvironmentCompiler {
 	
 	public void addAssoc(String id) {
 		this.heapStackFrameOffsetLocations.addAssoc(id, this.frameID, this.currentNumberOfFields++);
+	}
+	
+	public int getCurrentLabelNumber() {
+		return currentLabelNumber++;
 	}
 	
 	/**

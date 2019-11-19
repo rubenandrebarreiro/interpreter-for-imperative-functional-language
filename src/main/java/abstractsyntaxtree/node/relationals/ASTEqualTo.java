@@ -130,6 +130,9 @@ public class ASTEqualTo implements ASTNode {
 		this.leftASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		this.rightASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		
+		int label1 = environmentCompiler.getCurrentLabelNumber();
+		int label2 = environmentCompiler.getCurrentLabelNumber();
+		
 		// Push the Code Instruction of Subtraction (isub) to the Execution Stack,
 		// in order to perform the Subtraction of the 2 A.S.T. Nodes
 		String instructionSubtraction = String.format("isub");
@@ -137,29 +140,29 @@ public class ASTEqualTo implements ASTNode {
 		
 		// Push the Code Instruction of If Equal (ifeq) to the Execution Stack,
 		// in order to perform the Equal To Comparison between 2 A.S.T. Nodes
-		String instructionIfEqual = String.format("ifeq L1");
+		String instructionIfEqual = String.format("ifeq L%d", label1);
 		codeBlockInstructionsSet.addCodeInstruction(instructionIfEqual);
 		
 		// Push the Code Instruction of Atomic Number 0 (Zero) to the Execution Stack,
-		String instructionAtomicNumberZero = "sipush " + String.valueOf(0);
+		String instructionAtomicNumberZero = String.format("sipush %s", String.valueOf(0));
 		codeBlockInstructionsSet.addCodeInstruction(instructionAtomicNumberZero);
 		
 		// Push the Code Instruction of a Jump (GoTo) to a predefined label on
 		// the Execution Stack, in order to perform a branch of
 		// an Equal To Comparison between 2 A.S.T. Nodes
-		String instructionGoToL2 = String.format("goto L2");
+		String instructionGoToL2 = String.format("goto L%d", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionGoToL2);
 		
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an Atomic Number 0 (Zero) to the Execution Stack,
 		// in order to perform a branch of a Equal To Comparison between 2 A.S.T. Nodes
-		String instructionL1Label = String.format("L1:\nsipush " + String.valueOf(1));
+		String instructionL1Label = String.format("L%d:\nsipush %s", label1, String.valueOf(1));
 		codeBlockInstructionsSet.addCodeInstruction(instructionL1Label);
 				
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an obsolete Value to the Execution Stack,
 		// in order to perform a branch of an Equal To Comparison between 2 A.S.T. Nodes
-		String instructionL2Label = String.format("L2:");
+		String instructionL2Label = String.format("L%d:", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
 	}	
 }
