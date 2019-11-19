@@ -112,6 +112,9 @@ public class ASTIfThenElse implements ASTNode {
 						CodeBlockInstructionsSet codeBlockInstructionsSet)
 								throws ASTInvalidIdentifierException {
 		
+		int label1 = environmentCompiler.getCurrentLabelNumber();
+		int label2 = environmentCompiler.getCurrentLabelNumber();
+		
 		// To Perform the Conditional of A.S.T. Node,
 		// it's necessary to evaluate the IF part/component
 		// and push their evaluation to the Execution Stack
@@ -123,12 +126,12 @@ public class ASTIfThenElse implements ASTNode {
 		// the evaluation of the IF part/component and the value 0
 		// and if the verification holds TRUE, then perform a Jump (GoTo)
 		// to the label related with the ELSE part/component
-		String instructionIfEqual = String.format("ifeq L1");
+		String instructionIfEqual = String.format("ifeq L%d", label1);
 		codeBlockInstructionsSet.addCodeInstruction(instructionIfEqual);
 		
 		// To Perform the procedure related to
 		// the true evaluation of the IF part/component of A.S.T. Node,
-		// it's necessary to evaluate the the THEN part/component
+		// it's necessary to evaluate the THEN part/component
 		// and push their evaluation to the Execution Stack
 		this.thenASTConditionalNodeDescendant
 			.compile(environmentCompiler, codeBlockInstructionsSet);
@@ -136,24 +139,25 @@ public class ASTIfThenElse implements ASTNode {
 		// Push the Code Instruction of a Jump (GoTo) to 
 		// a predefined "obsolete" label on the Execution Stack,
 		// because the procedure of THEN branch was already performed
-		String instructionGoToL2 = String.format("goto L2");
+		String instructionGoToL2 = String.format("goto L%d", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionGoToL2);
+		
+		// Push the Code Instruction of a predefined label related to a
+		// branch representing the result of a numeric of boolean operation
+		String instructionL1Label = String.format("L%d:", label1);
+		codeBlockInstructionsSet.addCodeInstruction(instructionL1Label);
 		
 		// Push the Code Instruction of a predefined label associated to the procedure
 		// related to the true evaluation of the IF part/component of A.S.T. Node,
-		// it's necessary to evaluate the the ELSE part/component
+		// it's necessary to evaluate the ELSE part/component
 		// and push their evaluation to the Execution Stack
 		this.elseASTConditionalNodeDescendant
 			.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		// TODO - confirm
-		//String instructionL1Label = String.format("L1: sipush ");
-		//codeBlockInstructionsSet.addCodeInstruction(instructionL1Label);
-		
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an obsolete Value to the Execution Stack,
 		// in order to perform a branch of a Conditional of A.S.T. Node
-		String instructionL2Label = String.format("L2:");
+		String instructionL2Label = String.format("L%d:", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
 	}
 }
