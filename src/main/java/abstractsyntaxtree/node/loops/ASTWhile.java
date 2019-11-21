@@ -81,10 +81,13 @@ public class ASTWhile implements ASTNode {
 						CodeBlockInstructionsSet codeBlockInstructionsSet)
 								throws ASTInvalidIdentifierException {
 		
+		int label1 = environmentCompiler.getCurrentLabelNumber();
+		int label2 = environmentCompiler.getCurrentLabelNumber();
+		
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an obsolete Value to the Execution Stack,
 		// in order to perform a branch of a Conditional of A.S.T. Node
-		String instructionL1Label = String.format("L1:");
+		String instructionL1Label = String.format("L%d:", label1);
 		codeBlockInstructionsSet.addCodeInstruction(instructionL1Label);
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	
 		this.conditionASTWhileNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
@@ -94,7 +97,7 @@ public class ASTWhile implements ASTNode {
 		// the evaluation of the IF part/component and the value 0
 		// and if the verification holds TRUE, then perform a Jump (GoTo)
 		// to the label related with the ELSE part/component
-		String instructionIfEqual = String.format("ifeq L2");
+		String instructionIfEqual = String.format("ifeq L%d", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionIfEqual);
 		
 		this.instructionSetASTWhileNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
@@ -102,13 +105,13 @@ public class ASTWhile implements ASTNode {
 		// Push the Code Instruction of a Jump (GoTo) to 
 		// a predefined "obsolete" label on the Execution Stack,
 		// because the procedure of THEN branch was already performed
-		String instructionGoToL2 = String.format("goto L1");
-		codeBlockInstructionsSet.addCodeInstruction(instructionGoToL2);
+		String instructionGoToL1Label = String.format("goto L%d", label1);
+		codeBlockInstructionsSet.addCodeInstruction(instructionGoToL1Label);
 	
 		// Push the Code Instruction of a predefined label related to a
 		// branch representing an obsolete Value to the Execution Stack,
 		// in order to perform a branch of a Conditional of A.S.T. Node
-		String instructionL2Label = String.format("L2:");
+		String instructionL2Label = String.format("L%d:", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
 	}
 }
