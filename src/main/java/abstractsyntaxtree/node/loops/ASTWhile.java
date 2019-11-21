@@ -2,6 +2,7 @@ package main.java.abstractsyntaxtree.node.loops;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.node.sequences.ASTSeq;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
@@ -56,18 +57,20 @@ public class ASTWhile implements ASTNode {
 			
 			boolean conditionalComponentBooleanResult = 
 							( (VBool) conditionASTWhileNodeDescendantResult ).getValue();
-			
-			// Stars the Scope (Environment) of the declared expression
-			Environment<?> newEnv = environment.beginScope();
-			
+					
 			while(conditionalComponentBooleanResult) {
-				this.instructionSetASTWhileNodeDescendant.eval(environment);
+				
+				
+				if(instructionSetASTWhileNodeDescendant instanceof ASTSeq) {
+					this.instructionSetASTWhileNodeDescendant.eval(environment);
+				}
+				else {
+					throw new TypeErrorException("Illegal arguments to while (body) set of instructions!!!");
+				}
 				
 				conditionalComponentBooleanResult = 
 							( (VBool) conditionASTWhileNodeDescendantResult ).getValue();
 			}
-			
-			newEnv.endScope();
 			
 			return conditionASTWhileNodeDescendantResult;
 		}

@@ -42,9 +42,19 @@ public class ASTSeq implements ASTNode {
 	@Override
 	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 		
-		IValue<?> a = this.leftASTNodeDescendant.eval(environment);
+		// It's necessary to evaluate the left A.S.T. Node Descendant
+		// (i.e., the head element of the Sequence),
+		// because it can have secondary effects on the the right A.S.T. Node Descendant
+		// (i.e., the tail elements of the Sequence),
+		// but it will not be used as the final result of the global evaluation
+		this.leftASTNodeDescendant.eval(environment);
 		
-		return null;
+		// The right A.S.T. Node Descendant
+		// (i.e., the tail elements of the Sequence),
+		// which will be effectively returned
+		IValue<?> rightASTNodeDescendantValue = this.rightASTNodeDescendant.eval(environment);
+		
+		return rightASTNodeDescendantValue;
 	}
 	
 	
@@ -52,8 +62,10 @@ public class ASTSeq implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
 		
-		
 		this.leftASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
+		
+		codeBlockInstructionsSet.addCodeInstruction("pop");
+		
 		this.rightASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 	}
 }

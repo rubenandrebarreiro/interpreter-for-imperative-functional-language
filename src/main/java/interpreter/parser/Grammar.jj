@@ -6,12 +6,13 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.node.*;
 import main.java.abstractsyntaxtree.node.associations.*;
-import main.java.abstractsyntaxtree.node.arithmetic.*;
+import main.java.abstractsyntaxtree.node.arithmetics.*;
 import main.java.abstractsyntaxtree.node.atomics.*;
 import main.java.abstractsyntaxtree.node.conditionals.*;
 import main.java.abstractsyntaxtree.node.logics.*;
 import main.java.abstractsyntaxtree.node.loops.*;
 import main.java.abstractsyntaxtree.node.relationals.*;
+import main.java.abstractsyntaxtree.node.sequences.*;
 import main.java.compiler.Compiler;
 import main.java.values.*;
 import main.java.values.atomic.*;
@@ -120,7 +121,9 @@ TOKEN :
   |
   < WHILE: "While" | "while" >
   |
-  < DO: "Do" | "do" >     
+  < DO: "Do" | "do" >
+  | 
+  < SEQ_DELIMETER: ";" >     
   | 
   < LET: "Let" | "let" | "Decl" | "decl" >
   |
@@ -395,6 +398,24 @@ ASTNode Conditional():
 	}
 }
 
+ASTNode Sequence():
+{
+	ASTNode headSequenceInstruction, tailSequenceInstructions, sequenceInstructions;
+}
+{
+	(
+		headSequenceInstruction = BoolExp()
+	  	<SEQ_DELIMETER>
+	  	tailSequenceInstructions = BoolExp()
+	  	{
+	  	  sequenceInstructions = new ASTSeq(headSequenceInstruction, tailSequenceInstructions);
+	  	}
+	)
+	{
+	  return sequenceInstructions;
+	}
+}
+
 ASTNode Loop() :
 {
   ASTNode conditionWhileNode, instructionSetWhileNode,
@@ -405,7 +426,7 @@ ASTNode Loop() :
 		<WHILE>
       	conditionWhileNode = BoolExp()
 	  	<DO>
-	  	instructionSetWhileNode = BoolExp() //ASTSeq()
+	  	instructionSetWhileNode = Sequence()
 	  	<END>
 	  	{
 	  	  whileNode = new ASTWhile(conditionWhileNode, instructionSetWhileNode);
