@@ -87,7 +87,7 @@ public class DataArguments {
 			{ "if true ^ true then 9001 else true || false", "true"}, // #65
 			{ "if true ^ true then 9001 else true && false", "false"}, // #66
 			{ "if true ^ true then 9001 else 2==2 ^ 3<=Let y=3 in y+y+3 end", "false"} // #67
-
+			
 		});
 	}
 }
