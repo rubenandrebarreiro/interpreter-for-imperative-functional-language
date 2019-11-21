@@ -1,4 +1,4 @@
-package main.java.abstractsyntaxtree.node.arithmetic;
+package main.java.abstractsyntaxtree.node.arithmetics;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
