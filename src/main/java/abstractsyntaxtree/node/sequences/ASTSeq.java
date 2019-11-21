@@ -23,20 +23,35 @@ public class ASTSeq implements ASTNode {
 	private ASTNode rightASTNodeDescendant;
 	
 	
+	// Constructors:
+	
+	/**
+	 * Constructor #1:
+	 * - 
+	 * 
+	 * @param leftASTNodeDescendant the A.S.T. Node associated to the head element of the Sequence
+	 * 
+	 * @param rightASTNodeDescendant the A.S.T. Node associated to the tail elements of the Sequence
+	 */
 	public ASTSeq(ASTNode leftASTNodeDescendant, ASTNode rightASTNodeDescendant) {
 		this.leftASTNodeDescendant = leftASTNodeDescendant;
 		this.rightASTNodeDescendant = rightASTNodeDescendant;
 	}
 	
+	
 	@Override
 	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
-		// TODO Auto-generated method stub
+		
+		IValue<?> a = this.leftASTNodeDescendant.eval(environment);
+		
 		return null;
 	}
-
+	
+	
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
+		
 		
 		this.leftASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
 		this.rightASTNodeDescendant.compile(environmentCompiler, codeBlockInstructionsSet);
