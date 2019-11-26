@@ -51,6 +51,7 @@ public class DataArguments {
 			{ "0==0", "true"}, // #33
 			{ "1==1", "true"},  // #34
 			{ "3==1", "false"}, // #35
+			{ "false > true", "0"},
 			
 			// Logical operations
 			{ "true && true", "true" }, // #36
