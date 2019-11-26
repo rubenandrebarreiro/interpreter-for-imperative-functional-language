@@ -245,27 +245,14 @@ ASTNode Relational() :
     } 
 }
 
-/*ASTNode GenericExp() :
-{
-  ASTNode node;
-}
-{
-  (
-  	 node = NumExp()
-     | node = BoolExp()
-  )
-  {
-  	return node;
-  } 
-}*/
-
 ASTNode NumExp() :
 {
   Token operation;
   ASTNode node1, node2;
 }
 {
-     (       node1 = NumTerm() (
+     (
+       node1 = NumTerm() (
      	( operation = <PLUS> | operation = <MINUS> ) node2 = NumTerm() 
      		{
 				if (operation.kind == PLUS) 
@@ -349,7 +336,8 @@ ASTNode Let() :
 	  	<END>
 	  	{
 	  	  letNode = new ASTLet(associations, expressionNode);
-	  	}	)
+	  	}
+	)
 	{
 	  return letNode;
 	}
@@ -363,7 +351,8 @@ List<ASTNode> Association():
   List<ASTNode> associations = new ArrayList<ASTNode>();
 }
 {
-    (      id = <ID> <LET_ASSIGN>
+    (
+      id = <ID> <LET_ASSIGN>
       	{
       	  valueNode = NumExp();
       	}
