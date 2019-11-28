@@ -8,7 +8,7 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
-import main.java.values.closure.Closure;
+import main.java.values.closure.VClosure;
 import main.java.values.exceptions.TypeErrorException;
 
 public class ASTFun implements ASTNode {
@@ -33,7 +33,7 @@ public class ASTFun implements ASTNode {
 	@Override
 	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 	
-		return new Closure(environment, this.functionArgumentsIDs, this.functionBody);
+		return new VClosure(environment, this.functionArgumentsIDs, this.functionBody);
 	
 	}
 
