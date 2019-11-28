@@ -13,19 +13,27 @@ import main.java.values.exceptions.TypeErrorException;
 
 public class ASTFun implements ASTNode {
 	
-	private List<String> arguments;
+	private List<String> functionArguments;
 	
-	private ASTNode body;
+	private ASTNode functionBody;
 	
-	public ASTFun(List<String> arguments, ASTNode body) {
-		this.arguments = arguments;
-		this.body = body;
+	public ASTFun(List<String> functionArguments, ASTNode functionBody) {
+		this.functionArguments = functionArguments;
+		this.functionBody = functionBody;
+	}
+	
+	public List<String> getArguments() {
+		return this.functionArguments;
+	}
+	
+	public ASTNode getFunctionBody() {
+		return this.functionBody;
 	}
 	
 	@Override
 	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 	
-		return new Closure(environment, this.arguments, this.body);
+		return new Closure(environment, this.functionArguments, this.functionBody);
 	
 	}
 
