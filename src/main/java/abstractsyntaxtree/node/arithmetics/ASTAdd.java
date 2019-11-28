@@ -8,6 +8,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstru
 import main.java.values.atomic.IValue;
 import main.java.values.atomic.VInt;
 import main.java.values.atomic.VNegativeInt;
+import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -72,9 +73,14 @@ public class ASTAdd implements ASTNode {
 	 * @throws TypeErrorException a Type Error Exception thrown,
 	 * 		   in the case of the Type of a Value it's completely unknown to
 	 * 		   the recognised and acceptable Types for Values
+	 * 
+	 * @throws NumberArgumentsErrorException 
 	 */
 	@Override
-	public IValue<Integer> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<Integer> eval(Environment<?> environment)
+		   throws ASTInvalidIdentifierException, TypeErrorException,
+		          NumberArgumentsErrorException {
+		
 		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		

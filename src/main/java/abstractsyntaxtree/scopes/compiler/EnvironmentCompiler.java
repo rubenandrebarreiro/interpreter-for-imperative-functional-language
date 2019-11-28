@@ -78,9 +78,9 @@ public class EnvironmentCompiler {
 		this.currentLabelNumber = 0;
 		
 		// Uncomment to debugging, if you want
-		//System.out.println();
-		//System.out.println("New root environment created!!!");
-		//System.out.println();
+		// System.out.println();
+		// System.out.println("New root environment created!!!");
+		// System.out.println();
 	}
 
 	public EnvironmentCompiler(int frameID, EnvironmentCompiler ancestorEnvironment, int maxNumberOfFields) {
@@ -96,9 +96,9 @@ public class EnvironmentCompiler {
 		this.currentLabelNumber = 0;
 
 		// Uncomment to debugging, if you want
-		//System.out.println();
-		//System.out.println(String.format("New environment created with frameID = %d!!!", this.frameID));
-		//System.out.println();
+		// System.out.println();
+		// System.out.println(String.format("New environment created with frameID = %d!!!", this.frameID));
+		// System.out.println();
 
 		try {
 			this.generateAndDumpsHeapStackFrameFile();

@@ -7,6 +7,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
 import main.java.values.atomic.VBool;
+import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -70,9 +71,11 @@ public class ASTOr implements ASTNode {
 	 * @throws TypeErrorException a Type Error Exception thrown,
 	 * 		   in the case of the Type of a Value it's completely unknown to
 	 * 		   the recognised and acceptable Types for Values
+	 * @throws NumberArgumentsErrorException 
 	 */
 	@Override
-	public IValue<Boolean> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<Boolean> eval(Environment<?> environment)
+		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue<?> rightASTNodeDescendantValue = rightASTNodeDescendant.eval(environment);

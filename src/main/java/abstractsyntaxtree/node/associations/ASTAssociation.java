@@ -6,6 +6,7 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
+import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -55,9 +56,11 @@ public class ASTAssociation<T> implements ASTNode {
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 * 
 	 * @throws TypeErrorException 
+	 * 
+	 * @throws NumberArgumentsErrorException 
 	 */
 	@Override
-	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		environment.addAssoc(nodeID, ( (IValue<?>) this.nodeValue.eval(environment) ));
 		
 		return this.nodeValue.eval(environment);

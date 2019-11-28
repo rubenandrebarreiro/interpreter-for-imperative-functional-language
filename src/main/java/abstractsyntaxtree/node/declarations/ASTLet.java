@@ -23,6 +23,7 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
+import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -83,9 +84,11 @@ public class ASTLet implements ASTNode {
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes)
 	 * 
 	 * @throws TypeErrorException 
+	 * @throws NumberArgumentsErrorException 
 	 */
 	@Override
-	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<?> eval(Environment<?> environment)
+		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		// Stars the Scope (Environment) of the declared expression
 		Environment<?> newEnv = environment.beginScope();

@@ -5,6 +5,7 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
+import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -35,8 +36,11 @@ public interface ASTNode {
 	 * @throws TypeErrorException a Type Error Exception thrown,
 	 * 		   in the case of the Type of a Value it's completely unknown to
 	 * 		   the recognised and acceptable Types for Values
+	 * 
+	 * @throws NumberArgumentsErrorException a Number of Arguments Error Exception TODO
 	 */
-	IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException;
+	IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException,
+	                                                  TypeErrorException, NumberArgumentsErrorException;
 	
 	/**
 	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),

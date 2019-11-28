@@ -9,6 +9,7 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
+import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 public class ASTCall implements ASTNode {
@@ -26,7 +27,7 @@ public class ASTCall implements ASTNode {
 	
 	@Override
 	public IValue<?> eval(Environment<?> environment)
-		   throws ASTInvalidIdentifierException, TypeErrorException {
+		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		this.astFunction.eval(environment);
 		
@@ -43,7 +44,8 @@ public class ASTCall implements ASTNode {
 		
 		if(sizeOfFunctionArgumentsIDs != sizeOfFunctionArgumentsValues) {
 			
-			// TODO - lancar excepacao
+			throw new NumberArgumentsErrorException("Illegal Number of Arguments to the Functions: "
+												  + "The number of IDs and Values must be the same!!!");
 		
 		}
 		
@@ -51,18 +53,18 @@ public class ASTCall implements ASTNode {
 		
 		for(int currentArgument = 0; currentArgument < numArguments; currentArgument++) {
 			
-			// TODO - adicionar associacoes / ir buscar IDs e Values
-			//newEnvironment.addAssoc(expressionID, expressionValue);
+			String argumentID = this.astFunction.getFunctionArgumentsIDs().get(currentArgument);
+			ASTNode argumentValue = this.functionArgumentsValues.get(currentArgument);
 			
-			
+			newEnvironment.addAssoc(argumentID, argumentValue.eval(newEnvironment));
 		}
 		
-		this.astFunction.getFunctionBody().eval(newEnvironment);
+		IValue<?> functionBodyEvaluationValue = this.astFunction.getFunctionBody().eval(newEnvironment);
 		
 		newEnvironment.endScope();
 		
 		
-		return null;
+		return functionBodyEvaluationValue;
 				
 	}
 

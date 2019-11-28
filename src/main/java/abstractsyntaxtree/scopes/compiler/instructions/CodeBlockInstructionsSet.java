@@ -5,16 +5,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.abstractsyntaxtree.scopes.heap.HeapStackFrame;
+
 public class CodeBlockInstructionsSet {
 	
 	private FileOutputStream fileOutputStream;
+
+	private List<HeapStackFrame> heapStackFramesSet;
 	
 	private List<String> codeBlockInstructionsSet;
 	
+	
 	public CodeBlockInstructionsSet() {
+		
 		this.codeBlockInstructionsSet = new ArrayList<String>();
+		this.heapStackFramesSet = new ArrayList<HeapStackFrame>();
+		
 		addCodeInstruction("aconst_null\n" + 
 						   "astore 0\n");
+	
+	}
+	
+	public void addHeapStackFrame(HeapStackFrame heapStackFrame) {
+		this.heapStackFramesSet.add(heapStackFrame);
 	}
 	
 	public void addCodeInstruction(String codeInstruction) {

@@ -23,6 +23,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomic.IValue;
 import main.java.values.atomic.VBool;
+import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 /**
@@ -80,7 +81,7 @@ public class ASTIfThenElse implements ASTNode {
 	
 	@Override
 	public IValue<?> eval(Environment<?> environment) 
-					throws ASTInvalidIdentifierException, TypeErrorException {
+					throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		IValue<?> ifASTConditionalNodeDescendantResult = 
 							this.ifASTConditionalNodeDescendant.eval(environment);
