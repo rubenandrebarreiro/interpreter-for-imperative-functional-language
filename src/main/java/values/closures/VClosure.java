@@ -10,14 +10,14 @@ import main.java.values.atomics.IValue;
 public class VClosure implements IValue<VClosure> {
 
 	// TODO generic type of Env
-	private Environment<IValue<?>> closureEnvironment;
+	private Environment<?> closureEnvironment;
 	
 	private List<String> functionArgumentsNames;
 	
 	private ASTNode functionBodyExpression;
 	
 	
-	public VClosure(Environment<IValue<?>> closureEnvironment,
+	public VClosure(Environment<?> closureEnvironment,
 			       List<String> functionArgumentsNames, ASTNode functionBodyExpression) {
 	
 		this.closureEnvironment = closureEnvironment;
@@ -26,7 +26,7 @@ public class VClosure implements IValue<VClosure> {
 		
 	}
 
-	public Environment<IValue<?>> getClosureEnvironment() {
+	public Environment<?> getClosureEnvironment() {
 		return closureEnvironment;
 	}
 
