@@ -22,10 +22,25 @@ public class ASTCall implements ASTNode {
 	@Override
 	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 		
-		return this.astFunction.eval(environment);
+		this.astFunction.eval(environment);
 		
+		Environment<?> newEnvironment = new Environment<>();
 		
+		newEnvironment.beginScope();
 		
+		for(String argument : this.astFunction.getArguments()) {
+			
+			// TODO - adicionar associacoes
+			//newEnvironment.addAssoc(expressionID, expressionValue);
+			
+		}
+		
+		this.astFunction.getFunctionBody().eval(newEnvironment);
+		
+		newEnvironment.endScope();
+		
+		return null;
+				
 	}
 
 	@Override
