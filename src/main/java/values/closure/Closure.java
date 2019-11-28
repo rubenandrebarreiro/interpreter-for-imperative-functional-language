@@ -12,16 +12,16 @@ public class Closure implements IValue {
 	// TODO generic type of Env
 	private Environment closureEnvironment;
 	
-	private List<String> functionArguments;
+	private List<String> functionArgumentsNames;
 	
 	private ASTNode functionBody;
 	
 	
 	public Closure(Environment<?> closureEnvironment,
-			       List<String> functionArguments, ASTNode functionBody) {
+			       List<String> functionArgumentsNames, ASTNode functionBody) {
 	
 		this.closureEnvironment = closureEnvironment;
-		this.functionArguments = functionArguments;
+		this.functionArgumentsNames = functionArgumentsNames;
 		this.functionBody = functionBody;
 		
 	}
