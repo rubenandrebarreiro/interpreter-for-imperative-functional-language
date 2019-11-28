@@ -13,17 +13,17 @@ import main.java.values.exceptions.TypeErrorException;
 
 public class ASTFun implements ASTNode {
 	
-	private List<String> functionArguments;
+	private List<String> functionArgumentsIDs;
 	
 	private ASTNode functionBody;
 	
-	public ASTFun(List<String> functionArguments, ASTNode functionBody) {
-		this.functionArguments = functionArguments;
+	public ASTFun(List<String> functionArgumentsIDs, ASTNode functionBody) {
+		this.functionArgumentsIDs = functionArgumentsIDs;
 		this.functionBody = functionBody;
 	}
 	
-	public List<String> getFunctionArguments() {
-		return this.functionArguments;
+	public List<String> getFunctionArgumentsIDs() {
+		return this.functionArgumentsIDs;
 	}
 	
 	public ASTNode getFunctionBody() {
@@ -33,7 +33,7 @@ public class ASTFun implements ASTNode {
 	@Override
 	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 	
-		return new Closure(environment, this.functionArguments, this.functionBody);
+		return new Closure(environment, this.functionArgumentsIDs, this.functionBody);
 	
 	}
 
