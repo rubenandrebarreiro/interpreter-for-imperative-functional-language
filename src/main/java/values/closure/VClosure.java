@@ -7,29 +7,42 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.values.atomic.IValue;
 
 
-public class VClosure implements IValue {
+public class VClosure implements IValue<VClosure> {
 
 	// TODO generic type of Env
-	private Environment closureEnvironment;
+	private Environment<IValue<?>> closureEnvironment;
 	
 	private List<String> functionArgumentsNames;
 	
-	private ASTNode functionBody;
+	private ASTNode functionBodyExpression;
 	
 	
-	public VClosure(Environment<?> closureEnvironment,
-			       List<String> functionArgumentsNames, ASTNode functionBody) {
+	public VClosure(Environment<IValue<?>> closureEnvironment,
+			       List<String> functionArgumentsNames, ASTNode functionBodyExpression) {
 	
 		this.closureEnvironment = closureEnvironment;
 		this.functionArgumentsNames = functionArgumentsNames;
-		this.functionBody = functionBody;
+		this.functionBodyExpression = functionBodyExpression;
 		
+	}
+
+	public Environment<IValue<?>> getClosureEnvironment() {
+		return closureEnvironment;
+	}
+
+	public List<String> getFunctionArgumentsNames() {
+		return functionArgumentsNames;
+	}
+
+	public ASTNode getFunctionBodyExpression() {
+		return functionBodyExpression;
 	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
+		// change or create show function
+		System.out.println("fun(" + this.functionBodyExpression.toString() + ")");
 	}
-	
+
 }
