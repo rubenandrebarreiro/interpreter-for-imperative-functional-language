@@ -1,5 +1,7 @@
 package main.java.abstractsyntaxtree.node.calls;
 
+import java.util.List;
+
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.functions.ASTFun;
@@ -13,9 +15,12 @@ public class ASTCall implements ASTNode {
 
 	private ASTFun astFunction;
 	
+	private List<ASTNode> functionArgumentsValues;
 	
-	public ASTCall(ASTFun astFunction) {
+	
+	public ASTCall(ASTFun astFunction, List<ASTNode> functionArgumentsValues) {
 		this.astFunction = astFunction;
+		this.functionArgumentsValues = functionArgumentsValues;
 	}
 	
 	
@@ -25,20 +30,37 @@ public class ASTCall implements ASTNode {
 		
 		this.astFunction.eval(environment);
 		
+		
 		Environment<?> newEnvironment = new Environment<>();
+		
 		
 		newEnvironment.beginScope();
 		
-		for(String functionArgument : this.astFunction.getFunctionArguments()) {
+		
+		int sizeOfFunctionArgumentsIDs = this.astFunction.getFunctionArgumentsIDs().size();
+		
+		int sizeOfFunctionArgumentsValues = this.functionArgumentsValues.size();
+		
+		if(sizeOfFunctionArgumentsIDs != sizeOfFunctionArgumentsValues) {
 			
-			// TODO - adicionar associacoes
+			// TODO - lancar excepacao
+		
+		}
+		
+		int numArguments = this.functionArgumentsValues.size(); 
+		
+		for(int currentArgument = 0; currentArgument < numArguments; currentArgument++) {
+			
+			// TODO - adicionar associacoes / ir buscar IDs e Values
 			//newEnvironment.addAssoc(expressionID, expressionValue);
+			
 			
 		}
 		
 		this.astFunction.getFunctionBody().eval(newEnvironment);
 		
 		newEnvironment.endScope();
+		
 		
 		return null;
 				
@@ -50,5 +72,5 @@ public class ASTCall implements ASTNode {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }
