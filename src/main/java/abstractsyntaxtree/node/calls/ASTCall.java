@@ -20,7 +20,8 @@ public class ASTCall implements ASTNode {
 	
 	
 	@Override
-	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue<?> eval(Environment<?> environment)
+		   throws ASTInvalidIdentifierException, TypeErrorException {
 		
 		this.astFunction.eval(environment);
 		

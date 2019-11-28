@@ -10,16 +10,17 @@ import main.java.values.atomic.IValue;
 public class Closure implements IValue {
 
 	// TODO generic type of Env
-	private Environment env;
+	private Environment closureEnvironment;
 	
 	private List<String> functionArguments;
 	
 	private ASTNode functionBody;
 	
 	
-	public Closure(Environment<?> env, List<String> functionArguments, ASTNode functionBody) {
+	public Closure(Environment<?> closureEnvironment,
+			       List<String> functionArguments, ASTNode functionBody) {
 	
-		this.env = env;
+		this.closureEnvironment = closureEnvironment;
 		this.functionArguments = functionArguments;
 		this.functionBody = functionBody;
 		
