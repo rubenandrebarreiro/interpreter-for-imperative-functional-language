@@ -6,6 +6,7 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.values.atomic.IValue;
 
+
 public class Closure implements IValue {
 
 	// TODO generic type of Env
