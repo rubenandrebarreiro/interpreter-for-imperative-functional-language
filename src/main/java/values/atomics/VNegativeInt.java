@@ -1,4 +1,4 @@
-package main.java.values.atomic;
+package main.java.values.atomics;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -16,7 +16,7 @@ package main.java.values.atomic;
  */
 
 /**
- * Class for the VBool, implementing IValue interface.
+ * Class for the VNegativeInt, implementing IValue interface.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -24,42 +24,42 @@ package main.java.values.atomic;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class VBool implements IValue<Boolean> {
+public class VNegativeInt implements IValue<Integer> {
 	
 	// Global Instance Variables:
 	
 	/**
-	 * The value of a Boolean Value.
+	 * The value of an Negative Integer Value.
 	 */
-	private boolean value;
+	private int value;
 	
 	
 	// Constructors:
-	
+
 	/**
 	 * Constructor #1:
-	 * - The constructor of a Boolean Value;
+	 * - The constructor of a Negative Integer Value;
 	 * 
-	 * @param value the value of a Boolean Value
+	 * @param value the value of a Negative Integer Value
 	 */
-	public VBool(boolean value) {
-		this.value = value;
+	public VNegativeInt(int value) {
+		this.value = (-1) * value;
 	}
 	
 	
 	// Methods:
 	
 	/**
-	 * Returns the value of a Boolean Value.
+	 * Returns the value of a Negative Integer Value.
 	 * 
-	 * @return the value of a Boolean Value
+	 * @return the value of a Negative Integer Value
 	 */
-	public boolean getValue() {
+	public int getValue() {
 		return this.value;
 	}
-	
+
 	/**
-	 * Prints the value of an Boolean Value representation in String.
+	 * Prints the value of a Negative Integer Value representation in String.
 	 */
 	@Override
 	public void show() {

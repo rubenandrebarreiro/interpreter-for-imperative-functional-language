@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.values.atomic.IValue;
+import main.java.values.atomics.IValue;
 
 /**
  * Class for the Environment.

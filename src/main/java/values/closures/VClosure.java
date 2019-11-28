@@ -1,10 +1,10 @@
-package main.java.values.closure;
+package main.java.values.closures;
 
 import java.util.List;
 
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
-import main.java.values.atomic.IValue;
+import main.java.values.atomics.IValue;
 
 
 public class VClosure implements IValue<VClosure> {

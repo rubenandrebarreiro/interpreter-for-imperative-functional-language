@@ -1,4 +1,4 @@
-package main.java.values.atomic;
+package main.java.values.atomics;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -16,7 +16,7 @@ package main.java.values.atomic;
  */
 
 /**
- * Class for the VFloat, implementing IValue interface.
+ * Class for the VBool, implementing IValue interface.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -24,25 +24,25 @@ package main.java.values.atomic;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class VFloat implements IValue<Float> {
+public class VBool implements IValue<Boolean> {
 	
 	// Global Instance Variables:
 	
 	/**
-	 * The value of a Float Value.
+	 * The value of a Boolean Value.
 	 */
-	private float value;
+	private boolean value;
 	
 	
 	// Constructors:
 	
 	/**
 	 * Constructor #1:
-	 * - The constructor of a Float Value;
+	 * - The constructor of a Boolean Value;
 	 * 
-	 * @param value the value of a Float Value
+	 * @param value the value of a Boolean Value
 	 */
-	public VFloat(float value) {
+	public VBool(boolean value) {
 		this.value = value;
 	}
 	
@@ -50,17 +50,19 @@ public class VFloat implements IValue<Float> {
 	// Methods:
 	
 	/**
-	 * Returns the value of a Float Value.
+	 * Returns the value of a Boolean Value.
 	 * 
-	 * @return the value of a Float Value
+	 * @return the value of a Boolean Value
 	 */
-	public float getValue() {
+	public boolean getValue() {
 		return this.value;
 	}
-		
+	
+	/**
+	 * Prints the value of an Boolean Value representation in String.
+	 */
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(this.value);
 	}
 }

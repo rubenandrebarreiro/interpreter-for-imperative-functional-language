@@ -1,4 +1,4 @@
-package main.java.values.atomic;
+package main.java.values.atomics;
 
 /**
  * Interpreter for Imperative/Functional Language

@@ -6,7 +6,7 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.abstractsyntaxtree.scopes.heap.structures.FieldAddress;
-import main.java.values.atomic.IValue;
+import main.java.values.atomics.IValue;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),

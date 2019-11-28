@@ -1,4 +1,4 @@
-package main.java.values.atomic;
+package main.java.values.atomics;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -16,7 +16,7 @@ package main.java.values.atomic;
  */
 
 /**
- * Class for the VNegativeInt, implementing IValue interface.
+ * Class for the VDouble, implementing IValue interface.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -24,45 +24,43 @@ package main.java.values.atomic;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class VNegativeInt implements IValue<Integer> {
+public class VDouble implements IValue<Double> {
 	
 	// Global Instance Variables:
 	
 	/**
-	 * The value of an Negative Integer Value.
+	 * The value of a Double Value.
 	 */
-	private int value;
+	private double value;
 	
 	
 	// Constructors:
-
+	
 	/**
 	 * Constructor #1:
-	 * - The constructor of a Negative Integer Value;
+	 * - The constructor of a Double Value;
 	 * 
-	 * @param value the value of a Negative Integer Value
+	 * @param value the value of a Double Value
 	 */
-	public VNegativeInt(int value) {
-		this.value = (-1) * value;
+	public VDouble(double value) {
+		this.value = value;
 	}
 	
 	
 	// Methods:
 	
 	/**
-	 * Returns the value of a Negative Integer Value.
+	 * Returns the value of a Double Value.
 	 * 
-	 * @return the value of a Negative Integer Value
+	 * @return the value of a Double Value
 	 */
-	public int getValue() {
+	public double getValue() {
 		return this.value;
 	}
-
-	/**
-	 * Prints the value of a Negative Integer Value representation in String.
-	 */
+	
 	@Override
 	public void show() {
-		System.out.println(this.value);
+		// TODO Auto-generated method stub
+		
 	}
 }

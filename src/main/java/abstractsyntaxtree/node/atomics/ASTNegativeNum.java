@@ -4,8 +4,8 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
-import main.java.values.atomic.IValue;
-import main.java.values.atomic.VNegativeInt;
+import main.java.values.atomics.IValue;
+import main.java.values.atomics.VNegativeInt;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an Atomic Negative Number.

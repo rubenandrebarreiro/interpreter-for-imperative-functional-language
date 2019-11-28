@@ -1,4 +1,4 @@
-package main.java.values.atomic;
+package main.java.values.atomics;
 
 /**
  * Class for the VCell, implementing IValue interface.

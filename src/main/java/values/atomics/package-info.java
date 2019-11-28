@@ -1,5 +1,3 @@
-package main.java.values.atomic;
-
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -16,8 +14,7 @@ package main.java.values.atomic;
  */
 
 /**
- * Interface for the Value, which can be represented as a
- * Node of an Abstract Syntax Tree (A.S.T.).
+ * Package for the Values.Atomic.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -25,6 +22,4 @@ package main.java.values.atomic;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public interface IValue<T> {
-	void show();
-}
+package main.java.values.atomics;
