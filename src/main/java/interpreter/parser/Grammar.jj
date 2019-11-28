@@ -13,11 +13,9 @@ import main.java.abstractsyntaxtree.node.logics.*;
 import main.java.abstractsyntaxtree.node.loops.*;
 import main.java.abstractsyntaxtree.node.relationals.*;
 import main.java.abstractsyntaxtree.node.sequences.*;
+import main.java.abstractsyntaxtree.node.declarations.*;
 import main.java.compiler.Compiler;
-import main.java.values.*;
-import main.java.values.atomic.*;
-import main.java.values.exceptions.*;
-
+import main.java.values.atomics.*;
 import java.util.*;
 import java.io.*;
 
