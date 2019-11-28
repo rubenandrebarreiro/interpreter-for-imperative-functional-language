@@ -29,7 +29,7 @@ public class ASTCall implements ASTNode {
 		
 		newEnvironment.beginScope();
 		
-		for(String argument : this.astFunction.getArguments()) {
+		for(String functionArgument : this.astFunction.getFunctionArguments()) {
 			
 			// TODO - adicionar associacoes
 			//newEnvironment.addAssoc(expressionID, expressionValue);

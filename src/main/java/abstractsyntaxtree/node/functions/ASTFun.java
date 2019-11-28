@@ -22,7 +22,7 @@ public class ASTFun implements ASTNode {
 		this.functionBody = functionBody;
 	}
 	
-	public List<String> getArguments() {
+	public List<String> getFunctionArguments() {
 		return this.functionArguments;
 	}
 	
