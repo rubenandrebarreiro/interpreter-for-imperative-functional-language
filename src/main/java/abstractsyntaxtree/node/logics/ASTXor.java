@@ -1,6 +1,7 @@
 package main.java.abstractsyntaxtree.node.logics;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -9,6 +10,8 @@ import main.java.values.atomics.IValue;
 import main.java.values.atomics.VBool;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
+import main.java.values.types.ASTBoolType;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -103,5 +106,16 @@ public class ASTXor implements ASTNode {
 		// in order to perform the Exclusive Disjunction of the 2 A.S.T. Nodes
 		String instructionExclusiveDisjunction = String.format("ixor");
 		codeBlockInstructionsSet.addCodeInstruction(instructionExclusiveDisjunction);	
+	}
+	
+	@Override
+	public IType typecheck(Environment<IType> environment) throws ASTTypeCheckErrorException {
+		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
+		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
+		
+		// TODO
+		if(leftASTNodeDescedantType instanceof ASTBoolType && rightASTNodeDescedantType instanceof ASTBoolType)
+			return leftASTNodeDescedantType;
+		else throw new ASTTypeCheckErrorException("Illegal arguments for operation xor");
 	}
 }

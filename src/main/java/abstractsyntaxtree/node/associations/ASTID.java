@@ -1,12 +1,14 @@
 package main.java.abstractsyntaxtree.node.associations;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.abstractsyntaxtree.scopes.heap.structures.FieldAddress;
 import main.java.values.atomics.IValue;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -110,5 +112,12 @@ public class ASTID implements ASTNode {
 		codeBlockInstructions.addCodeInstruction("getfield f" + valueFieldAddress.getHeapStackFrameLevel() + 
 				 "/x" + valueFieldAddress.getOffsetField() + " I");
 	
+	}
+
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

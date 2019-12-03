@@ -1,6 +1,7 @@
 package main.java.abstractsyntaxtree.node.references;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -8,6 +9,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstru
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
+import main.java.values.types.IType;
 
 public class ASTReference implements ASTNode {
 
@@ -34,5 +36,12 @@ public class ASTReference implements ASTNode {
 		
 		
 		
+	}
+
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

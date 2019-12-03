@@ -1,11 +1,13 @@
 package main.java.abstractsyntaxtree.node.atomics;
 
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomics.IValue;
 import main.java.values.atomics.VNegativeInt;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an Atomic Negative Number.
@@ -69,5 +71,12 @@ public class ASTNegativeNum implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
 		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(Math.abs(this.negativeNumASTNodeValue.getValue())));
 		codeBlockInstructionsSet.addCodeInstruction("ineg");
+	}
+
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

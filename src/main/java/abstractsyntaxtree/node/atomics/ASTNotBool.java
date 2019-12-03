@@ -1,11 +1,13 @@
 package main.java.abstractsyntaxtree.node.atomics;
 
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomics.IValue;
 import main.java.values.atomics.VBool;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing a Negated Atomic Boolean.
@@ -79,5 +81,12 @@ public class ASTNotBool implements ASTNode {
 		// in order to perform the Negation of the A.S.T. Node
 		String instructionExclusiveDisjunction = String.format("ixor");
 		codeBlockInstructionsSet.addCodeInstruction(instructionExclusiveDisjunction);
+	}
+
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,7 @@
 package main.java.abstractsyntaxtree.node.associations;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -8,6 +9,7 @@ import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstru
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -111,5 +113,11 @@ public class ASTAssociation<T> implements ASTNode {
 		// for an A.S.T. Association, placed in the Execution Stack
 		codeBlockInstructions.addCodeInstruction(";------------------End new assignment------------------");
 		codeBlockInstructions.addCodeInstruction("\n");
+	}
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -16,6 +16,7 @@ package main.java.abstractsyntaxtree.node.relationals;
  */
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -25,6 +26,8 @@ import main.java.values.atomics.VBool;
 import main.java.values.atomics.VInt;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
+import main.java.values.types.ASTBoolType;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -165,5 +168,16 @@ public class ASTGreaterThan implements ASTNode {
 		// in order to perform a branch of a Greater Than Comparison between 2 A.S.T. Nodes
 		String instructionL2Label = String.format("L%d:", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
-	}	
+	}
+
+	@Override
+	public IType typecheck(Environment<IType> environment) throws ASTTypeCheckErrorException {
+		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
+		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
+		
+		// TODO
+		if(leftASTNodeDescedantType instanceof ASTBoolType && rightASTNodeDescedantType instanceof ASTBoolType)
+			return leftASTNodeDescedantType;
+		else throw new ASTTypeCheckErrorException("Illegal arguments for operation >");
+	}
 }

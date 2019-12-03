@@ -1,6 +1,7 @@
 package main.java.abstractsyntaxtree.node.arithmetics;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -10,6 +11,8 @@ import main.java.values.atomics.VInt;
 import main.java.values.atomics.VNegativeInt;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
+import main.java.values.types.ASTIntType;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -154,5 +157,16 @@ public class ASTAdd implements ASTNode {
 		// in order to perform the Addition of the 2 A.S.T. Nodes
 		String instructionAddition = String.format("iadd");
 		codeBlockInstructionsSet.addCodeInstruction(instructionAddition);
+	}
+
+	@Override
+	public IType typecheck(Environment<IType> environment) throws ASTTypeCheckErrorException {
+		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
+		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
+		
+		// TODO
+		if(leftASTNodeDescedantType instanceof ASTIntType && rightASTNodeDescedantType instanceof ASTIntType)
+			return leftASTNodeDescedantType;
+		else throw new ASTTypeCheckErrorException("Illegal arguments for operation +");
 	}
 }

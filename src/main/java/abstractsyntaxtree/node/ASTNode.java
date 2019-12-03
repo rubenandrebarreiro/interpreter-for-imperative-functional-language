@@ -1,12 +1,14 @@
 package main.java.abstractsyntaxtree.node;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
+import main.java.values.types.IType;
 
 /**
  * Interface for the Node of an Abstract Syntax Tree.
@@ -60,4 +62,6 @@ public interface ASTNode {
 	void compile(EnvironmentCompiler environmentCompiler,
 			     CodeBlockInstructionsSet codeBlockInstructionsSet)
 			    		 			throws ASTInvalidIdentifierException;
+	
+	IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException;
 }

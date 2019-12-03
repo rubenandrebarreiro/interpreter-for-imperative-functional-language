@@ -1,11 +1,13 @@
 package main.java.abstractsyntaxtree.node.atomics;
 
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomics.IValue;
 import main.java.values.atomics.VBool;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
@@ -69,5 +71,12 @@ public class ASTBool implements ASTNode {
 		int heapStackFrameJVMBooleanRepresentation = this.boolASTNodeValue.getValue() ? 1 : 0;
 		
 		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(heapStackFrameJVMBooleanRepresentation));
+	}
+
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

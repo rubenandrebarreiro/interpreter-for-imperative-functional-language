@@ -1,6 +1,7 @@
 package main.java.abstractsyntaxtree.node.conditionals;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -25,6 +26,7 @@ import main.java.values.atomics.IValue;
 import main.java.values.atomics.VBool;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -160,5 +162,11 @@ public class ASTIfThenElse implements ASTNode {
 		// in order to perform a branch of a Conditional of A.S.T. Node
 		String instructionL2Label = String.format("L%d:", label2);
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
+	}
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

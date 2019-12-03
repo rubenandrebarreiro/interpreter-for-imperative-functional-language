@@ -1,11 +1,13 @@
 package main.java.abstractsyntaxtree.node.atomics;
 
+import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.values.atomics.IValue;
 import main.java.values.atomics.VInt;
+import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
@@ -68,5 +70,12 @@ public class ASTNum implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
 		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(this.numASTNodeValue.getValue()));
+	}
+
+
+	@Override
+	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
