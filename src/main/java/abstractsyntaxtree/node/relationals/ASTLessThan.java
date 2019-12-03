@@ -1,7 +1,6 @@
 package main.java.abstractsyntaxtree.node.relationals;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -54,6 +53,7 @@ public class ASTLessThan implements ASTNode {
 	 */
 	private ASTNode rightASTNodeDescendant;
 	
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to < (less than) operator!!!";
 	
 	// Constructors:
 	
@@ -104,7 +104,7 @@ public class ASTLessThan implements ASTNode {
 			// Returns the Less Than Comparison of the A.S.T. Nodes Descendants
 			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() < ((VInt) rightASTNodeDescedantValue).getValue());
 		}
-		throw new TypeErrorException("Illegal arguments to < (less than) operator!!!");
+		throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 
 	/**
@@ -172,13 +172,13 @@ public class ASTLessThan implements ASTNode {
 	}
 	
 	@Override
-	public IType typecheck(Environment<IType> environment) throws ASTTypeCheckErrorException {
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
 		
 		// TODO
 		if(leftASTNodeDescedantType instanceof ASTBoolType && rightASTNodeDescedantType instanceof ASTBoolType)
 			return leftASTNodeDescedantType;
-		else throw new ASTTypeCheckErrorException("Illegal arguments for operation <");
+		else throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 }

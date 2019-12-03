@@ -1,7 +1,6 @@
 package main.java.abstractsyntaxtree.node.loops;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.sequences.ASTSeq;
 import main.java.abstractsyntaxtree.scopes.Environment;
@@ -123,7 +122,7 @@ public class ASTWhile implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
 		// TODO Auto-generated method stub
 		return null;
 	}

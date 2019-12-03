@@ -1,7 +1,7 @@
 package main.java.abstractsyntaxtree.node.conditionals;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
+
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -165,7 +165,7 @@ public class ASTIfThenElse implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
 		// TODO Auto-generated method stub
 		return null;
 	}

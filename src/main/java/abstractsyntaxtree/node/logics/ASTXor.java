@@ -1,7 +1,6 @@
 package main.java.abstractsyntaxtree.node.logics;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -37,6 +36,7 @@ public class ASTXor implements ASTNode {
 	 */
 	private ASTNode rightASTNodeDescendant;
 	
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to xor (exclusive disjunction) operator!!!";
 	
 	// Constructors:
 	
@@ -88,7 +88,7 @@ public class ASTXor implements ASTNode {
 			// Returns the Exclusive Disjunction of the A.S.T. Nodes Descendants
 			return new VBool( ((VBool) leftASTNodeDescendantValue).getValue() ^ ((VBool) rightASTNodeDescedantValue).getValue());
 		}
-		throw new TypeErrorException("Illegal arguments to xor (exclusive disjunction) operator!!!");
+		throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 
 	@Override
@@ -109,13 +109,13 @@ public class ASTXor implements ASTNode {
 	}
 	
 	@Override
-	public IType typecheck(Environment<IType> environment) throws ASTTypeCheckErrorException {
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
 		
 		// TODO
 		if(leftASTNodeDescedantType instanceof ASTBoolType && rightASTNodeDescedantType instanceof ASTBoolType)
 			return leftASTNodeDescedantType;
-		else throw new ASTTypeCheckErrorException("Illegal arguments for operation xor");
+		else throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 }

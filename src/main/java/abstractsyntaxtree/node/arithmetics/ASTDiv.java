@@ -1,7 +1,6 @@
 package main.java.abstractsyntaxtree.node.arithmetics;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -38,6 +37,8 @@ public class ASTDiv implements ASTNode {
 	 */
 	private ASTNode rightASTNodeDescendant;
 	
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to / (division) operator!!!";
+
 	
 	// Constructors:
 	
@@ -122,7 +123,7 @@ public class ASTDiv implements ASTNode {
 			return new VInt(divResult);
 		}
 		
-		throw new TypeErrorException("Illegal arguments to / (division) operator!!!");
+		throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 	
 	/**
@@ -159,13 +160,13 @@ public class ASTDiv implements ASTNode {
 	}
 	
 	@Override
-	public IType typecheck(Environment<IType> environment) throws ASTTypeCheckErrorException {
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
 		
 		// TODO
 		if(leftASTNodeDescedantType instanceof ASTIntType && rightASTNodeDescedantType instanceof ASTIntType)
 			return leftASTNodeDescedantType;
-		else throw new ASTTypeCheckErrorException("Illegal arguments for operation /");
+		else throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 }

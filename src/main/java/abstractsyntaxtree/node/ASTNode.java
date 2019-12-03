@@ -1,7 +1,6 @@
 package main.java.abstractsyntaxtree.node;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
@@ -63,5 +62,5 @@ public interface ASTNode {
 			     CodeBlockInstructionsSet codeBlockInstructionsSet)
 			    		 			throws ASTInvalidIdentifierException;
 	
-	IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException;
+	IType typecheck(Environment<IType> environmentType) throws TypeErrorException;
 }

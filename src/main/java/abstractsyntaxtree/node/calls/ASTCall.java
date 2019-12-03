@@ -3,7 +3,6 @@ package main.java.abstractsyntaxtree.node.calls;
 import java.util.List;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
-import main.java.abstractsyntaxtree.exceptions.ASTTypeCheckErrorException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.functions.ASTFun;
 import main.java.abstractsyntaxtree.scopes.Environment;
@@ -79,7 +78,7 @@ public class ASTCall implements ASTNode {
 
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws ASTTypeCheckErrorException {
+	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
 		// TODO Auto-generated method stub
 		return null;
 	}
