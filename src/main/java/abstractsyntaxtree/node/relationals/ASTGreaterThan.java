@@ -26,6 +26,7 @@ import main.java.values.atomics.VInt;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 import main.java.values.types.ASTBoolType;
+import main.java.values.types.ASTIntType;
 import main.java.values.types.IType;
 
 /**
@@ -176,8 +177,8 @@ public class ASTGreaterThan implements ASTNode {
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
 		
 		// TODO
-		if(leftASTNodeDescedantType instanceof ASTBoolType && rightASTNodeDescedantType instanceof ASTBoolType)
-			return leftASTNodeDescedantType;
+		if(leftASTNodeDescedantType instanceof ASTIntType && rightASTNodeDescedantType instanceof ASTIntType)
+			return new ASTBoolType();
 		else throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 }
