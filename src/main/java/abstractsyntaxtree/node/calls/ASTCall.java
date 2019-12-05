@@ -8,10 +8,10 @@ import main.java.abstractsyntaxtree.node.functions.ASTFun;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.types.IType;
 
 public class ASTCall implements ASTNode {
 
@@ -78,7 +78,7 @@ public class ASTCall implements ASTNode {
 
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		// TODO Auto-generated method stub
 		return null;
 	}

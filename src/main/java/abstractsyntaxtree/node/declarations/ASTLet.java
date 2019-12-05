@@ -22,10 +22,10 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -191,7 +191,7 @@ public class ASTLet implements ASTNode {
 
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		// TODO Auto-generated method stub
 		return null;
 	}
