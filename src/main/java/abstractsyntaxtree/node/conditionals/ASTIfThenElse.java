@@ -1,5 +1,6 @@
 package main.java.abstractsyntaxtree.node.conditionals;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 
 
@@ -172,8 +173,11 @@ public class ASTIfThenElse implements ASTNode {
 
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
-
+		   throws TypeErrorException,
+	   		      ASTInvalidIdentifierException,
+	   		      ASTDuplicatedIdentifierException,
+	   		      NumberArgumentsErrorException {
+		
 		IType ifASTConditionalNodeDescendantType = 
 				this.ifASTConditionalNodeDescendant.typecheck(environment);
 		

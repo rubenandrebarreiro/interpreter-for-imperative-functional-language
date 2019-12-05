@@ -1,5 +1,6 @@
 package main.java.abstractsyntaxtree.node.sequences;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
@@ -75,8 +76,11 @@ public class ASTSeq implements ASTNode {
 
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
-
+		   throws TypeErrorException,
+		   		  ASTInvalidIdentifierException,
+		   		  ASTDuplicatedIdentifierException,
+		   		  NumberArgumentsErrorException {
+		
 		// It's necessary to evaluate the left A.S.T. Node Descendant
 		// (i.e., the head element of the Sequence),
 		// because it can have secondary effects on the the right A.S.T. Node Descendant

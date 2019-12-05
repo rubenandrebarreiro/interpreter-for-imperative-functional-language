@@ -2,6 +2,7 @@ package main.java.abstractsyntaxtree.node.calls;
 
 import java.util.List;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.functions.ASTFun;
@@ -83,7 +84,10 @@ public class ASTCall implements ASTNode {
 
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, NumberArgumentsErrorException, ASTInvalidIdentifierException {
+			throws TypeErrorException,
+	   		       ASTInvalidIdentifierException,
+	   		       ASTDuplicatedIdentifierException,
+	   		       NumberArgumentsErrorException {
 		
 		IType astFunctionType = this.astFunction.typecheck(environment);
 		

@@ -1,5 +1,7 @@
 package main.java.abstractsyntaxtree.node.relationals;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
+
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -178,7 +180,10 @@ public class ASTDiffOf implements ASTNode {
 	
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
+			throws TypeErrorException,
+	   		       ASTInvalidIdentifierException,
+	   		       ASTDuplicatedIdentifierException,
+	   		       NumberArgumentsErrorException {
 		
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);

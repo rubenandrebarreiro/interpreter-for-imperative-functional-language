@@ -1,5 +1,6 @@
 package main.java.abstractsyntaxtree.node.loops;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.sequences.ASTSeq;
@@ -129,8 +130,11 @@ public class ASTWhile implements ASTNode {
 
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
-
+			throws TypeErrorException,
+	   		       ASTInvalidIdentifierException,
+	   		       ASTDuplicatedIdentifierException,
+	   		       NumberArgumentsErrorException {
+	
 		IType conditionASTWhileNodeDescendantType = 
 				this.conditionASTWhileNodeDescendant.typecheck(environment);
 		

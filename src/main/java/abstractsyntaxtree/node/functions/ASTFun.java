@@ -1,7 +1,10 @@
 package main.java.abstractsyntaxtree.node.functions;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
@@ -49,8 +52,24 @@ public class ASTFun implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTDuplicatedIdentifierException {
 		// TODO Auto-generated method stub
+		
+		Set<String> argumentsTypecheckingVerified = new HashSet<>();
+		
+		for(String argumentID : this.functionArgumentsIDs) {
+			
+			if(!argumentsTypecheckingVerified.contains(argumentID)) {
+				
+				argumentsTypecheckingVerified.add(argumentID);
+				
+			}
+			else {
+				
+				throw new ASTDuplicatedIdentifierException("Duplicated Identifier found in Function's declaration!!!");
+				
+			}
+		}
 		
 		
 		

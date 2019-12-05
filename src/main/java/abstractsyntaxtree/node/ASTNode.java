@@ -1,5 +1,6 @@
 package main.java.abstractsyntaxtree.node;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
@@ -73,10 +74,13 @@ public interface ASTNode {
 	 * 
 	 * @throws TypeErrorException an Exception raised for a Type Error occurred/found
 	 * 
-	 * @throws ASTInvalidIdentifierException 
+	 * @throws ASTInvalidIdentifierException an Exception raised for an Invalid Identifier found
+	 * 
+	 * @throws ASTDuplicatedIdentifierException an Exception raised for an Duplicated Identifier found
+	 * 
 	 * @throws NumberArgumentsErrorException 
 	 * 
 	 */
 	IType typecheck(Environment<IType> environment)
-		  throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException;
+		  throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException, ASTDuplicatedIdentifierException;
 }
