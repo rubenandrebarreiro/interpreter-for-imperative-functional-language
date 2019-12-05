@@ -15,7 +15,7 @@ public class TRef implements IType {
 	
 	@Override
 	public String getTypeName() {
-		return "reference";
+		return "Reference";
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class TBool implements IType{
 	
 	@Override
 	public String getTypeName() {
-		return "boolean";
+		return "Boolean";
 	}
 
 	@Override

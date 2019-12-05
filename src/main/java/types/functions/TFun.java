@@ -6,7 +6,7 @@ public class TFun implements IType {
 
 	@Override
 	public String getTypeName() {
-		return "function";
+		return "Function";
 	}
 
 	@Override

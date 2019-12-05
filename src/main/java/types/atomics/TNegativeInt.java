@@ -6,7 +6,7 @@ public class TNegativeInt implements IType {
 
 	@Override
 	public String getTypeName() {
-		return "negative integer";
+		return "Negative Integer";
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class TInt implements IType {
 
 	@Override
 	public String getTypeName() {
-		return "int";
+		return "Integer";
 	}
 
 	@Override

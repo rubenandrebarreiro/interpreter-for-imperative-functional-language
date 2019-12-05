@@ -4,11 +4,15 @@ import main.java.types.IType;
 
 public class TString implements IType {
 	
-	private static final TString tStringType = new TString();
+	private static final TString INSTANCE = new TString();
 
+	public static TString getInstance() {
+		return INSTANCE;
+	}
+	
 	@Override
 	public String getTypeName() {
-		return "string";
+		return "String";
 	}
 
 	@Override
