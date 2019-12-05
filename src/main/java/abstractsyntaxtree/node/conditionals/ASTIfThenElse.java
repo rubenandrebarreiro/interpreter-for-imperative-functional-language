@@ -22,11 +22,12 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.types.IType;
+import main.java.types.atomics.TBool;
 import main.java.values.atomics.IValue;
 import main.java.values.atomics.VBool;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -58,6 +59,11 @@ public class ASTIfThenElse implements ASTNode {
 	 * the A.S.T. Conditional Node descendant
 	 */
 	private ASTNode elseASTConditionalNodeDescendant;
+	
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Conditional
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to conditional (if-then-else) operator!!!";
 	
 	
 	// Constructors:
@@ -165,8 +171,32 @@ public class ASTIfThenElse implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
-		// TODO Auto-generated method stub
-		return null;
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+
+		IType ifASTConditionalNodeDescendantType = 
+				this.ifASTConditionalNodeDescendant.typecheck(environment);
+		
+		if(ifASTConditionalNodeDescendantType instanceof TBool) {
+			
+			IType thenASTConditionalNodeDescendantType = 
+					this.ifASTConditionalNodeDescendant.typecheck(environment);
+			IType elseASTConditionalNodeDescendantType = 
+					this.ifASTConditionalNodeDescendant.typecheck(environment);
+			
+			if(thenASTConditionalNodeDescendantType.equals(elseASTConditionalNodeDescendantType)) {
+				return thenASTConditionalNodeDescendantType;
+			}
+			else {
+				
+				throw new TypeErrorException(TYPE_ERROR_MESSAGE);	
+			
+			}
+		}
+		else {
+			
+			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
+		
+		}
+		
 	}
 }
