@@ -126,6 +126,8 @@ TOKEN :
   < LET: "Let" | "let" | "Decl" | "decl" >
   |
   < EQUAL: "==" >
+  |
+  < NOT_EQUAL: "<>" >
   | 
   < LET_ASSIGN: "=" >
   |
@@ -228,7 +230,7 @@ ASTNode Relational() :
      node1 = NumExp() (
      	( operation = <GREATER_THAN> | operation = <GREATER_OR_EQUAL> |
      	  operation = <LESS_THAN> | operation = <LESS_OR_EQUAL> |
-     	  operation = <EQUAL> ) node2 = NumExp()
+     	  operation = <EQUAL> | operation = <NOT_EQUAL> ) node2 = NumExp()
 			{
 				if (operation.kind == GREATER_THAN) 
 					node1 = new ASTGreaterThan(node1, node2);
