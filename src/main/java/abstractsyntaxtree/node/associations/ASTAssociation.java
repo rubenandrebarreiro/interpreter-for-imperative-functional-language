@@ -63,9 +63,11 @@ public class ASTAssociation<T> implements ASTNode {
 	 */
 	@Override
 	public IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
+		
 		environment.addAssoc(nodeID, ( (IValue) this.nodeValue.eval(environment) ));
 		
 		return this.nodeValue.eval(environment);
+		
 	}
 
 
@@ -116,8 +118,12 @@ public class ASTAssociation<T> implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
-		// TODO Auto-generated method stub
-		return null;
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
+
+		environment.addAssoc(nodeID, ( (IType) this.nodeValue.typecheck(environment) ));
+		
+		return this.nodeValue.typecheck(environment);
+		
 	}
 }

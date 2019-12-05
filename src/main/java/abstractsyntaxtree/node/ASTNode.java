@@ -74,7 +74,9 @@ public interface ASTNode {
 	 * @throws TypeErrorException an Exception raised for a Type Error occurred/found
 	 * 
 	 * @throws ASTInvalidIdentifierException 
+	 * @throws NumberArgumentsErrorException 
 	 * 
 	 */
-	IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException;
+	IType typecheck(Environment<IType> environment)
+		  throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException;
 }

@@ -17,12 +17,12 @@ public class ASTCall implements ASTNode {
 
 	private ASTFun astFunction;
 	
-	private List<ASTNode> functionArgumentsValues;
+	private List<ASTNode> functionArguments;
 	
 	
-	public ASTCall(ASTFun astFunction, List<ASTNode> functionArgumentsValues) {
+	public ASTCall(ASTFun astFunction, List<ASTNode> functionArguments) {
 		this.astFunction = astFunction;
-		this.functionArgumentsValues = functionArgumentsValues;
+		this.functionArguments = functionArguments;
 	}
 	
 	
@@ -41,7 +41,7 @@ public class ASTCall implements ASTNode {
 		
 		int sizeOfFunctionArgumentsIDs = this.astFunction.getFunctionArgumentsIDs().size();
 		
-		int sizeOfFunctionArgumentsValues = this.functionArgumentsValues.size();
+		int sizeOfFunctionArgumentsValues = this.functionArguments.size();
 		
 		if(sizeOfFunctionArgumentsIDs != sizeOfFunctionArgumentsValues) {
 			
@@ -50,14 +50,15 @@ public class ASTCall implements ASTNode {
 		
 		}
 		
-		int numArguments = this.functionArgumentsValues.size(); 
+		int numArguments = this.functionArguments.size(); 
 		
 		for(int currentArgument = 0; currentArgument < numArguments; currentArgument++) {
 			
 			String argumentID = this.astFunction.getFunctionArgumentsIDs().get(currentArgument);
-			ASTNode argumentValue = this.functionArgumentsValues.get(currentArgument);
+			ASTNode argumentValue = this.functionArguments.get(currentArgument);
 			
 			newEnvironment.addAssoc(argumentID, argumentValue.eval(newEnvironment));
+			
 		}
 		
 		IValue functionBodyEvaluationValue = this.astFunction.getFunctionBody().eval(newEnvironment);
@@ -78,9 +79,47 @@ public class ASTCall implements ASTNode {
 
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
-		// TODO Auto-generated method stub
-		return null;
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, NumberArgumentsErrorException, ASTInvalidIdentifierException {
+
+		this.astFunction.typecheck(environment);
+		
+		
+		Environment<IType> newEnvironment = new Environment<>();
+		
+		
+		newEnvironment.beginScope();
+		
+		
+		int sizeOfFunctionArgumentsIDs = this.astFunction.getFunctionArgumentsIDs().size();
+		
+		int sizeOfFunctionArgumentsTypes = this.functionArguments.size();
+		
+		if(sizeOfFunctionArgumentsIDs != sizeOfFunctionArgumentsTypes) {
+			
+			throw new NumberArgumentsErrorException("Illegal Number of Arguments to the Functions: "
+												  + "The number of IDs and Types must be the same!!!");
+		
+		}
+		
+		int numArguments = this.functionArguments.size(); 
+		
+		for(int currentArgument = 0; currentArgument < numArguments; currentArgument++) {
+			
+			String argumentID = this.astFunction.getFunctionArgumentsIDs().get(currentArgument);
+			ASTNode argumentType = this.functionArguments.get(currentArgument);
+			
+			newEnvironment.addAssoc(argumentID, argumentType.typecheck(newEnvironment));
+			
+		}
+		
+		IType functionBodyEvaluationValue = this.astFunction.getFunctionBody().typecheck(newEnvironment);
+		
+		newEnvironment.endScope();
+		
+		
+		return functionBodyEvaluationValue;
+		
 	}
 	
 }

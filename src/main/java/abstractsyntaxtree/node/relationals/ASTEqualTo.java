@@ -177,7 +177,8 @@ public class ASTEqualTo implements ASTNode {
 	}	
 	
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException {
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
 		
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);

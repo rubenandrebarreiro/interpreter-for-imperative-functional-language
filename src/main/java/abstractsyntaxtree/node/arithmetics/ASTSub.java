@@ -164,7 +164,7 @@ public class ASTSub implements ASTNode {
 	
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException {
+		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
 		
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);

@@ -129,7 +129,7 @@ public class ASTWhile implements ASTNode {
 
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException {
+		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
 
 		IType conditionASTWhileNodeDescendantType = 
 				this.conditionASTWhileNodeDescendant.typecheck(environment);

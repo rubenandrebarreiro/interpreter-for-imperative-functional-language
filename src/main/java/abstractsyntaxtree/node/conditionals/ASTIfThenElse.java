@@ -172,7 +172,7 @@ public class ASTIfThenElse implements ASTNode {
 
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException {
+		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
 
 		IType ifASTConditionalNodeDescendantType = 
 				this.ifASTConditionalNodeDescendant.typecheck(environment);

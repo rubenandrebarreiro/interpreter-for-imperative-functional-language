@@ -119,7 +119,7 @@ public class ASTID implements ASTNode {
 	public IType typecheck(Environment<IType> environment)
 		   throws TypeErrorException, ASTInvalidIdentifierException {
 		
-		// Returns the value associated to the Expression's ID,
+		// Returns the type associated to the Expression's ID,
 		// in the current Environment (Scope)
 		return environment.find(this.expressionID);
 		
