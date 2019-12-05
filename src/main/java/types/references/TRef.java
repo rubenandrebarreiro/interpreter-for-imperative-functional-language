@@ -4,6 +4,15 @@ import main.java.types.IType;
 
 public class TRef implements IType {
 
+	
+	private IType referenceType;
+	
+	
+	
+	public TRef(IType referenceType) {
+		this.referenceType = referenceType;
+	}
+	
 	@Override
 	public String getTypeName() {
 		return "reference";
@@ -20,4 +29,8 @@ public class TRef implements IType {
 		return other instanceof TRef;
 	}
 
+	public IType getReferenceType() {
+		return this.referenceType;
+	}
+	
 }
