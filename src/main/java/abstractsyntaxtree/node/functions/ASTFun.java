@@ -7,10 +7,10 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.closures.VClosure;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.types.IType;
 
 public class ASTFun implements ASTNode {
 	
@@ -18,10 +18,12 @@ public class ASTFun implements ASTNode {
 	
 	private ASTNode functionBody;
 	
+	
 	public ASTFun(List<String> functionArgumentsIDs, ASTNode functionBody) {
 		this.functionArgumentsIDs = functionArgumentsIDs;
 		this.functionBody = functionBody;
 	}
+	
 	
 	public List<String> getFunctionArgumentsIDs() {
 		return this.functionArgumentsIDs;
@@ -47,7 +49,7 @@ public class ASTFun implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		// TODO Auto-generated method stub
 		return null;
 	}
