@@ -11,8 +11,7 @@ public class TNegativeInt implements IType {
 
 	@Override
 	public String getStackFrameName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "I";
 	}
 
 	@Override

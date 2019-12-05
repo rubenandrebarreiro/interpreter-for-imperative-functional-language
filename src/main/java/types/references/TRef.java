@@ -20,8 +20,7 @@ public class TRef implements IType {
 
 	@Override
 	public String getStackFrameName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Ljava/lang/String";
 	}
 
 	@Override
