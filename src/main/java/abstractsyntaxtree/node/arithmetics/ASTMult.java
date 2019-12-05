@@ -6,8 +6,6 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
-import main.java.types.atomics.TDouble;
-import main.java.types.atomics.TFloat;
 import main.java.types.atomics.TInt;
 import main.java.types.atomics.TNegativeInt;
 import main.java.values.atomics.IValue;
@@ -164,93 +162,21 @@ public class ASTMult implements ASTNode {
 	
 	@Override
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+		
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
 		
-		// TODO
 		if(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TDouble && rightASTNodeDescedantType instanceof TDouble) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TFloat && rightASTNodeDescedantType instanceof TFloat) {
-			return leftASTNodeDescedantType;
+			return new TInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TDouble) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TFloat) {
-			return leftASTNodeDescedantType;
+			return new TNegativeInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TDouble && rightASTNodeDescedantType instanceof TInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TDouble && rightASTNodeDescedantType instanceof TFloat) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TDouble && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TFloat && rightASTNodeDescedantType instanceof TInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TFloat && rightASTNodeDescedantType instanceof TDouble) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TFloat && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return leftASTNodeDescedantType;
+			return new TInt(); //TODO
 		}
 		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TDouble) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TFloat) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TDouble && rightASTNodeDescedantType instanceof TInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TFloat && rightASTNodeDescedantType instanceof TInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TDouble) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TFloat && rightASTNodeDescedantType instanceof TDouble) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TDouble) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TFloat) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TDouble && rightASTNodeDescedantType instanceof TFloat) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TFloat) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TDouble && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return leftASTNodeDescedantType;
-		}
-		else if(leftASTNodeDescedantType instanceof TFloat && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return leftASTNodeDescedantType;
+			return new TInt(); //TODO
 		}
 		else {
 			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
