@@ -74,10 +74,22 @@ public class ASTSeq implements ASTNode {
 
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
-		// TODO Auto-generated method stub
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
+
+		// It's necessary to evaluate the left A.S.T. Node Descendant
+		// (i.e., the head element of the Sequence),
+		// because it can have secondary effects on the the right A.S.T. Node Descendant
+		// (i.e., the tail elements of the Sequence),
+		// but it will not be used as the final result of the global evaluation
+		this.leftASTNodeDescendant.typecheck(environment);
 		
-		//Percorrer typechecks de cada um e retornar o ultimo
-		return null;
+		// The right A.S.T. Node Descendant
+		// (i.e., the tail elements of the Sequence),
+		// which will be effectively returned
+		IType rightASTNodeDescendantValue = this.rightASTNodeDescendant.typecheck(environment);
+		
+		return rightASTNodeDescendantValue;
+		
 	}
 }
