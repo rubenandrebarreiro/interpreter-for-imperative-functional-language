@@ -27,13 +27,13 @@ public class ASTCall implements ASTNode {
 	
 	
 	@Override
-	public IValue<?> eval(Environment<?> environment)
+	public IValue eval(Environment<IValue> environment)
 		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		this.astFunction.eval(environment);
 		
 		
-		Environment<?> newEnvironment = new Environment<>();
+		Environment<IValue> newEnvironment = new Environment<>();
 		
 		
 		newEnvironment.beginScope();
@@ -60,7 +60,7 @@ public class ASTCall implements ASTNode {
 			newEnvironment.addAssoc(argumentID, argumentValue.eval(newEnvironment));
 		}
 		
-		IValue<?> functionBodyEvaluationValue = this.astFunction.getFunctionBody().eval(newEnvironment);
+		IValue functionBodyEvaluationValue = this.astFunction.getFunctionBody().eval(newEnvironment);
 		
 		newEnvironment.endScope();
 		

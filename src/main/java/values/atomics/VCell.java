@@ -9,27 +9,27 @@ package main.java.values.atomics;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class VCell implements IValue<Object> {
+public class VCell implements IValue {
 
 	/**
 	 * 
 	 */
-	private IValue<?> value;
+	private IValue value;
 	
 	/**
 	 * 
 	 * 
 	 * @param value
 	 */
-	public VCell(IValue<?> value) {
+	public VCell(IValue value) {
 		this.value = value;
 	}
 	
-	public IValue<?> get() {
+	public IValue get() {
 		return this.value;
 	}
 	
-	public void set(IValue<?> value) {
+	public void set(IValue value) {
 		this.value = value;
 	}
 	

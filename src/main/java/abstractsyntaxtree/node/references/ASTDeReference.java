@@ -24,7 +24,7 @@ public class ASTDeReference implements ASTNode {
 
 
 	@Override
-	public IValue<?> eval(Environment<?> environment)
+	public IValue eval(Environment<IValue> environment)
 			throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		return this.referenceValueToBeDereferenced.eval(environment);

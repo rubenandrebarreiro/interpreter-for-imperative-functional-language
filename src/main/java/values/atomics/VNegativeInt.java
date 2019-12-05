@@ -24,7 +24,7 @@ package main.java.values.atomics;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class VNegativeInt implements IValue<Integer> {
+public class VNegativeInt implements IValue {
 	
 	// Global Instance Variables:
 	

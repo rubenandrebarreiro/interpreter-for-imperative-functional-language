@@ -34,7 +34,7 @@ public class ASTFun implements ASTNode {
 	}
 	
 	@Override
-	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException {
+	public IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException, TypeErrorException {
 	
 		return new VClosure(environment, this.functionArgumentsIDs, this.functionBody);
 	
@@ -51,6 +51,9 @@ public class ASTFun implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		// TODO Auto-generated method stub
+		
+		// Arg
+		
 		return null;
 	}
 }

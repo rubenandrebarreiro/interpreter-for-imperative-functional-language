@@ -42,7 +42,7 @@ public class ASTSeq implements ASTNode {
 	
 	
 	@Override
-	public IValue<?> eval(Environment<?> environment)
+	public IValue eval(Environment<IValue> environment)
 		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		// It's necessary to evaluate the left A.S.T. Node Descendant
@@ -55,7 +55,7 @@ public class ASTSeq implements ASTNode {
 		// The right A.S.T. Node Descendant
 		// (i.e., the tail elements of the Sequence),
 		// which will be effectively returned
-		IValue<?> rightASTNodeDescendantValue = this.rightASTNodeDescendant.eval(environment);
+		IValue rightASTNodeDescendantValue = this.rightASTNodeDescendant.eval(environment);
 		
 		return rightASTNodeDescendantValue;
 	}
@@ -76,6 +76,8 @@ public class ASTSeq implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		// TODO Auto-generated method stub
+		
+		//Percorrer typechecks de cada um e retornar o ultimo
 		return null;
 	}
 }

@@ -62,8 +62,8 @@ public class ASTAssociation<T> implements ASTNode {
 	 * @throws NumberArgumentsErrorException 
 	 */
 	@Override
-	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
-		environment.addAssoc(nodeID, ( (IValue<?>) this.nodeValue.eval(environment) ));
+	public IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
+		environment.addAssoc(nodeID, ( (IValue) this.nodeValue.eval(environment) ));
 		
 		return this.nodeValue.eval(environment);
 	}

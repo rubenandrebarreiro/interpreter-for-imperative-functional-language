@@ -50,7 +50,7 @@ public class ASTNum implements ASTNode {
 	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Number)
 	 */
 	@Override
-	public IValue<?> eval(Environment<?> environment) {
+	public IValue eval(Environment<IValue> environment) {
 		
 		// Returns A.S.T. Node, representing an Atomic Number
 		return this.numASTNodeValue;

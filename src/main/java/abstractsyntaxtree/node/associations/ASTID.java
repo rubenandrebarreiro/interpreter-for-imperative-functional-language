@@ -57,7 +57,7 @@ public class ASTID implements ASTNode {
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 */
 	@Override
-	public IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException {
+	public IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException {
 		
 		// Returns the value associated to the Expression's ID,
 		// in the current Environment (Scope)
@@ -106,7 +106,7 @@ public class ASTID implements ASTNode {
 					 "/sl Lf" + currentEnvironment.getAncestor().getFrameID() + ";");
 			currentEnvironment = currentEnvironment.getAncestor();
 			
-			valueFieldAddress = currentEnvironment.find(expressionID);
+			valueFieldAddress = currentEnvironment.find(this.expressionID);
 		}
 		
 		codeBlockInstructions.addCodeInstruction("getfield f" + valueFieldAddress.getHeapStackFrameLevel() + 
@@ -116,8 +116,12 @@ public class ASTID implements ASTNode {
 
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
-		// TODO Auto-generated method stub
-		return null;
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException {
+		
+		// Returns the value associated to the Expression's ID,
+		// in the current Environment (Scope)
+		return environment.find(this.expressionID);
+		
 	}
 }

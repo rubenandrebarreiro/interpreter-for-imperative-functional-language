@@ -81,11 +81,11 @@ public class ASTMult implements ASTNode {
 	 * @throws NumberArgumentsErrorException 
 	 */
 	@Override
-	public IValue<Integer> eval(Environment<?> environment) throws
+	public IValue eval(Environment<IValue> environment) throws
 		   ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
-		IValue<?> leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
-		IValue<?> rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
+		IValue leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
+		IValue rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
@@ -161,7 +161,8 @@ public class ASTMult implements ASTNode {
 	}
 	
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException {
 		
 		IType leftASTNodeDescedantType = this.leftASTNodeDescendant.typecheck(environment);
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);

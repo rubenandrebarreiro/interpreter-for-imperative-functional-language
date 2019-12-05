@@ -88,10 +88,10 @@ public class ASTIfThenElse implements ASTNode {
 	}
 	
 	@Override
-	public IValue<?> eval(Environment<?> environment) 
+	public IValue eval(Environment<IValue> environment) 
 					throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
-		IValue<?> ifASTConditionalNodeDescendantResult = 
+		IValue ifASTConditionalNodeDescendantResult = 
 							this.ifASTConditionalNodeDescendant.eval(environment);
 		
 		if(ifASTConditionalNodeDescendantResult instanceof VBool) {
@@ -102,7 +102,7 @@ public class ASTIfThenElse implements ASTNode {
 			// Stars the Scope (Environment) of the declared expression
 			Environment<?> newEnv = environment.beginScope();
 			
-			IValue<?> finalThenElseResultEvaluation = 
+			IValue finalThenElseResultEvaluation = 
 					ifComponentBooleanResult ? 
 							this.thenASTConditionalNodeDescendant.eval(environment) : 
 								this.elseASTConditionalNodeDescendant.eval(environment);
@@ -171,7 +171,8 @@ public class ASTIfThenElse implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException {
 
 		IType ifASTConditionalNodeDescendantType = 
 				this.ifASTConditionalNodeDescendant.typecheck(environment);

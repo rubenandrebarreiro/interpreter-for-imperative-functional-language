@@ -88,11 +88,11 @@ public class ASTLet implements ASTNode {
 	 * @throws NumberArgumentsErrorException 
 	 */
 	@Override
-	public IValue<?> eval(Environment<?> environment)
+	public IValue eval(Environment<IValue> environment)
 		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		// Stars the Scope (Environment) of the declared expression
-		Environment<?> newEnv = environment.beginScope();
+		Environment<IValue> newEnv = environment.beginScope();
 		
 		try {
 			// The addition of the association between the left side Descendant
@@ -109,7 +109,7 @@ public class ASTLet implements ASTNode {
 		}
 
 		// The evaluation of the right side Descendant
-		IValue<?> expressionEvaluated = this.bodyASTLetNodeDescendant.eval(newEnv);
+		IValue expressionEvaluated = this.bodyASTLetNodeDescendant.eval(newEnv);
 		
 		// Ends the Scope (Environment) of the previously declared expression
 		newEnv.endScope();
@@ -179,10 +179,14 @@ public class ASTLet implements ASTNode {
 		codeInstructions.addCodeInstruction("\n");
 		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");
 		codeInstructions.addCodeInstruction("aload 0");
-		if(ancestor == null)
+		
+		if(ancestor == null) {
 			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
-		else
+		}
+		else {
 			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + ";");
+		}
+		
 		codeInstructions.addCodeInstruction("astore 0\n");
 		codeInstructions.addCodeInstruction(";------------------End remove frame------------------");
 		

@@ -40,7 +40,7 @@ public interface ASTNode {
 	 * 
 	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception
 	 */
-	IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException,
+	IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException,
 	                                                  TypeErrorException, NumberArgumentsErrorException;
 	
 	/**
@@ -73,6 +73,8 @@ public interface ASTNode {
 	 * 
 	 * @throws TypeErrorException an Exception raised for a Type Error occurred/found
 	 * 
+	 * @throws ASTInvalidIdentifierException 
+	 * 
 	 */
-	IType typecheck(Environment<IType> environment) throws TypeErrorException;
+	IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException;
 }

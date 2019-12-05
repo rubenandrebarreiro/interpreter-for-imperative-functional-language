@@ -56,10 +56,10 @@ public class ASTWhile implements ASTNode {
 	}
 	
 	@Override
-	public IValue<?> eval(Environment<?> environment)
+	public IValue eval(Environment<IValue> environment)
 		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 
-		IValue<?> conditionASTWhileNodeDescendantResult = 
+		IValue conditionASTWhileNodeDescendantResult = 
 						this.conditionASTWhileNodeDescendant.eval(environment);
 		
 		if(conditionASTWhileNodeDescendantResult instanceof VBool) {
@@ -128,7 +128,8 @@ public class ASTWhile implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException {
 
 		IType conditionASTWhileNodeDescendantType = 
 				this.conditionASTWhileNodeDescendant.typecheck(environment);

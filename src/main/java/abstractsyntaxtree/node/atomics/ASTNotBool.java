@@ -49,7 +49,7 @@ public class ASTNotBool implements ASTNode {
 	 * @param environment the Environment of the Scope/Frame, containing this A.S.T. Node (Bool)
 	 */
 	@Override
-	public IValue<?> eval(Environment<?> environment) {
+	public IValue eval(Environment<IValue> environment) {
 		
 		// Returns A.S.T. Node, representing an Atomic Boolean
 		return this.boolASTNodeValue;

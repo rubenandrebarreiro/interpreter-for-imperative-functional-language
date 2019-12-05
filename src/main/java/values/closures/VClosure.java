@@ -7,7 +7,7 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.values.atomics.IValue;
 
 
-public class VClosure implements IValue<VClosure> {
+public class VClosure implements IValue {
 
 	// TODO generic type of Env
 	private Environment<?> closureEnvironment;
@@ -17,7 +17,7 @@ public class VClosure implements IValue<VClosure> {
 	private ASTNode functionBodyExpression;
 	
 	
-	public VClosure(Environment<?> closureEnvironment,
+	public VClosure(Environment<IValue> closureEnvironment,
 			       List<String> functionArgumentsNames, ASTNode functionBodyExpression) {
 	
 		this.closureEnvironment = closureEnvironment;
