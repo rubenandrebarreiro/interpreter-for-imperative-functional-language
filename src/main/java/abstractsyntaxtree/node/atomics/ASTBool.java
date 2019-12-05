@@ -4,10 +4,11 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.types.IType;
+import main.java.types.atomics.TBool;
 import main.java.values.atomics.IValue;
 import main.java.values.atomics.VBool;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.types.IType;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
@@ -26,6 +27,7 @@ public class ASTBool implements ASTNode {
 	 * The value of the A.S.T. Node, representing an Atomic Boolean
 	 */
 	private VBool boolASTNodeValue;
+	
 	
 	// Constructors:
 
@@ -75,8 +77,9 @@ public class ASTBool implements ASTNode {
 
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
-		// TODO Auto-generated method stub
-		return null;
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+		
+		return new TBool();
+	
 	}
 }
