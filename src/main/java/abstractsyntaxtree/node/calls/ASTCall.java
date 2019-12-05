@@ -9,11 +9,14 @@ import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
+import main.java.types.functions.TFun;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 
 public class ASTCall implements ASTNode {
+
+	private static final String TYPE_ERROR_MESSAGE = null;
 
 	private ASTFun astFunction;
 	
@@ -81,44 +84,19 @@ public class ASTCall implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environment)
 		   throws TypeErrorException, NumberArgumentsErrorException, ASTInvalidIdentifierException {
-
-		this.astFunction.typecheck(environment);
 		
+		IType astFunctionType = this.astFunction.typecheck(environment);
 		
-		Environment<IType> newEnvironment = new Environment<>();
-		
-		
-		newEnvironment.beginScope();
-		
-		
-		int sizeOfFunctionArgumentsIDs = this.astFunction.getFunctionArgumentsIDs().size();
-		
-		int sizeOfFunctionArgumentsTypes = this.functionArguments.size();
-		
-		if(sizeOfFunctionArgumentsIDs != sizeOfFunctionArgumentsTypes) {
+		if(astFunctionType instanceof TFun) {
 			
-			throw new NumberArgumentsErrorException("Illegal Number of Arguments to the Functions: "
-												  + "The number of IDs and Types must be the same!!!");
-		
-		}
-		
-		int numArguments = this.functionArguments.size(); 
-		
-		for(int currentArgument = 0; currentArgument < numArguments; currentArgument++) {
-			
-			String argumentID = this.astFunction.getFunctionArgumentsIDs().get(currentArgument);
-			ASTNode argumentType = this.functionArguments.get(currentArgument);
-			
-			newEnvironment.addAssoc(argumentID, argumentType.typecheck(newEnvironment));
+			return null;
 			
 		}
+		else {
 		
-		IType functionBodyEvaluationValue = this.astFunction.getFunctionBody().typecheck(newEnvironment);
-		
-		newEnvironment.endScope();
-		
-		
-		return functionBodyEvaluationValue;
+			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
+			
+		}
 		
 	}
 	

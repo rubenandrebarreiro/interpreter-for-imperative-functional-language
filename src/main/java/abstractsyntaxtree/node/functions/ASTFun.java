@@ -52,7 +52,7 @@ public class ASTFun implements ASTNode {
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		// TODO Auto-generated method stub
 		
-		// Arg
+		
 		
 		return null;
 	}
