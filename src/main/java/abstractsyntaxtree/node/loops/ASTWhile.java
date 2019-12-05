@@ -6,11 +6,12 @@ import main.java.abstractsyntaxtree.node.sequences.ASTSeq;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.types.IType;
+import main.java.types.atomics.TBool;
 import main.java.values.atomics.IValue;
 import main.java.values.atomics.VBool;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.types.IType;
 
 public class ASTWhile implements ASTNode {
 
@@ -27,6 +28,11 @@ public class ASTWhile implements ASTNode {
 	 * the A.S.T. While Node descendant
 	 */
 	private ASTNode instructionSetASTWhileNodeDescendant;
+
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Addition
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to while (loop) operator!!!";
 	
 	
 	// Constructors:
@@ -122,8 +128,19 @@ public class ASTWhile implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
-		// TODO Auto-generated method stub
-		return null;
+	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
+
+		IType conditionASTWhileNodeDescendantType = 
+				this.conditionASTWhileNodeDescendant.typecheck(environment);
+		
+		if(conditionASTWhileNodeDescendantType instanceof TBool) {
+			
+			return this.instructionSetASTWhileNodeDescendant.typecheck(environment);
+		
+		}
+		else {
+			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
+		}
+		
 	}
 }
