@@ -4,10 +4,10 @@ import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.scopes.Environment;
 import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.types.IType;
 
 /**
  * Interface for the Node of an Abstract Syntax Tree.
@@ -38,7 +38,7 @@ public interface ASTNode {
 	 * 		   in the case of the Type of a Value it's completely unknown to
 	 * 		   the recognised and acceptable Types for Values
 	 * 
-	 * @throws NumberArgumentsErrorException a Number of Arguments Error Exception TODO
+	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception
 	 */
 	IValue<?> eval(Environment<?> environment) throws ASTInvalidIdentifierException,
 	                                                  TypeErrorException, NumberArgumentsErrorException;
@@ -62,5 +62,17 @@ public interface ASTNode {
 			     CodeBlockInstructionsSet codeBlockInstructionsSet)
 			    		 			throws ASTInvalidIdentifierException;
 	
-	IType typecheck(Environment<IType> environmentType) throws TypeErrorException;
+	/**
+	 * Returns the Type of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * performing its TypeChecking.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the TypeChecking of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be made
+	 * 
+	 * @return the Type for the A.S.T. Node, after the typechecking
+	 * 
+	 * @throws TypeErrorException an Exception raised for a Type Error occurred/found
+	 * 
+	 */
+	IType typecheck(Environment<IType> environment) throws TypeErrorException;
 }
