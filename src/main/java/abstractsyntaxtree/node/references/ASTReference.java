@@ -33,14 +33,26 @@ public class ASTReference implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 			throws ASTInvalidIdentifierException {
 		
+		codeBlockInstructionsSet.addCodeInstruction("new "); //TODO
+		codeBlockInstructionsSet.addCodeInstruction("dup");
+		codeBlockInstructionsSet.addCodeInstruction("invokespecial " + "/<init>()V"); //TODO
+		codeBlockInstructionsSet.addCodeInstruction("dup");
+		
+		// TODO
+		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet);
+		
+		codeBlockInstructionsSet.addCodeInstruction("putfield " + "/"); //TODO
 		
 		
 	}
 
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
-		// TODO Auto-generated method stub
-		return null;
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException {
+
+		return this.referenceValue.typecheck(environment);
+		
 	}
+	
 }
