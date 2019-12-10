@@ -1,4 +1,6 @@
-package main.java.values.atomics;
+package main.java.values.logics;
+
+import main.java.values.atomics.IValue;
 
 /**
  * Interpreter for Imperative/Functional Language

@@ -3,7 +3,7 @@ package main.java.values.closures;
 import java.util.List;
 
 import main.java.abstractsyntaxtree.node.ASTNode;
-import main.java.abstractsyntaxtree.scopes.Environment;
+import main.java.scopes.Environment;
 import main.java.values.atomics.IValue;
 
 

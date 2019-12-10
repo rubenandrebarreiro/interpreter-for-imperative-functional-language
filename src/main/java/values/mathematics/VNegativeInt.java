@@ -1,4 +1,6 @@
-package main.java.values.atomics;
+package main.java.values.mathematics;
+
+import main.java.values.atomics.IValue;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -24,14 +26,7 @@ package main.java.values.atomics;
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-public class VNegativeInt implements IValue {
-	
-	// Global Instance Variables:
-	
-	/**
-	 * The value of an Negative Integer Value.
-	 */
-	private int value;
+public class VNegativeInt extends VInt implements IValue {
 	
 	
 	// Constructors:
@@ -43,26 +38,8 @@ public class VNegativeInt implements IValue {
 	 * @param value the value of a Negative Integer Value
 	 */
 	public VNegativeInt(int value) {
-		this.value = (-1) * value;
+		super((-1) * value);
 	}
 	
 	
-	// Methods:
-	
-	/**
-	 * Returns the value of a Negative Integer Value.
-	 * 
-	 * @return the value of a Negative Integer Value
-	 */
-	public int getValue() {
-		return this.value;
-	}
-
-	/**
-	 * Prints the value of a Negative Integer Value representation in String.
-	 */
-	@Override
-	public void show() {
-		System.out.println(this.value);
-	}
 }
