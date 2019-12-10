@@ -1,4 +1,4 @@
-package main.java.types.atomics;
+package main.java.types.strings;
 
 import main.java.types.IType;
 

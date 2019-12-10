@@ -1,22 +1,23 @@
-package main.java.types.atomics;
+package main.java.types.logics;
 
 import main.java.types.IType;
 
-public class TNegativeInt implements IType {
-
+public class TBool implements IType{
+	
 	@Override
 	public String getTypeName() {
-		return "Negative Integer";
+		return "Boolean";
 	}
 
 	@Override
 	public String getStackFrameName() {
+		// TODO Change to boolean values
 		return "I";
 	}
 
 	@Override
 	public boolean equals(IType other) {
-		return other instanceof TNegativeInt;
+		return other instanceof TBool;
 	}
-
+	
 }

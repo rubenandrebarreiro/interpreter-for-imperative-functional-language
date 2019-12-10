@@ -1,4 +1,4 @@
-package main.java.types.atomics;
+package main.java.types.mathematics;
 
 import main.java.types.IType;
 
@@ -6,12 +6,14 @@ public class TInt implements IType {
 
 	@Override
 	public String getTypeName() {
-		return "Integer";
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public String getStackFrameName() {
-		return "I";
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
