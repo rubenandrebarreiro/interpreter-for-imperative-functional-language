@@ -19,8 +19,8 @@ import java.io.IOException;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
-import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.scopes.compiler.EnvironmentCompiler;
+import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
