@@ -21,11 +21,11 @@ import main.java.abstractsyntaxtree.node.operators.nary.functionals.*;
 
 import main.java.abstractsyntaxtree.node.primitives.conditionals.*;
 import main.java.abstractsyntaxtree.node.primitives.loops.*;
+import main.java.abstractsyntaxtree.node.primitives.sequences.*;
 
 import main.java.values.logics.*;
 import main.java.values.mathematics.*;
 
-import main.java.abstractsyntaxtree.node.sequences.*;
 import main.java.abstractsyntaxtree.node.declarations.*;
 import main.java.compiler.Compiler;
 import main.java.values.atomics.*;
