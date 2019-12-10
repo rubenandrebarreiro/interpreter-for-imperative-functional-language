@@ -11,8 +11,7 @@ public class TFun implements IType {
 
 	@Override
 	public String getStackFrameName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Ljava/lang/Object";
 	}
 
 	@Override

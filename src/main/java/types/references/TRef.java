@@ -3,7 +3,7 @@ package main.java.types.references;
 import main.java.types.IType;
 
 public class TRef implements IType {
-
+	
 	
 	private IType referenceType;
 	
@@ -20,7 +20,7 @@ public class TRef implements IType {
 
 	@Override
 	public String getStackFrameName() {
-		return "Ljava/lang/String";
+		return "Ljava/lang/Object";
 	}
 
 	@Override

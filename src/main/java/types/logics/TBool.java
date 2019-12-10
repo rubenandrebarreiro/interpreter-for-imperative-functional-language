@@ -3,6 +3,12 @@ package main.java.types.logics;
 import main.java.types.IType;
 
 public class TBool implements IType{
+
+	private static final TBool INSTANCE = new TBool();
+	
+	public static TBool getInstance() {
+		return INSTANCE;
+	}
 	
 	@Override
 	public String getTypeName() {
@@ -11,7 +17,6 @@ public class TBool implements IType{
 
 	@Override
 	public String getStackFrameName() {
-		// TODO Change to boolean values
 		return "I";
 	}
 

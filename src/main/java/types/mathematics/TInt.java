@@ -4,16 +4,20 @@ import main.java.types.IType;
 
 public class TInt implements IType {
 
+	private static final TInt INSTANCE = new TInt();
+	
+	public static TInt getInstance() {
+		return INSTANCE;
+	}
+	
 	@Override
 	public String getTypeName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Integer";
 	}
 
 	@Override
 	public String getStackFrameName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "I";
 	}
 
 	@Override
