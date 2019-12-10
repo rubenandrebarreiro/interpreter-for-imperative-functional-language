@@ -68,10 +68,7 @@ public class ASTPreFixIncrement implements ASTNode {
 		codeBlockInstructionsSet.addCodeInstruction
 		("sipush " + String.valueOf(numASTNodeValueToBeIncremented.getValue()));
 		
-		codeBlockInstructionsSet.addCodeInstruction
-		("sipush " + String.valueOf(1));
-		
-		codeBlockInstructionsSet.addCodeInstruction("iadd");
+		codeBlockInstructionsSet.addCodeInstruction("iinc");
 		
 	}
 
