@@ -3,7 +3,7 @@ package main.java.abstractsyntaxtree.node.primitives.loops;
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
-import main.java.abstractsyntaxtree.node.sequences.ASTSeq;
+import main.java.abstractsyntaxtree.node.primitives.sequences.ASTSeq;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;

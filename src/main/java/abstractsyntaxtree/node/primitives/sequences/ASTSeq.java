@@ -1,4 +1,4 @@
-package main.java.abstractsyntaxtree.node.sequences;
+package main.java.abstractsyntaxtree.node.primitives.sequences;
 
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;

@@ -1,4 +1,4 @@
-package main.java.abstractsyntaxtree.node.references;
+package main.java.abstractsyntaxtree.node.operators.unary.references;
 
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
