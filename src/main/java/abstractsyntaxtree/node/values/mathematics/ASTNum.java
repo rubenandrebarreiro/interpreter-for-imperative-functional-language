@@ -5,7 +5,7 @@ import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
-import main.java.types.mathematics.TPositiveInt;
+import main.java.types.mathematics.TInt;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.TypeErrorException;
 import main.java.values.mathematics.VInt;
@@ -77,7 +77,7 @@ public class ASTNum implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
 		
-		return new TPositiveInt();
+		return TInt.getInstance();
 	
 	}
 }

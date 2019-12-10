@@ -71,13 +71,17 @@ public class ASTIfThenElse implements ASTNode {
 	
 	/**
 	 * Constructor #1:
-	 * - TODO
+	 * - Constructor of the A.S.T. Node for Conditional,
+	 *   performing a conditional verification and its branches of procedures (IF/THEN/ELSE);
 	 * 
-	 * @param ifASTConditionalNodeDescendant
+	 * @param ifASTConditionalNodeDescendant the IF (verification) part/component of
+	 *        the A.S.T. Conditional Node descendant
 	 * 
-	 * @param thenASTConditionalNodeDescendant
+	 * @param thenASTConditionalNodeDescendant the THEN part/component (procedure, in the case of verification be TRUE) of
+	 * 		  the A.S.T. Conditional Node descendant
 	 * 
-	 * @param elseASTConditionalNodeDescendant
+	 * @param elseASTConditionalNodeDescendant the ELSE part/component (procedure, in the case of verification be FALSE) of
+	 * 		  the A.S.T. Conditional Node descendant
 	 */
 	public ASTIfThenElse(ASTNode ifASTConditionalNodeDescendant,
 					     ASTNode thenASTConditionalNodeDescendant,

@@ -47,7 +47,10 @@ public class ASTFun implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 			throws ASTInvalidIdentifierException {
 		
-		// TODO Auto-generated method stub
+		codeBlockInstructionsSet.addCodeInstruction(String.format("new closure_f000%d", 1 /* TODO */));
+		codeBlockInstructionsSet.addCodeInstruction(String.format("dup"));
+		codeBlockInstructionsSet.addCodeInstruction(String.format("aload SL"));
+		codeBlockInstructionsSet.addCodeInstruction(String.format("putfield closure_f000%d/SL type;", 1 /* TODO */));
 		
 	}
 
