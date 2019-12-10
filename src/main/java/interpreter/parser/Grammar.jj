@@ -2,16 +2,29 @@ PARSER_BEGIN(InterpreterParser)
 
 package main.java.interpreter.parser;
 
-import main.java.abstractsyntaxtree.scopes.Environment;
-import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
+import main.java.scopes.Environment;
+import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.node.*;
 import main.java.abstractsyntaxtree.node.associations.*;
-import main.java.abstractsyntaxtree.node.arithmetics.*;
-import main.java.abstractsyntaxtree.node.atomics.*;
-import main.java.abstractsyntaxtree.node.conditionals.*;
-import main.java.abstractsyntaxtree.node.logics.*;
-import main.java.abstractsyntaxtree.node.loops.*;
-import main.java.abstractsyntaxtree.node.relationals.*;
+
+import main.java.abstractsyntaxtree.node.values.logics.*;
+import main.java.abstractsyntaxtree.node.values.mathematics.*;
+
+import main.java.abstractsyntaxtree.node.operators.unary.logics.*;
+import main.java.abstractsyntaxtree.node.operators.unary.mathematics.*;
+
+import main.java.abstractsyntaxtree.node.operators.binary.arithmetics.*;
+import main.java.abstractsyntaxtree.node.operators.binary.logics.*;
+import main.java.abstractsyntaxtree.node.operators.binary.relationals.*;
+
+import main.java.abstractsyntaxtree.node.operators.nary.functionals.*;
+
+import main.java.abstractsyntaxtree.node.primitives.conditionals.*;
+import main.java.abstractsyntaxtree.node.primitives.loops.*;
+
+import main.java.values.logics.*;
+import main.java.values.mathematics.*;
+
 import main.java.abstractsyntaxtree.node.sequences.*;
 import main.java.abstractsyntaxtree.node.declarations.*;
 import main.java.compiler.Compiler;
