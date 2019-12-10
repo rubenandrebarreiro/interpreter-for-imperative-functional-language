@@ -7,6 +7,7 @@ import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
+import main.java.types.mathematics.TInt;
 import main.java.types.mathematics.TNegativeInt;
 import main.java.types.mathematics.TPositiveInt;
 import main.java.values.atomics.IValue;
@@ -183,10 +184,10 @@ public class ASTAdd implements ASTNode {
 			return new TNegativeInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TPositiveInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return new TPositiveInt(); //TODO
+			return new TInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TPositiveInt) {
-			return new TPositiveInt(); //TODO
+			return new TInt();
 		}
 		else {
 			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
