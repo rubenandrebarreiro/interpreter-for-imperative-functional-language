@@ -2,10 +2,10 @@ package main.java.abstractsyntaxtree.node.associations;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
-import main.java.abstractsyntaxtree.scopes.Environment;
-import main.java.abstractsyntaxtree.scopes.compiler.EnvironmentCompiler;
-import main.java.abstractsyntaxtree.scopes.compiler.instructions.CodeBlockInstructionsSet;
-import main.java.abstractsyntaxtree.scopes.heap.structures.FieldAddress;
+import main.java.scopes.Environment;
+import main.java.scopes.compiler.EnvironmentCompiler;
+import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.scopes.structures.heap.utils.FieldAddress;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.TypeErrorException;
