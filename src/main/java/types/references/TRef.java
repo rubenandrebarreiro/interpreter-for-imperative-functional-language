@@ -2,11 +2,9 @@ package main.java.types.references;
 
 import main.java.types.IType;
 
-public class TRef implements IType {
-	
+public class TRef<T> implements IType {
 	
 	private IType referenceType;
-	
 	
 	
 	public TRef(IType referenceType) {
@@ -15,7 +13,7 @@ public class TRef implements IType {
 	
 	@Override
 	public String getTypeName() {
-		return "Reference";
+		return String.format("Reference for Type: %s", referenceType.getTypeName());
 	}
 
 	@Override
