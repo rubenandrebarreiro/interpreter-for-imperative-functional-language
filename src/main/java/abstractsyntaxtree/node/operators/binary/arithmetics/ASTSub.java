@@ -12,8 +12,7 @@ import main.java.types.mathematics.TPositiveInt;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.mathematics.VPositiveInt;
-import main.java.values.mathematics.VNegativeInt;
+import main.java.values.mathematics.VInt;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -91,40 +90,13 @@ public class ASTSub implements ASTNode {
 		IValue leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
-		if(leftASTNodeDescendantValue instanceof VPositiveInt && rightASTNodeDescedantValue instanceof VPositiveInt) {
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
 			// Returns the Subtraction of the A.S.T. Nodes Positive Descendants
-			int addResult = ((VPositiveInt) leftASTNodeDescendantValue).getValue() 
-				          - ((VPositiveInt) rightASTNodeDescedantValue).getValue();
+			int addResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+				          - ((VInt) rightASTNodeDescedantValue).getValue();
 			
-			return new VPositiveInt(addResult);
-		}
-		
-		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VPositiveInt) {
-
-			// Returns the Subtraction of the A.S.T. Nodes Positive/Negative Descendants
-			int addResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
-					      - ((VPositiveInt) rightASTNodeDescedantValue).getValue();
-			
-			return (addResult > 0) ? new VPositiveInt(addResult) : new VNegativeInt(Math.abs(addResult));
-		}
-		
-		if(leftASTNodeDescendantValue instanceof VPositiveInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
-
-			// Returns the Subtraction of the A.S.T. Nodes Positive/Negative Descendants
-			int addResult = ((VPositiveInt) leftASTNodeDescendantValue).getValue() 
-					      - ((VNegativeInt) rightASTNodeDescedantValue).getValue();
-			
-			return (addResult > 0) ? new VPositiveInt(addResult) : new VNegativeInt(Math.abs(addResult));
-		}
-		
-		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
-
-			// Returns the Subtraction of the A.S.T. Nodes Negative Descendants
-			int addResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
-					      - ((VNegativeInt) rightASTNodeDescedantValue).getValue();
-			
-			return (addResult > 0) ? new VPositiveInt(addResult) : new VNegativeInt(Math.abs(addResult));
+			return new VInt(addResult);
 		}
 		
 		throw new TypeErrorException(TYPE_ERROR_MESSAGE);

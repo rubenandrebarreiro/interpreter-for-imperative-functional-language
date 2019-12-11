@@ -12,8 +12,7 @@ import main.java.types.mathematics.TPositiveInt;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
-import main.java.values.mathematics.VPositiveInt;
-import main.java.values.mathematics.VNegativeInt;
+import main.java.values.mathematics.VInt;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -88,40 +87,13 @@ public class ASTMult implements ASTNode {
 		IValue leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
-		if(leftASTNodeDescendantValue instanceof VPositiveInt && rightASTNodeDescedantValue instanceof VPositiveInt) {
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
 			// Returns the Multiplication of the A.S.T. Nodes Positive Descendants
-			int mulResult = ((VPositiveInt) leftASTNodeDescendantValue).getValue() 
-				          * ((VPositiveInt) rightASTNodeDescedantValue).getValue();
+			int mulResult = ((VInt) leftASTNodeDescendantValue).getValue() 
+				          * ((VInt) rightASTNodeDescedantValue).getValue();
 			
-			return new VPositiveInt(mulResult);
-		}
-		
-		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VPositiveInt) {
-
-			// Returns the Multiplication of the A.S.T. Nodes Positive/Negative Descendants
-			int mulResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
-					      * ((VPositiveInt) rightASTNodeDescedantValue).getValue();
-			
-			return new VNegativeInt(Math.abs(mulResult));
-		}
-		
-		if(leftASTNodeDescendantValue instanceof VPositiveInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
-
-			// Returns the Multiplication of the A.S.T. Nodes Positive/Negative Descendants
-			int mulResult = ((VPositiveInt) leftASTNodeDescendantValue).getValue() 
-					      * ((VNegativeInt) rightASTNodeDescedantValue).getValue();
-			
-			return new VNegativeInt(Math.abs(mulResult));
-		}
-		
-		if(leftASTNodeDescendantValue instanceof VNegativeInt && rightASTNodeDescedantValue instanceof VNegativeInt) {
-
-			// Returns the Multiplication of the A.S.T. Nodes Negative Descendants
-			int mulResult = ((VNegativeInt) leftASTNodeDescendantValue).getValue() 
-					      * ((VNegativeInt) rightASTNodeDescedantValue).getValue();
-			
-			return new VPositiveInt(mulResult);
+			return new VInt(mulResult);
 		}
 		
 		throw new TypeErrorException(TYPE_ERROR_MESSAGE);
