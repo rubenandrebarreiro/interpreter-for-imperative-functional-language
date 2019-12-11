@@ -13,7 +13,7 @@ import main.java.values.atomics.IValue;
 import main.java.values.exceptions.NumberArgumentsErrorException;
 import main.java.values.exceptions.TypeErrorException;
 import main.java.values.logics.VBool;
-import main.java.values.mathematics.VPositiveInt;
+import main.java.values.mathematics.VInt;
 
 /**
  * Interpreter for Imperative/Functional Language
@@ -105,10 +105,10 @@ public class ASTLessThan implements ASTNode {
 		IValue leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
 		
-		if(leftASTNodeDescendantValue instanceof VPositiveInt && rightASTNodeDescedantValue instanceof VPositiveInt) {
+		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
 			// Returns the Less Than Comparison of the A.S.T. Nodes Descendants
-			return new VBool( ((VPositiveInt) leftASTNodeDescendantValue).getValue() < ((VPositiveInt) rightASTNodeDescedantValue).getValue());
+			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() < ((VInt) rightASTNodeDescedantValue).getValue());
 		}
 		throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
