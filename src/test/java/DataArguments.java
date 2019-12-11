@@ -30,6 +30,7 @@ public class DataArguments {
 			{ "Let x=5 in Let y=5 in Let x=2 in y-x end end end", "3" }, // #15
 			{ "Let x=2 y=3 in Let z=x+y in Let q=10 x=10 e=q+x in x+e-(z*2) end end end", "20" },  // #16 //10+20-(5*2)
 			{ "Let x=2 y=3 in Let x=20 in x+y end +x end", "25" }, // #17
+			{ "Let x=2 y=3 in Let z = x+y+5 in Let qwerty = z in qwerty end end end + Let x=10 in Let y=(x+x)-x n=0 m=0 in y end end", "20"}, // #18 //Has to create 5 frames.
 			
 			// Truth values
 			{ "true", "true" }, // #19

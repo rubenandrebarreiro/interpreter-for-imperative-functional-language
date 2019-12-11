@@ -100,12 +100,12 @@ public class EnvironmentCompiler {
 		// System.out.println(String.format("New environment created with frameID = %d!!!", this.frameID));
 		// System.out.println();
 
-		try {
-			this.generateAndDumpsHeapStackFrameFile();
-		}
-		catch (IOException inputOutputException) {
-			inputOutputException.printStackTrace();
-		}
+//		try {
+//			this.generateAndDumpsHeapStackFrameFile();
+//		}
+//		catch (IOException inputOutputException) {
+//			inputOutputException.printStackTrace();
+//		}
 	}
 	
 	public EnvironmentCompiler beginScope() {
