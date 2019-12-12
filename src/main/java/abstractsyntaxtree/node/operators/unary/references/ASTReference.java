@@ -32,18 +32,16 @@ public class ASTReference implements ASTNode {
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
-			throws ASTInvalidIdentifierException {
+		   throws ASTInvalidIdentifierException {
 		
-		codeBlockInstructionsSet.addCodeInstruction("new "); //TODO
+		codeBlockInstructionsSet.addCodeInstruction("new ref_int"); //TODO
 		codeBlockInstructionsSet.addCodeInstruction("dup");
-		codeBlockInstructionsSet.addCodeInstruction("invokespecial " + "/<init>()V"); //TODO
+		codeBlockInstructionsSet.addCodeInstruction("invokespecial ref_int/<init>()V"); //TODO
 		codeBlockInstructionsSet.addCodeInstruction("dup");
 		
-		// TODO
-		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet);
+		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet); // TODO confirmar
 		
-		codeBlockInstructionsSet.addCodeInstruction("putfield " + "/"); //TODO
-		
+		codeBlockInstructionsSet.addCodeInstruction("putfield ref_int/v I"); //TODO
 		
 	}
 

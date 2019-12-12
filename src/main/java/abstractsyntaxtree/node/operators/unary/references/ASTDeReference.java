@@ -44,7 +44,8 @@ public class ASTDeReference implements ASTNode {
 		// TODO
 		this.referenceValueToBeDereferenced.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		codeBlockInstructionsSet.addCodeInstruction("getfield "); //TODO
+		codeBlockInstructionsSet.addCodeInstruction("checkcast ref_int"); //TODO
+		codeBlockInstructionsSet.addCodeInstruction("getfield ref_int/v I"); //TODO
 		
 	}
 
