@@ -16,7 +16,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.interpreter.parser.*;
-import main.java.values.exceptions.TypeErrorException; 
+import main.java.values.utils.exceptions.TypeErrorException; 
 
 @RunWith(Parameterized.class)
 public class TestInterpreter {
