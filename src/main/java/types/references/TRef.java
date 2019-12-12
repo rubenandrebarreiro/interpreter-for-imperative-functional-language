@@ -13,7 +13,7 @@ public class TRef<T> implements IType {
 	
 	@Override
 	public String getTypeName() {
-		return String.format("Reference for Type: %s", referenceType.getTypeName());
+		return String.format("Reference for Type: %s", this.referenceType.getTypeName());
 	}
 
 	@Override

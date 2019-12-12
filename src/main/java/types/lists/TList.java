@@ -2,7 +2,7 @@ package main.java.types.lists;
 
 import main.java.types.IType;
 
-public class TList<T> implements IType {
+public class TList implements IType {
 
 	private IType listType;	
 	
@@ -12,13 +12,12 @@ public class TList<T> implements IType {
 	
 	@Override
 	public String getTypeName() {
-		return String.format("List of Type: %s", listType);
+		return String.format("List of Type: %s", this.listType.getTypeName());
 	}
 
 	@Override
 	public String getStackFrameName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Ljava/lang/Object";
 	}
 
 	@Override
