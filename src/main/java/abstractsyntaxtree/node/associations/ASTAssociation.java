@@ -99,7 +99,7 @@ public class ASTAssociation<T> implements ASTNode {
 		
 		// Start a new assignment Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
-		codeBlockInstructions.addCodeInstruction(";------------------Start new assignment------------------");
+		codeBlockInstructions.addCodeInstruction(";------------------Start new association------------------");
 		codeBlockInstructions.addCodeInstruction("aload 0");
 		
 		// Compile the assignment Java Byte Code, written in J.V.M.,
@@ -114,7 +114,7 @@ public class ASTAssociation<T> implements ASTNode {
 		
 		// End a new assignment Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
-		codeBlockInstructions.addCodeInstruction(";------------------End new assignment------------------");
+		codeBlockInstructions.addCodeInstruction(";------------------End new association------------------");
 		codeBlockInstructions.addCodeInstruction("\n");
 	}
 
