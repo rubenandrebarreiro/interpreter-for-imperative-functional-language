@@ -6,6 +6,8 @@ public interface IType {
 	
 	public String getStackFrameName();
 	
+	public String getStackRefName();
+	
 	public boolean equals(IType other);
 	
 	
