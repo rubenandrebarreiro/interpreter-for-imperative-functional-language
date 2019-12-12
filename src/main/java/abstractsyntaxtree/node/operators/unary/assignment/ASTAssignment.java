@@ -21,6 +21,8 @@ public class ASTAssignment implements ASTNode {
 	
 	private ASTNode assignmentValue;
 	
+	private IType assignmentValueType;
+	
 	
 	public ASTAssignment(ASTNode assignmentID, ASTNode assignmentValue) {
 		
@@ -42,21 +44,23 @@ public class ASTAssignment implements ASTNode {
 		
 		this.assignmentID.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		codeBlockInstructionsSet.addCodeInstruction("checkcast ref_int"); //TODO
+		String stackRefName = this.assignmentValueType.getStackRefName();
+		String stackFrameName = this.assignmentValueType.getStackFrameName();
+		
+		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
 		
 		this.assignmentValue.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		codeBlockInstructionsSet.addCodeInstruction("putfield ref_int/v I"); //TODO
+		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
 		
 	}
 
 	@Override
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException,
 		   NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
-			return null;
-
-		// TODO
+		
+		return this.assignmentValueType = this.assignmentValue.typecheck(environment);
 		
 	}
-
+	
 }
