@@ -1,4 +1,4 @@
-package main.java.values.exceptions;
+package main.java.values.utils.exceptions;
 
 public class NumberArgumentsErrorException extends Exception {
 	

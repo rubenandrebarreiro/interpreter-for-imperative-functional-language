@@ -22,4 +22,4 @@
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-package main.java.values.exceptions;
+package main.java.values.utils.exceptions;
