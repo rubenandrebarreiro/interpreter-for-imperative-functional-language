@@ -7,17 +7,22 @@ import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
+import main.java.types.references.TRef;
 import main.java.values.atomics.IValue;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
 
-public class ASTReference implements ASTNode {
+public class ASTReference<T> implements ASTNode {
 
 	private ASTNode referenceValue;
 	
+	private TRef referenceType;
+	
 	
 	public ASTReference(ASTNode referenceValue) {
+		
 		this.referenceValue = referenceValue;
+		
 	}
 	
 	
@@ -34,14 +39,19 @@ public class ASTReference implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
 		
-		codeBlockInstructionsSet.addCodeInstruction("new ref_int"); //TODO
+		
+		String stackRefName = this.referenceType.getStackRefName();
+		String stackFrameName = this.referenceType.getStackFrameName();
+		
+		codeBlockInstructionsSet.addCodeInstruction( String.format("new %s", stackRefName) );
+		
 		codeBlockInstructionsSet.addCodeInstruction("dup");
-		codeBlockInstructionsSet.addCodeInstruction("invokespecial ref_int/<init>()V"); //TODO
+		codeBlockInstructionsSet.addCodeInstruction( String.format("invokespecial %s/<init>()V", stackRefName) );
 		codeBlockInstructionsSet.addCodeInstruction("dup");
 		
-		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet); // TODO confirmar
+		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		codeBlockInstructionsSet.addCodeInstruction("putfield ref_int/v I"); //TODO
+		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
 		
 	}
 
@@ -53,7 +63,9 @@ public class ASTReference implements ASTNode {
 	   		      ASTDuplicatedIdentifierException,
 	   		      NumberArgumentsErrorException {
 		
-		return this.referenceValue.typecheck(environment);
+		this.referenceType = (TRef) this.referenceValue.typecheck(environment);
+		
+		return this.referenceType;
 		
 	}
 	

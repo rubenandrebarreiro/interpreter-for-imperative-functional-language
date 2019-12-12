@@ -18,13 +18,15 @@ public class ASTDeReference implements ASTNode {
 			"Illegal arguments to Dereference operator:\n"
 		  + "- The value used in the respectively Reference it's not of Reference Type!!!";
 	
-	private ASTNode referenceValueToBeDereferenced;
+	private ASTNode referenceValueToBeDeReferenced;
+	
+	private TRef referenceType; 
 	
 	
-	public ASTDeReference(ASTNode referenceValueToBeDereferenced) {
+	public ASTDeReference(ASTNode referenceValueToBeDeReferenced) {
 		
-		this.referenceValueToBeDereferenced = 
-				referenceValueToBeDereferenced;
+		this.referenceValueToBeDeReferenced = 
+				referenceValueToBeDeReferenced;
 		
 	}
 
@@ -33,19 +35,22 @@ public class ASTDeReference implements ASTNode {
 	public IValue eval(Environment<IValue> environment)
 			throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
-		return this.referenceValueToBeDereferenced.eval(environment);
+		return this.referenceValueToBeDeReferenced.eval(environment);
 	}
 
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
-			throws ASTInvalidIdentifierException {
-
-		// TODO
-		this.referenceValueToBeDereferenced.compile(environmentCompiler, codeBlockInstructionsSet);
+		   throws ASTInvalidIdentifierException {
 		
-		codeBlockInstructionsSet.addCodeInstruction("checkcast ref_int"); //TODO
-		codeBlockInstructionsSet.addCodeInstruction("getfield ref_int/v I"); //TODO
+		this.referenceValueToBeDeReferenced.compile(environmentCompiler, codeBlockInstructionsSet);
+		
+		
+		String stackRefName = this.referenceType.getStackRefName();
+		String stackFrameName = this.referenceType.getStackFrameName();
+		
+		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
+		codeBlockInstructionsSet.addCodeInstruction( String.format("getfield %s/v %s", stackRefName, stackFrameName) );
 		
 	}
 
@@ -57,11 +62,11 @@ public class ASTDeReference implements ASTNode {
 	   		      ASTDuplicatedIdentifierException,
 	   		      NumberArgumentsErrorException {
 	
-		IType referenceValueToBeDereferencedType = this.referenceValueToBeDereferenced.typecheck(environment);
+		this.referenceType = (TRef) this.referenceValueToBeDeReferenced.typecheck(environment);
 	
-		if(referenceValueToBeDereferencedType instanceof TRef) {
+		if(this.referenceType instanceof TRef) {
 			
-			return ((TRef) referenceValueToBeDereferencedType).getReferenceType(); //TODO
+			return this.referenceType.getReferenceType();
 			
 		}
 		else {
@@ -69,7 +74,6 @@ public class ASTDeReference implements ASTNode {
 			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 		
 		}
-		
 	}
 	
 }
