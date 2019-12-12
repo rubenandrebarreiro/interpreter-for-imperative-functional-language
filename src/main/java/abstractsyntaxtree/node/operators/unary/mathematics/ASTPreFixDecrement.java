@@ -19,9 +19,14 @@ public class ASTPreFixDecrement implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The VInt, representing an Atomic Number to be Pre Fix Decremented
+	 * The value of the A.S.T. Node, representing an Atomic Number to be Pre Fix Decremented
 	 */
 	private VInt numASTNodeValueToBeDecremented;
+	
+	/**
+	 * The type of the A.S.T. Node, representing an Atomic Number to be Pre Fix Decremented
+	 */
+	private TInt numASTNodeTypeToBeDecremented;
 	
 	
 	// Constructors:
@@ -80,7 +85,10 @@ public class ASTPreFixDecrement implements ASTNode {
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException,
 			NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
 		
-		return new TInt();
+		this.numASTNodeTypeToBeDecremented = TInt.getSingletonInstance();
+		
+		return this.numASTNodeTypeToBeDecremented;
+		
 	}
 
 }

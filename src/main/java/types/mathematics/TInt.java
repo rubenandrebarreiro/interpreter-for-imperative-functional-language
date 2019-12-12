@@ -6,7 +6,7 @@ public class TInt implements IType {
 
 	private static final TInt INSTANCE = new TInt();
 	
-	public static TInt getInstance() {
+	public static TInt getSingletonInstance() {
 		return INSTANCE;
 	}
 	

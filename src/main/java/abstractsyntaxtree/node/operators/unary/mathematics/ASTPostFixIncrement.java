@@ -18,9 +18,14 @@ public class ASTPostFixIncrement implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The VInt, representing an Atomic Number to be Post Fix Incremented
+	 * The value of the A.S.T. Node, representing an Atomic Number to be Post Fix Incremented
 	 */
 	private VInt numASTNodeValueToBeIncremented;
+	
+	/**
+	 * The type of the A.S.T. Node, representing an Atomic Number to be Post Fix Incremented
+	 */
+	private TInt numASTNodeTypeToBeIncremented;
 	
 	
 	// Constructors:
@@ -77,7 +82,10 @@ public class ASTPostFixIncrement implements ASTNode {
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException,
 			NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
 		
-		return new TInt();
+		this.numASTNodeTypeToBeIncremented = TInt.getSingletonInstance();
+	
+		return this.numASTNodeTypeToBeIncremented;
+				
 	}
 
 }

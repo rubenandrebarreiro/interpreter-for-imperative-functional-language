@@ -6,7 +6,7 @@ public class TString implements IType {
 	
 	private static final TString INSTANCE = new TString();
 
-	public static TString getInstance() {
+	public static TString getSingletonInstance() {
 		return INSTANCE;
 	}
 	

@@ -6,7 +6,7 @@ public class TBool implements IType{
 
 	private static final TBool INSTANCE = new TBool();
 	
-	public static TBool getInstance() {
+	public static TBool getSingletonInstance() {
 		return INSTANCE;
 	}
 	

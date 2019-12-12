@@ -19,9 +19,15 @@ public class ASTPostFixDecrement implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The VInt, representing an Atomic Number to be Post Fix Decremented
+	 * The value of the A.S.T. Node, representing an Atomic Number to be Post Fix Decremented
 	 */
 	private VInt numASTNodeValueToBeDecremented;
+	
+	/**
+	 * The type of the A.S.T. Node, representing an Atomic Number to be Post Fix Decremented
+	 */
+	private TInt numASTNodeTypeToBeDecremented;
+	
 	
 	
 	// Constructors:
@@ -81,7 +87,10 @@ public class ASTPostFixDecrement implements ASTNode {
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException,
 			NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
 		
-		return new TInt();
+		this.numASTNodeTypeToBeDecremented = TInt.getSingletonInstance();
+		
+		return this.numASTNodeTypeToBeDecremented;
+		
 	}
 	
 }

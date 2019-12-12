@@ -24,10 +24,15 @@ public class ASTNegativeNum implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The VNegativeInt, representing an Atomic Negative Number
+	 * The value of  A.S.T. Node, representing an Atomic Negative Number
 	 */
 	private VNegativeInt negativeNumASTNodeValue;
-		
+	
+	/**
+	 * The type of  A.S.T. Node, representing an Atomic Negative Number
+	 */	
+	private TNegativeInt negativeNumASTNodeType;
+	
 	
 	// Constructors:
 	
@@ -81,7 +86,9 @@ public class ASTNegativeNum implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
 		
-		return new TNegativeInt();
-	
+		this.negativeNumASTNodeType = TNegativeInt.getSingletonInstance();
+		
+		return this.negativeNumASTNodeType;
+		
 	}
 }

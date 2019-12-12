@@ -24,10 +24,15 @@ public class ASTNum implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The A.S.T. Node, representing an Atomic Number
+	 * The value of the A.S.T. Node, representing an Atomic Number
 	 */
 	private VInt numASTNodeValue;
 		
+	/**
+	 * The type of the A.S.T. Node, representing an Atomic Number
+	 */
+	private TInt numASTNodeType;
+	
 	
 	// Constructors:
 	
@@ -77,7 +82,9 @@ public class ASTNum implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
 		
-		return TInt.getInstance();
+		this.numASTNodeType = TInt.getSingletonInstance();
+		
+		return this.numASTNodeType;
 	
 	}
 }

@@ -28,6 +28,12 @@ public class ASTNotBool implements ASTNode {
 	 */
 	private VBool boolASTNodeValue;
 	
+	/**
+	 * The type of the A.S.T. Node, representing a Negated Atomic Boolean
+	 */
+	private TBool boolASTNodeType;
+	
+	
 	// Constructors:
 
 	/**
@@ -88,7 +94,9 @@ public class ASTNotBool implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environmentType) throws TypeErrorException {
 		
-		return new TBool();
+		this.boolASTNodeType = TBool.getSingletonInstance();
 		
+		return this.boolASTNodeType;
+				
 	}
 }

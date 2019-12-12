@@ -6,7 +6,7 @@ public class TNegativeInt extends TInt implements IType {
 
 	private static final TNegativeInt INSTANCE = new TNegativeInt();
 
-	public static TNegativeInt getInstance() {
+	public static TNegativeInt getSingletonInstance() {
 		return INSTANCE;
 	}
 	

@@ -29,6 +29,11 @@ public class ASTBool implements ASTNode {
 	 */
 	private VBool boolASTNodeValue;
 	
+	/**
+	 * The type of the A.S.T. Node, representing an Atomic Boolean
+	 */
+	private TBool boolASTNodeType;
+	
 	
 	// Constructors:
 
@@ -80,7 +85,9 @@ public class ASTBool implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		
-		return TBool.getInstance();
+		this.boolASTNodeType = TBool.getSingletonInstance();
+		
+		return this.boolASTNodeType;
 	
 	}
 }

@@ -18,9 +18,14 @@ public class ASTPreFixIncrement implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The VInt, representing an Atomic Number to be Pre Fix Incremented
+	 * The value of the A.S.T. Node, representing an Atomic Number to be Pre Fix Incremented
 	 */
 	private VInt numASTNodeValueToBeIncremented;
+	
+	/**
+	 * The type of the A.S.T. Node, representing an Atomic Number to be Pre Fix Incremented
+	 */
+	private TInt numASTNodeTypeToBeIncremented;
 	
 	
 	// Constructors:
@@ -76,7 +81,10 @@ public class ASTPreFixIncrement implements ASTNode {
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException,
 			NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
 		
-		return new TInt();
+		this.numASTNodeTypeToBeIncremented = TInt.getSingletonInstance();
+		
+		return this.numASTNodeTypeToBeIncremented;
+		
 	}
 
 }

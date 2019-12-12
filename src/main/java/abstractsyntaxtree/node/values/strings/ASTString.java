@@ -5,7 +5,6 @@ import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
-import main.java.types.logics.TBool;
 import main.java.types.strings.TString;
 import main.java.values.atomics.IValue;
 import main.java.values.strings.VString;
@@ -28,6 +27,11 @@ public class ASTString implements ASTNode {
 	 * The value of the A.S.T. Node, representing an Atomic String
 	 */
 	private VString stringASTNodeValue;
+	
+	/**
+	 * The type of the A.S.T. Node, representing an Atomic String
+	 */
+	private TString stringASTNodeType;
 	
 	
 	// Constructors:
@@ -93,7 +97,9 @@ public class ASTString implements ASTNode {
 	@Override
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException {
 		
-		return TString.getInstance();
+		this.stringASTNodeType = TString.getSingletonInstance();
+		
+		return this.stringASTNodeType;
 	
 	}
 }
