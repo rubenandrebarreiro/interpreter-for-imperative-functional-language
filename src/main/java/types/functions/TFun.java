@@ -15,6 +15,11 @@ public class TFun implements IType {
 	}
 
 	@Override
+	public String getStackRefName() {
+		return "ref_class";
+	}
+
+	@Override
 	public boolean equals(IType other) {
 		return other instanceof TFun;
 	}

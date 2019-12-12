@@ -21,6 +21,11 @@ public class TList implements IType {
 	}
 
 	@Override
+	public String getStackRefName() {
+		return "ref_class";
+	}
+
+	@Override
 	public boolean equals(IType other) {
 		return other instanceof TList;
 	}

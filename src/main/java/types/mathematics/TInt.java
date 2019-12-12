@@ -21,6 +21,11 @@ public class TInt implements IType {
 	}
 
 	@Override
+	public String getStackRefName() {
+		return "ref_int";
+	}
+
+	@Override
 	public boolean equals(IType other) {
 		return other instanceof TInt;
 	}

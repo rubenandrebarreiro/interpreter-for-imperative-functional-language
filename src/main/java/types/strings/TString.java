@@ -17,7 +17,12 @@ public class TString implements IType {
 
 	@Override
 	public String getStackFrameName() {
-		return "Ljava/lang/String";
+		return "Ljava/lang/String"; //TODO object confirmar
+	}
+
+	@Override
+	public String getStackRefName() {
+		return "ref_class";
 	}
 
 	@Override

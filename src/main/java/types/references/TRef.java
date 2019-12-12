@@ -2,7 +2,7 @@ package main.java.types.references;
 
 import main.java.types.IType;
 
-public class TRef<T> implements IType {
+public class TRef implements IType {
 	
 	private IType referenceType;
 	
@@ -21,6 +21,11 @@ public class TRef<T> implements IType {
 		return "Ljava/lang/Object";
 	}
 
+	@Override
+	public String getStackRefName() {
+		return "ref_class";
+	}
+	
 	@Override
 	public boolean equals(IType other) {
 		return other instanceof TRef;
