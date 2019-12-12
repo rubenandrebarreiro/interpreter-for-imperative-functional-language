@@ -13,7 +13,7 @@ import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.closures.VClosure;
-import main.java.values.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.TypeErrorException;
 
 public class ASTFun implements ASTNode {
 	

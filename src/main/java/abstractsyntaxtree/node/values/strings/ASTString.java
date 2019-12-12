@@ -8,8 +8,8 @@ import main.java.types.IType;
 import main.java.types.logics.TBool;
 import main.java.types.strings.TString;
 import main.java.values.atomics.IValue;
-import main.java.values.exceptions.TypeErrorException;
 import main.java.values.strings.VString;
+import main.java.values.utils.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing an Atomic String.

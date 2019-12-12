@@ -11,9 +11,9 @@ import main.java.types.mathematics.TInt;
 import main.java.types.mathematics.TNegativeInt;
 import main.java.types.mathematics.TPositiveInt;
 import main.java.values.atomics.IValue;
-import main.java.values.exceptions.NumberArgumentsErrorException;
-import main.java.values.exceptions.TypeErrorException;
 import main.java.values.mathematics.VInt;
+import main.java.values.utils.exceptions.NumberArgumentsErrorException;
+import main.java.values.utils.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),

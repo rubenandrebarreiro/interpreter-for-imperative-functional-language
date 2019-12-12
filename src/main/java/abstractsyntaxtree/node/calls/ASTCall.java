@@ -12,8 +12,8 @@ import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.types.functions.TFun;
 import main.java.values.atomics.IValue;
-import main.java.values.exceptions.NumberArgumentsErrorException;
-import main.java.values.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.NumberArgumentsErrorException;
+import main.java.values.utils.exceptions.TypeErrorException;
 
 public class ASTCall implements ASTNode {
 

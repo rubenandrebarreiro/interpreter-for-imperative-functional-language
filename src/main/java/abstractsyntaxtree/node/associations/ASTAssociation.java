@@ -8,8 +8,8 @@ import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
-import main.java.values.exceptions.NumberArgumentsErrorException;
-import main.java.values.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.NumberArgumentsErrorException;
+import main.java.values.utils.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
