@@ -87,7 +87,6 @@ public class ASTID implements ASTNode {
 						CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		FieldAddress valueFieldAddress = null;
-		EnvironmentCompiler currentEnvironment = environmentCompiler;
 		
 		HeapStackFrame heapStackFrame = codeBlockInstructions.getCurrentFrame();
 		codeBlockInstructions.addCodeInstruction("aload 0");
@@ -98,7 +97,7 @@ public class ASTID implements ASTNode {
 			
 			// If it was no found the pretended value and there's no more Ancestors in
 			// the Heap Stack of Environments (Scopes/Frames)
-			if(currentEnvironment.getAncestor() == null) {
+			if(heapStackFrame.getStaticLinkAncestorHeapFrame() == null) {
 				throw new ASTInvalidIdentifierException("Invalid Identifier!!!\n"
 						+ "It was used an free occurrence not defined at any Heap Stack Frame!!!\n\n");
 			}

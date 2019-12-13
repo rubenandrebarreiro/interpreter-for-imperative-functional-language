@@ -141,7 +141,6 @@ public class ASTLet implements ASTNode {
 			            CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		EnvironmentCompiler newEnvironment = environmentCompiler.beginScope();
-		EnvironmentCompiler ancestor = newEnvironment.getAncestor();
 		
 		HeapStackFrame currentFrame = null;
 		
@@ -157,7 +156,7 @@ public class ASTLet implements ASTNode {
 		codeBlockInstructions.addHeapStackFrame(currentFrame);
 		codeBlockInstructions.setCurrentFrame(currentFrame);
 		
-		this.createFrame(ancestor, codeBlockInstructions, currentFrame);
+		this.createFrame(codeBlockInstructions, currentFrame);
 		
 		for(ASTNode associationASTNode : this.associations) {
 			associationASTNode.compile(newEnvironment, codeBlockInstructions);
@@ -165,13 +164,13 @@ public class ASTLet implements ASTNode {
 		
 		this.bodyASTLetNodeDescendant.compile(newEnvironment, codeBlockInstructions);
 		
-		this.removeFrame(ancestor, codeBlockInstructions, currentFrame);
+		this.removeFrame(codeBlockInstructions, currentFrame);
 		
 		currentFrame = currentFrame.getStaticLinkAncestorHeapFrame();
 		codeBlockInstructions.setCurrentFrame(currentFrame);
 	}
 	
-	private void createFrame(EnvironmentCompiler ancestor, CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
+	private void createFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
 		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
 		int currentFrameID = currentFrame.getHeapStackFrameID();
 		
@@ -196,7 +195,7 @@ public class ASTLet implements ASTNode {
 
 	}
 	
-	private void removeFrame(EnvironmentCompiler ancestor, CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
+	private void removeFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
 		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
 		int currentFrameID = currentFrame.getHeapStackFrameID();
 		
