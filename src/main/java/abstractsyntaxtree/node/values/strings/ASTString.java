@@ -5,7 +5,6 @@ import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
-import main.java.types.logics.TBool;
 import main.java.types.strings.TString;
 import main.java.values.atomics.IValue;
 import main.java.values.exceptions.TypeErrorException;
