@@ -14,7 +14,9 @@ public class CodeBlockInstructionsSet {
 	private List<HeapStackFrame> heapStackFramesSet;
 	
 	private List<String> codeBlockInstructionsSet;
-		
+	
+	private HeapStackFrame currentFrame;
+	
 	public CodeBlockInstructionsSet() {
 		
 		this.codeBlockInstructionsSet = new ArrayList<String>();
@@ -22,6 +24,8 @@ public class CodeBlockInstructionsSet {
 		
 		addCodeInstruction("aconst_null\n" + 
 						   "astore 0\n");
+		
+		this.currentFrame = null;
 	}
 	
 	public void addHeapStackFrame(HeapStackFrame heapStackFrame) {
@@ -45,8 +49,16 @@ public class CodeBlockInstructionsSet {
 		this.codeBlockInstructionsSet.add(codeInstruction);
 	}
 	
-	public int getCurrentFrameID() {
+	public HeapStackFrame getCurrentFrame() {
+		return this.currentFrame;
+	}
+	
+	public int getHeapListSize() {
 		return this.heapStackFramesSet.size();
+	}
+
+	public void setCurrentFrame(HeapStackFrame newCurrentFrame) {
+		this.currentFrame = newCurrentFrame;
 	}
 	
 	public void dump(String filename) throws IOException {

@@ -18,6 +18,9 @@ package main.java.scopes.structures.heap;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import main.java.scopes.structures.heap.utils.FieldAddress;
+import main.java.scopes.structures.heap.utils.HeapStackFrameFieldOffsetLocations;
+
 /**
  * Class for the Heap Stack Frame.
  * 
@@ -51,6 +54,8 @@ public class HeapStackFrame {
 	 */
 	private int numberOfFields;
 	
+	private HeapStackFrameFieldOffsetLocations stackFrameFieldLocations;
+	
 	
 	// Constructors:
 	/**
@@ -68,6 +73,7 @@ public class HeapStackFrame {
 		this.heapStackFrameID = heapStackFrameID;
 		this.staticLinkAncestorHeapFrame = staticLinkAncestorHeapFrame;
 		this.numberOfFields = numberOfFields;
+		this.stackFrameFieldLocations = new HeapStackFrameFieldOffsetLocations();
 	}
 	
 	/**
@@ -188,5 +194,17 @@ public class HeapStackFrame {
 		// Write the code instruction,
 		// related to the end of the declaration of the class structure for this Heap Stack Frame, in Java Byte Code 
 		this.fileOutputStream.write(String.format(".end method\n").getBytes());
+	}
+	
+	public void addAssoc(String id) {
+		this.stackFrameFieldLocations.addAssoc(id, this.heapStackFrameID, this.stackFrameFieldLocations.getCurrentFieldLocation());
+	}
+	
+	public int getCurrentFieldLocation() {
+		return this.stackFrameFieldLocations.getCurrentFieldLocation();
+	}
+	
+	public FieldAddress findOffsetLocation(String expressionID) {
+		return this.stackFrameFieldLocations.findOffsetLocation(expressionID);
 	}
 }

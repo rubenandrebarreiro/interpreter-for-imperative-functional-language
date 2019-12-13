@@ -5,6 +5,7 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.scopes.structures.heap.HeapStackFrame;
 import main.java.scopes.structures.heap.utils.FieldAddress;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
@@ -88,10 +89,10 @@ public class ASTID implements ASTNode {
 		FieldAddress valueFieldAddress = null;
 		EnvironmentCompiler currentEnvironment = environmentCompiler;
 		
-		
+		HeapStackFrame heapStackFrame = codeBlockInstructions.getCurrentFrame();
 		codeBlockInstructions.addCodeInstruction("aload 0");
 		
-		valueFieldAddress = environmentCompiler.find(this.expressionID);
+		valueFieldAddress = heapStackFrame.findOffsetLocation(this.expressionID);
 		
 		while(valueFieldAddress == null) {
 			
@@ -102,16 +103,15 @@ public class ASTID implements ASTNode {
 						+ "It was used an free occurrence not defined at any Heap Stack Frame!!!\n\n");
 			}
 			
-			codeBlockInstructions.addCodeInstruction("getfield f" + currentEnvironment.getFrameID() + 
-					 "/sl Lf" + currentEnvironment.getAncestor().getFrameID() + ";");
-			currentEnvironment = currentEnvironment.getAncestor();
+			codeBlockInstructions.addCodeInstruction("getfield f" + heapStackFrame.getHeapStackFrameID() + 
+					 "/sl Lf" + (heapStackFrame.getHeapStackFrameID() - 1) + ";");
+			heapStackFrame = heapStackFrame.getStaticLinkAncestorHeapFrame();
 			
-			valueFieldAddress = currentEnvironment.find(this.expressionID);
+			valueFieldAddress = heapStackFrame.findOffsetLocation(this.expressionID);
 		}
 		
 		codeBlockInstructions.addCodeInstruction("getfield f" + valueFieldAddress.getHeapStackFrameLevel() + 
 				 "/x" + valueFieldAddress.getOffsetField() + " I");
-	
 	}
 
 
