@@ -6,6 +6,7 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.scopes.structures.heap.HeapStackFrame;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
@@ -94,8 +95,8 @@ public class ASTAssociation<T> implements ASTNode {
 		
 		// The counter of the current Field of
 		// the variables in the Scope of the Environment 
-		int currentFieldCounter = environmentCompiler.getCurrentField();
-		environmentCompiler.addAssoc(nodeID);
+		HeapStackFrame heapStackFrame = codeBlockInstructions.getCurrentFrame();
+		heapStackFrame.addAssoc(nodeID);
 		
 		// Start a new assignment Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
@@ -110,8 +111,8 @@ public class ASTAssociation<T> implements ASTNode {
 
 		// Assigns the Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
-		codeBlockInstructions.addCodeInstruction("putfield f" + environmentCompiler.getFrameID() + "/x" + currentFieldCounter + " I");
-		
+		codeBlockInstructions.addCodeInstruction("putfield f" + heapStackFrame.getHeapStackFrameID() + "/x" + (heapStackFrame.getCurrentFieldLocation() - 1) + " I");
+				
 		// End a new assignment Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
 		codeBlockInstructions.addCodeInstruction(";------------------End new association------------------");

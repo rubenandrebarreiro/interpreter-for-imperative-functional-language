@@ -22,6 +22,7 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.scopes.structures.heap.HeapStackFrame;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
@@ -140,8 +141,22 @@ public class ASTLet implements ASTNode {
 			            CodeBlockInstructionsSet codeBlockInstructions) throws ASTInvalidIdentifierException {
 		
 		EnvironmentCompiler newEnvironment = environmentCompiler.beginScope();
+		
+		HeapStackFrame currentFrame = null;
+		
+		if(codeBlockInstructions.getCurrentFrame() != null) {
+			currentFrame = codeBlockInstructions.getCurrentFrame();
+		}
+		
+		currentFrame = new HeapStackFrame(
+				codeBlockInstructions.getHeapListSize(),
+				currentFrame,
+				associations.size());
 
-		this.createFrame(newEnvironment, codeBlockInstructions);
+		codeBlockInstructions.addHeapStackFrame(currentFrame);
+		codeBlockInstructions.setCurrentFrame(currentFrame);
+		
+		this.createFrame(codeBlockInstructions, currentFrame);
 		
 		for(ASTNode associationASTNode : this.associations) {
 			associationASTNode.compile(newEnvironment, codeBlockInstructions);
@@ -149,47 +164,54 @@ public class ASTLet implements ASTNode {
 		
 		this.bodyASTLetNodeDescendant.compile(newEnvironment, codeBlockInstructions);
 		
-		this.removeFrame(newEnvironment, codeBlockInstructions);
+		this.removeFrame(codeBlockInstructions, currentFrame);
+		
+		currentFrame = currentFrame.getStaticLinkAncestorHeapFrame();
+		codeBlockInstructions.setCurrentFrame(currentFrame);
 	}
 	
-	private void createFrame(EnvironmentCompiler env, CodeBlockInstructionsSet codeInstructions) {
-		EnvironmentCompiler ancestor = env.getAncestor();
+	private void createFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
+		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
+		int currentFrameID = currentFrame.getHeapStackFrameID();
 		
 		codeInstructions.addCodeInstruction(";------------------Start new frame------------------");
-		codeInstructions.addCodeInstruction("new f" + env.getFrameID());
+		codeInstructions.addCodeInstruction("new f" + currentFrameID);
 		codeInstructions.addCodeInstruction("dup");
-		codeInstructions.addCodeInstruction("invokespecial f" + env.getFrameID() + "/<init>()V");
+		codeInstructions.addCodeInstruction("invokespecial f" + currentFrameID + "/<init>()V");
 		codeInstructions.addCodeInstruction("dup");
 		codeInstructions.addCodeInstruction("aload 0");
 		
-		if(ancestor == null) {
-			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
+		if(ancestorFrame == null) {
+			codeInstructions.addCodeInstruction("putfield f" + currentFrameID + "/sl Ljava/lang/Object;");
 		}
 		else {
-			codeInstructions.addCodeInstruction("putfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + ";");
+			codeInstructions.addCodeInstruction("putfield f" + currentFrameID + "/sl Lf" + ancestorFrame.getHeapStackFrameID() + ";");
 		}
 		
 		codeInstructions.addCodeInstruction("astore 0");
 		codeInstructions.addCodeInstruction(";------------------End new frame------------------");
 		codeInstructions.addCodeInstruction("\n");
+		
+
 	}
 	
-	private void removeFrame(EnvironmentCompiler env, CodeBlockInstructionsSet codeInstructions) {
-		EnvironmentCompiler ancestor = env.getAncestor();
+	private void removeFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
+		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
+		int currentFrameID = currentFrame.getHeapStackFrameID();
+		
 		codeInstructions.addCodeInstruction("\n");
 		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");
 		codeInstructions.addCodeInstruction("aload 0");
 		
-		if(ancestor == null) {
-			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Ljava/lang/Object;");
+		if(ancestorFrame == null) {
+			codeInstructions.addCodeInstruction("getfield f" + currentFrameID + "/sl Ljava/lang/Object;");
 		}
 		else {
-			codeInstructions.addCodeInstruction("getfield f" + env.getFrameID() + "/sl Lf" + env.getAncestor().getFrameID() + ";");
+			codeInstructions.addCodeInstruction("getfield f" + currentFrameID + "/sl Lf" + ancestorFrame.getHeapStackFrameID() + ";");
 		}
 		
 		codeInstructions.addCodeInstruction("astore 0\n");
 		codeInstructions.addCodeInstruction(";------------------End remove frame------------------");
-		
 		codeInstructions.addCodeInstruction("\n");
 	}
 

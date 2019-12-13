@@ -33,4 +33,8 @@ public class HeapStackFrameFieldOffsetLocations {
 	public FieldAddress findOffsetLocation(String expressionID) {
 		return this.offsetLocations.get(expressionID);
 	}
+	
+	public int getCurrentFieldLocation() {
+		return offsetLocations.size();
+	}
 }

@@ -15,6 +15,7 @@ public class CodeBlockInstructionsSet {
 	
 	private List<String> codeBlockInstructionsSet;
 	
+	private HeapStackFrame currentFrame;
 	
 	public CodeBlockInstructionsSet() {
 		
@@ -23,15 +24,41 @@ public class CodeBlockInstructionsSet {
 		
 		addCodeInstruction("aconst_null\n" + 
 						   "astore 0\n");
-	
+		
+		this.currentFrame = null;
 	}
 	
 	public void addHeapStackFrame(HeapStackFrame heapStackFrame) {
 		this.heapStackFramesSet.add(heapStackFrame);
 	}
 	
+	public HeapStackFrame getHeapStackFrameByID(int id) {
+		HeapStackFrame result = null;
+		
+		for (HeapStackFrame stackFrame : this.heapStackFramesSet) {
+			if(stackFrame.getHeapStackFrameID() == id) {
+				result = stackFrame;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
 	public void addCodeInstruction(String codeInstruction) {
 		this.codeBlockInstructionsSet.add(codeInstruction);
+	}
+	
+	public HeapStackFrame getCurrentFrame() {
+		return this.currentFrame;
+	}
+	
+	public int getHeapListSize() {
+		return this.heapStackFramesSet.size();
+	}
+
+	public void setCurrentFrame(HeapStackFrame newCurrentFrame) {
+		this.currentFrame = newCurrentFrame;
 	}
 	
 	public void dump(String filename) throws IOException {
@@ -39,9 +66,12 @@ public class CodeBlockInstructionsSet {
 		this.fileOutputStream = new FileOutputStream(filename);
 		
 		this.dumpHeader();
-		// TODO tratar astore e aload
 		this.dumpCodeBlockInstructionsSetJavaByteCode();
 		this.dumpFooter();
+		
+		for (HeapStackFrame stackFrame : heapStackFramesSet) {
+			stackFrame.generateAndDumpsHeapStackFrameFile();
+		}
 	}
 	
 	private void dumpHeader() throws IOException {
