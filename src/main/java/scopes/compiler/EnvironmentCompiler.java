@@ -15,21 +15,10 @@ package main.java.scopes.compiler;
  * 
  */
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import main.java.scopes.structures.heap.utils.FieldAddress;
-import main.java.scopes.structures.heap.utils.HeapStackFrameFieldOffsetLocations;
-
 public class EnvironmentCompiler {
 	
 	// Global Instance Variables:
 
-	/**
-	 * The ID of the Frame
-	 */
-	private int frameID;
-	
 	/**
 	 * The Static Link pointer to its Ancestor
 	 */
@@ -63,6 +52,6 @@ public class EnvironmentCompiler {
 	}
 	
 	public int getCurrentLabelNumber() {
-		return currentLabelNumber;
+		return currentLabelNumber++;
 	}
 }
