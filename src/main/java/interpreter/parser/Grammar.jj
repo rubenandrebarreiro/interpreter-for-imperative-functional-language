@@ -192,7 +192,7 @@ ASTNode Start():
   ASTNode t;
 }
 {
-	t = BoolExp() <EL>
+	t = Sequence() <EL>
    	{
    		return t;
    	}
@@ -327,7 +327,7 @@ ASTNode Fact() :
 		  	node = new ASTID(id.image);
 		} 
         | node = Let()
-		| <LPAR> node = BoolExp() <RPAR>
+		| <LPAR> node = Sequence() <RPAR>
 		| <NEW_REF> node = Fact()
 		| <EXCLAMATION_DREF> node = Fact()
 	    | node = Conditional()
@@ -406,19 +406,22 @@ ASTNode Conditional():
 
 ASTNode Sequence():
 {
-	ASTNode headSequenceInstruction, tailSequenceInstructions, sequenceInstructions;
+	ASTNode headSequenceInstruction, tailSequenceInstructions = null, sequenceInstructions = null;
 }
 {
 	(
 		headSequenceInstruction = BoolExp()
-	  	<SEQ_DELIMETER>
+	  	(	  	  <SEQ_DELIMETER>
 	  	tailSequenceInstructions = BoolExp()
 	  	{
 	  	  sequenceInstructions = new ASTSeq(headSequenceInstruction, tailSequenceInstructions);
 	  	}
+	 	)*
 	)
 	{
-	  return sequenceInstructions;
+	  if(tailSequenceInstructions == null)
+	  	return headSequenceInstruction;
+	  else return sequenceInstructions;
 	}
 }
 
