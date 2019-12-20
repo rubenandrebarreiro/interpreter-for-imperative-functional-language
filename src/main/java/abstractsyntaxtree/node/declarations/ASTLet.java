@@ -157,7 +157,7 @@ public class ASTLet implements ASTNode {
 		}
 		
 		currentFrame = new HeapStackFrame(
-				codeBlockInstructions.getHeapListSize(),
+				codeBlockInstructions.getHeapStackFrameListSize(),
 				currentFrame,
 				associations.size());
 
