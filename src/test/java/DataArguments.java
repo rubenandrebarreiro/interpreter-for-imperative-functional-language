@@ -52,54 +52,58 @@ public class DataArguments {
 			{ "0==0", "true"}, // #33
 			{ "1==1", "true"},  // #34
 			{ "3==1", "false"}, // #35
+			{ "3<>3", "false"}, // #36
+			{ "2<>3", "true"}, // #37
 //			{ "false > true", "0"}, // TODO to be fixed, probably, with type checking.
 			
 			// Logical operations
-			{ "true && true", "true" }, // #36
-			{ "true && false", "false" }, // #37
-			{ "false && true", "false"}, // #38
-			{ "false && false", "false"}, // #39
-			{ "true || true", "true" }, // #40
-			{ "true || false", "true" }, // #41
-			{ "false || true", "true" }, // #42
-			{ "false || false", "false" }, // #43
-			{ "true ^ true", "false" }, // #44
-			{ "true ^ false", "true" }, // #45
-			{ "false ^ true", "true" }, // #46
-			{ "false ^ false", "false" }, // #47
-			{ "2>=2 && 5<10", "true" }, // #48
-			{ "3>4 && 4<3", "false" }, // #49
-			{ "2==2 || 0==1", "true" }, // #50
-			{ "2==2 || 2>=2", "true" }, // #51
-			{ "3>5 || 5<3", "false" }, // #52
-			{ "3==0 ^ 5==5", "true" }, // #53
-			{ "5<=2 ^ 2==3", "false" }, // #54
-			{ "50<=100 ^ 123>=1", "false" }, // #55
-			{ "5<10 || 2==2 && 3==57", "true" }, // #56
-			{ "5==2 && 2>3 || 3>3", "false" }, // #57
-			{ "3-2==5-4 ^ 10-10>5 && 5>Let x=5 in Let y=3 in x-y end end", "true" }, // #58
-			{ "2==2 || (Let x=2 y=3 in Let z=x+y in z+x+y end end==10) && (2<3) ^ 5<=4", "true"}, // #59
+			{ "true && true", "true" }, // #38
+			{ "true && false", "false" }, // #39
+			{ "false && true", "false"}, // #40
+			{ "false && false", "false"}, // #41
+			{ "true || true", "true" }, // #42
+			{ "true || false", "true" }, // #43
+			{ "false || true", "true" }, // #44
+			{ "false || false", "false" }, // #45
+			{ "true ^ true", "false" }, // #46
+			{ "true ^ false", "true" }, // #47
+			{ "false ^ true", "true" }, // #48
+			{ "false ^ false", "false" }, // #49
+			{ "2>=2 && 5<10", "true" }, // #50
+			{ "3>4 && 4<3", "false" }, // #51
+			{ "2==2 || 0==1", "true" }, // #52
+			{ "2==2 || 2>=2", "true" }, // #53
+			{ "3>5 || 5<3", "false" }, // #54
+			{ "3==0 ^ 5==5", "true" }, // #55
+			{ "5<=2 ^ 2==3", "false" }, // #56
+			{ "50<=100 ^ 123>=1", "false" }, // #57
+			{ "5<10 || 2==2 && 3==57", "true" }, // #58
+			{ "5==2 && 2>3 || 3>3", "false" }, // #59
+			{ "3-2==5-4 ^ 10-10>5 && 5>Let x=5 in Let y=3 in x-y end end", "true" }, // #60
+			{ "2==2 || (Let x=2 y=3 in Let z=x+y in z+x+y end end==10) && (2<3) ^ 5<=4", "true"}, // #61
 			
 			// Conditional operations
-			{ "if true then true else false", "true"}, // #60
-			{ "if false then true else false", "false"}, // #61
-			{ "if (true && false) then 1 else 2", "2"}, // #62
-			{ "if true && false then 1 else 2", "2"}, // #63
-			{ "if Let x=1 y=2 z=3 in Let q=x+y+z in Let x=x in q+q end end end > 10 then true else false", "true" }, // #64
-			{ "if true ^ true then 9001 else true || false", "true"}, // #65
-			{ "if true ^ true then 9001 else true && false", "false"}, // #66
-			{ "if true ^ true then 9001 else 2==2 ^ 3<=Let y=3 in y+y+3 end", "false"}, // #67
+			{ "if true then true else false", "true"}, // #62
+			{ "if false then true else false", "false"}, // #63
+			{ "if (true && false) then 1 else 2", "2"}, // #64
+			{ "if true && false then 1 else 2", "2"}, // #65
+			{ "if Let x=1 y=2 z=3 in Let q=x+y+z in Let x=x in q+q end end end > 10 then true else false", "true" }, // #66
+			{ "if true ^ true then 9001 else true || false", "true"}, // #67
+			{ "if true ^ true then 9001 else true && false", "false"}, // #68
+			{ "if true ^ true then 9001 else 2==2 ^ 3<=Let y=3 in y+y+3 end", "false"}, // #69
 			
 			// Sequences
-			{"2+2", "4"}, // #68
-			{"2+2;2+2", "4"}, // #69
-			{"2+2;4+4", "8"}, // #70
-			{"2+2;8-4", "4"}, // #71
-			{"4+4;2+2", "4"}, // #72
-			{"2+2;10>5", "true"}, // #73
-			{"10>5;5*2", "10"}, // #74
-			{"10+10;2==3;6/3;2+2;5>10", "false"}, // #75
-			{"(2+2;5>2)", "true"}, // #76
+			{"2+2", "4"}, // #70
+			{"2+2;2+2", "4"}, // #71
+			{"2+2;4+4", "8"}, // #72
+			{"2+2;8-4", "4"}, // #73
+			{"4+4;2+2", "4"}, // #74
+			{"2+2;10>5", "true"}, // #75
+			{"10>5;5*2", "10"}, // #76
+			{"10+10;2==3;6/3;2+2;5>10", "false"}, // #77
+			{"(2+2;5>2)", "true"}, // #78
+			{"if 2+2;2==2 then 4 else 0", "4"}, // #79
+			{"Let x=2 in x+2;x end", "2"}, // #80
 			
 		});
 	}
