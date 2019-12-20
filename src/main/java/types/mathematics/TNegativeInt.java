@@ -41,8 +41,8 @@ public class TNegativeInt extends TInt implements IType {
 	}
 
 	@Override
-	public boolean equals(IType other) {
-		return other instanceof TNegativeInt;
+	public boolean equals(IType otherType) {
+		return otherType instanceof TNegativeInt;
 	}
 
 }

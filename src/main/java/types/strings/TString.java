@@ -41,7 +41,7 @@ public class TString implements IType {
 
 	@Override
 	public String getHeapStackFrameName() {
-		return "Ljava/lang/String"; //TODO object confirmar
+		return "Ljava/lang/String";
 	}
 
 	@Override
@@ -50,8 +50,8 @@ public class TString implements IType {
 	}
 
 	@Override
-	public boolean equals(IType other) {
-		return other instanceof TString;
+	public boolean equals(IType otherType) {
+		return otherType instanceof TString;
 	}
 	
 }

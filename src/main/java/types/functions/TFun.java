@@ -18,7 +18,7 @@ package main.java.types.functions;
 import main.java.types.IType;
 
 /**
- * Class for Type of a Function Value.
+ * Class for Type of a Function Value, implementing a Type.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -73,5 +73,4 @@ public class TFun implements IType {
 	public boolean equals(IType other) {
 		return other instanceof TFun;
 	}
-	
 }

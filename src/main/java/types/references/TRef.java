@@ -51,8 +51,8 @@ public class TRef implements IType {
 	}
 	
 	@Override
-	public boolean equals(IType other) {
-		return other instanceof TRef;
+	public boolean equals(IType otherType) {
+		return otherType instanceof TRef;
 	}
 
 	public IType getReferenceType() {
