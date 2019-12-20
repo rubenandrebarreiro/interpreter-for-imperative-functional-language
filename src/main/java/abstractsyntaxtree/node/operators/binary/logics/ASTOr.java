@@ -42,6 +42,14 @@ import main.java.values.utils.exceptions.TypeErrorException;
  */
 public class ASTOr implements ASTNode {
 	
+	// Constants:
+	
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Or
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to or (disjunction) operator!!!";
+	
+	
 	// Global Instance Variables:
 	
 	/**
@@ -53,11 +61,6 @@ public class ASTOr implements ASTNode {
 	 * The right A.S.T. Node descendant
 	 */
 	private ASTNode rightASTNodeDescendant;
-	
-	/**
-	 * The TypeCheck Error Message for the A.S.T. Node for Or
-	 */
-	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to or (disjunction) operator!!!";
 	
 	
 	// Constructors:
