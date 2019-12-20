@@ -36,22 +36,24 @@ public class CodeBlockInstructionsSet {
 	// Global Instance Variables:
 	
 	/**
+	 * The File Output Stream responsible to
+	 * generate/write the Code Block of Instructions Set in Java Byte Code.
 	 * 
 	 */
 	private FileOutputStream fileOutputStream;
 
 	/**
-	 * 
+	 * The List/Set of the Heap Stack Frames (Scopes/Frames).
 	 */
 	private List<HeapStackFrame> heapStackFramesSet;
 	
 	/**
-	 * 
+	 * The List/Set of Code Block Instructions, in Java Byte Code.
 	 */
 	private List<String> codeBlockInstructionsSet;
 	
 	/**
-	 * 
+	 * The pointer to the current Heap Stack Frame (Scopes/Frames).
 	 */
 	private HeapStackFrame currentFrame;
 	
@@ -59,24 +61,38 @@ public class CodeBlockInstructionsSet {
 	// Constructors:
 	
 	/**
-	 * 
+	 * Constructor #1:
+	 * - The constructor of the Code Block of Instructions Set, in Java Byte Code.
 	 */
 	public CodeBlockInstructionsSet() {
 		
 		this.codeBlockInstructionsSet = new ArrayList<String>();
 		this.heapStackFramesSet = new ArrayList<HeapStackFrame>();
 		
-		addCodeInstruction(String.format("aconst_null\nastore 0\n"));
+		this.addCodeInstruction(String.format("aconst_null\nastore 0\n"));
 		
 		this.currentFrame = null;
 		
 	}
 	
-	
+	/**
+	 * Adds a new Heap Stack Frame (Scope/Frame) to
+	 * the List/Set of the Heap Stack Frames (Scopes/Frames).
+	 * 
+	 * @param heapStackFrame a new Heap Stack Frame (Scope/Frame) to be added
+	 *        the List/Set of the Heap Stack Frames (Scopes/Frames)
+	 */
 	public void addHeapStackFrame(HeapStackFrame heapStackFrame) {
 		this.heapStackFramesSet.add(heapStackFrame);
 	}
 	
+	/**
+	 * Returns the Heap Stack Frame (Scope/Frame), by a given identification.
+	 * 
+	 * @param id the identification of the Heap Stack Frame (Scope/Frame)
+	 * 
+	 * @return the Heap Stack Frame (Scope/Frame), by a given identification
+	 */
 	public HeapStackFrame getHeapStackFrameByID(int id) {
 		   HeapStackFrame result = null;
 		
@@ -110,10 +126,11 @@ public class CodeBlockInstructionsSet {
 	}
 	
 	/**
+	 * Returns the size of the List/Set of Heap Stack Frames.
 	 * 
-	 * @return
+	 * @return the size of the List/Set of Heap Stack Frames
 	 */
-	public int getHeapListSize() {
+	public int getHeapStackFrameListSize() {
 		return this.heapStackFramesSet.size();
 	}
 
@@ -129,7 +146,7 @@ public class CodeBlockInstructionsSet {
 	}
 	
 	/**
-	 * Dumps the all the content of Instuctions Set, in the Java Byte Code file.
+	 * Dumps the all the content of Instructions Set, in the Java Byte Code file.
 	 * 
 	 * @throws IOException an Input/Output raised,
 	 * 		   during the Dump process, in the Java Byte Code file
@@ -142,9 +159,10 @@ public class CodeBlockInstructionsSet {
 		this.dumpCodeBlockInstructionsSetJavaByteCode();
 		this.dumpFooter();
 		
-		for (HeapStackFrame stackFrame : heapStackFramesSet) {
+		for(HeapStackFrame stackFrame : heapStackFramesSet) {
 			stackFrame.generateAndDumpsHeapStackFrameFile();
 		}
+		
 	}
 	
 	/**
