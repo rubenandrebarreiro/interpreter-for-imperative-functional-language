@@ -46,7 +46,7 @@ public class ASTNegativeNum implements ASTNode {
 	/**
 	 * The A.S.T. Node, representing an Atomic Negative Number
 	 */
-	private ASTNum negativeNumASTNode;
+	private ASTNode negativeNumASTNode;
 	
 	/**
 	 * The type of the A.S.T. Node, representing an Atomic Negative Number
@@ -117,7 +117,8 @@ public class ASTNegativeNum implements ASTNode {
 	 * 
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
+		   throws ASTInvalidIdentifierException {
 		
 		this.negativeNumASTNode.compile(environmentCompiler, codeBlockInstructionsSet);
 		codeBlockInstructionsSet.addCodeInstruction("ineg");

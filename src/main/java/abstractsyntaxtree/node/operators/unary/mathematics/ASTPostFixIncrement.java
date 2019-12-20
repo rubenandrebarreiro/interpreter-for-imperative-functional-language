@@ -18,6 +18,7 @@ package main.java.abstractsyntaxtree.node.operators.unary.mathematics;
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.node.values.mathematics.ASTNum;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
@@ -42,9 +43,9 @@ public class ASTPostFixIncrement implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The value of the A.S.T. Node, representing an Atomic Number to be Post Fix Incremented
+	 * The A.S.T. Node, representing an Atomic Number to be Post Fix Incremented
 	 */
-	private VInt numASTNodeValueToBeIncremented;
+	private ASTNode numASTNodeToBeIncremented;
 	
 	/**
 	 * The type of the A.S.T. Node, representing an Atomic Number to be Post Fix Incremented
@@ -59,12 +60,12 @@ public class ASTPostFixIncrement implements ASTNode {
 	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Number
 	 *   to be Post Fix Incremented;
 	 * 
-	 * @param numASTNodeValueToBeIncremented the value of the A.S.T. Node,
+	 * @param numASTNodeToBeIncremented the value of the A.S.T. Node,
 	 *        representing an Atomic Number to be Post Fix Incremented
 	 */
-	public ASTPostFixIncrement(VInt numASTNodeValueToBeIncremented) {
+	public ASTPostFixIncrement(ASTNode numASTNodeToBeIncremented) {
 		
-		this.numASTNodeValueToBeIncremented = numASTNodeValueToBeIncremented;
+		this.numASTNodeToBeIncremented = numASTNodeToBeIncremented;
 		
 	}
 	
@@ -98,10 +99,11 @@ public class ASTPostFixIncrement implements ASTNode {
 		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 
 		// Returns A.S.T. Node, representing an Atomic Number PostFix Incremented
-		VInt numASTNodeValueToBeIncremented = this.numASTNodeValueToBeIncremented;
+		VInt numASTNodeValueToBeIncremented = ( (VInt) this.numASTNodeToBeIncremented.eval(environment));
 		
-		this.numASTNodeValueToBeIncremented = 
-				new VInt(numASTNodeValueToBeIncremented.getValue() + 1);
+		VInt numASTNodeValueIncremented = new VInt(numASTNodeValueToBeIncremented.getValue() + 1);
+		
+		this.numASTNodeToBeIncremented = new ASTNum(numASTNodeValueIncremented);
 		
 		
 		return numASTNodeValueToBeIncremented;
@@ -128,8 +130,7 @@ public class ASTPostFixIncrement implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 			throws ASTInvalidIdentifierException {
 		
-		codeBlockInstructionsSet.addCodeInstruction
-								("sipush " + String.valueOf(numASTNodeValueToBeIncremented.getValue()));
+		this.numASTNodeToBeIncremented.compile(environmentCompiler, codeBlockInstructionsSet);
 		
 		codeBlockInstructionsSet.addCodeInstruction("iinc");
 		
