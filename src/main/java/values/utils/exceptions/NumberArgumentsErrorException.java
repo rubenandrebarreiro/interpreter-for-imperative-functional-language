@@ -1,6 +1,11 @@
 package main.java.values.utils.exceptions;
 
+/**
+ * The Class for the Number Arguments Error Exception, extending an Exception.
+ */
 public class NumberArgumentsErrorException extends Exception {
+	
+	// Constants:
 	
 	/**
 	 * The default serial version UID
@@ -9,6 +14,7 @@ public class NumberArgumentsErrorException extends Exception {
 	
 	
 	// Constructors:
+	
 	/**
 	 * Constructor #1:
 	 * - The constructor of a Number Arguments Error Exception.

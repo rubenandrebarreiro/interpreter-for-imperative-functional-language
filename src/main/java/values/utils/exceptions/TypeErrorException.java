@@ -16,10 +16,11 @@ package main.java.values.utils.exceptions;
  */
 
 /**
- * 
- * 
+ * The Class for the Type Error Exception, extending an Exception.
  */
 public class TypeErrorException extends Exception {
+	
+	// Constants:
 	
 	/**
 	 * The default serial version UID
@@ -28,9 +29,10 @@ public class TypeErrorException extends Exception {
 	
 	
 	// Constructors:
+	
 	/**
 	 * Constructor #1:
-	 * - The constructor of a Type Error Exception.
+	 * - The constructor of a Type Error Exception;
 	 * 
 	 * @param exceptionMessage
 	 */
