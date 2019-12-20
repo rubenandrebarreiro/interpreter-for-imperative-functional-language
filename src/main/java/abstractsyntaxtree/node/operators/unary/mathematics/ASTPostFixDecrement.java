@@ -18,6 +18,7 @@ package main.java.abstractsyntaxtree.node.operators.unary.mathematics;
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.node.values.mathematics.ASTNum;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
@@ -42,9 +43,9 @@ public class ASTPostFixDecrement implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The value of the A.S.T. Node, representing an Atomic Number to be Post Fix Decremented
+	 * The A.S.T. Node, representing an Atomic Number to be Post Fix Decremented
 	 */
-	private VInt numASTNodeValueToBeDecremented;
+	private ASTNode numASTNodeToBeDecremented;
 	
 	/**
 	 * The type of the A.S.T. Node, representing an Atomic Number to be Post Fix Decremented
@@ -60,12 +61,12 @@ public class ASTPostFixDecrement implements ASTNode {
 	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Number
 	 *   to be Post Fix Decremented;
 	 * 
-	 * @param numASTNodeValueToBeDecremented the value of the A.S.T. Node,
+	 * @param numASTNodeToBeDecremented the A.S.T. Node,
 	 *        representing an Atomic Number to be Post Fix Decremented
 	 */
-	public ASTPostFixDecrement(VInt numASTNodeValueToBeDecremented) {
+	public ASTPostFixDecrement(ASTNode numASTNodeToBeDecremented) {
 		
-		this.numASTNodeValueToBeDecremented = numASTNodeValueToBeDecremented;
+		this.numASTNodeToBeDecremented = numASTNodeToBeDecremented;
 		
 	}
 	
@@ -99,11 +100,14 @@ public class ASTPostFixDecrement implements ASTNode {
 		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 
 		// Returns A.S.T. Node, representing an Atomic Number PostFix Decremented
-		VInt evaluatedNumASTNodeValueNotDecremented = this.numASTNodeValueToBeDecremented;
+		VInt evaluatedNumASTNodeValueNotDecremented = ( (VInt) this.numASTNodeToBeDecremented.eval(environment));
 		
-		this.numASTNodeValueToBeDecremented = 
-				new VInt(numASTNodeValueToBeDecremented.getValue() - 1);
+		int numASTNodeToBeDecrementedValue = (evaluatedNumASTNodeValueNotDecremented.getValue() - 1);
 		
+		VInt numASTNodeToBeDecrementedVInt = 
+				new VInt(numASTNodeToBeDecrementedValue);
+		
+		this.numASTNodeToBeDecremented = new ASTNum(numASTNodeToBeDecrementedVInt);
 		
 		return evaluatedNumASTNodeValueNotDecremented;
 		
@@ -111,10 +115,9 @@ public class ASTPostFixDecrement implements ASTNode {
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
-			throws ASTInvalidIdentifierException {
+		   throws ASTInvalidIdentifierException {
 		
-		codeBlockInstructionsSet.addCodeInstruction
-								("sipush " + String.valueOf(numASTNodeValueToBeDecremented.getValue()));
+		this.numASTNodeToBeDecremented.compile(environmentCompiler, codeBlockInstructionsSet);
 		
 		codeBlockInstructionsSet.addCodeInstruction
 								("sipush " + String.valueOf(1));
