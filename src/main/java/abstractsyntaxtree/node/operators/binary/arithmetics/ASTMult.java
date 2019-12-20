@@ -41,6 +41,14 @@ import main.java.values.utils.exceptions.TypeErrorException;
  */
 public class ASTMult implements ASTNode {
 
+	// Constants:
+	
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Multiplication
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to * (multiplication) operator!!!";
+	
+	
 	// Global Instance Variables:
 	
 	/**
@@ -52,11 +60,6 @@ public class ASTMult implements ASTNode {
 	 * The right A.S.T. Node descendant
 	 */
 	private ASTNode rightASTNodeDescendant;
-	
-	/**
-	 * The TypeCheck Error Message for the A.S.T. Node for Multiplication
-	 */
-	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to * (multiplication) operator!!!";
 	
 	
 	// Constructors:

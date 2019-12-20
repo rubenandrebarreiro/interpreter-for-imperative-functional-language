@@ -41,6 +41,14 @@ import main.java.values.utils.exceptions.TypeErrorException;
  */
 public class ASTDiv implements ASTNode {
 
+	// Constants:
+	
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Division
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to / (division) operator!!!";
+	
+	
 	// Global Variables:
 	
 	/**
@@ -52,11 +60,6 @@ public class ASTDiv implements ASTNode {
 	 * The right A.S.T. Node descendant
 	 */
 	private ASTNode rightASTNodeDescendant;
-	
-	/**
-	 * The TypeCheck Error Message for the A.S.T. Node for Division
-	 */
-	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to / (division) operator!!!";
 	
 	
 	// Constructors:

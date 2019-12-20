@@ -42,6 +42,14 @@ import main.java.values.utils.exceptions.TypeErrorException;
  */
 public class ASTAdd implements ASTNode {
 	
+	// Constants:
+	
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Addition
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to + (add) operator!!!";
+	
+	
 	// Global Instance Variables:
 	
 	/**
@@ -53,11 +61,6 @@ public class ASTAdd implements ASTNode {
 	 * The right A.S.T. Node descendant
 	 */
 	private ASTNode rightASTNodeDescendant;
-	
-	/**
-	 * The TypeCheck Error Message for the A.S.T. Node for Addition
-	 */
-	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to + (add) operator!!!";
 	
 	
 	// Constructors:
