@@ -60,7 +60,9 @@ public class ASTLet implements ASTNode {
 	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
 	 * 
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
+	 * 
 	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
+	 *
 	 */
 	public ASTLet(List<ASTNode> associations, ASTNode bodyASTLetNodeDescendant) {
 		
@@ -74,19 +76,25 @@ public class ASTLet implements ASTNode {
 	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope), where the current A.S.T. Node it's inside, performing its association.
+	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
 	 * 
 	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside, performing its association        
-	 * 
+	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside        
+	 *
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Stack of Environments (Scopes)
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames)
 	 * 
-	 * @throws TypeErrorException 
-	 * @throws NumberArgumentsErrorException 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of the Type of a Value it's completely unknown to
+	 * 		   the recognised and acceptable Types for Values
+	 * 
+	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception,
+	 * 		   in the case of the Number of Arguments used in the Evaluation,
+	 *         wrong in the current Environment of Values (Scope/Frame) being evaluated
+	 *
 	 */
 	@Override
 	public IValue eval(Environment<IValue> environment)
@@ -171,48 +179,51 @@ public class ASTLet implements ASTNode {
 	}
 	
 	private void createFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
+		
 		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
 		int currentFrameID = currentFrame.getHeapStackFrameID();
 		
-		codeInstructions.addCodeInstruction(";------------------Start new frame------------------");
-		codeInstructions.addCodeInstruction("new f" + currentFrameID);
-		codeInstructions.addCodeInstruction("dup");
-		codeInstructions.addCodeInstruction("invokespecial f" + currentFrameID + "/<init>()V");
-		codeInstructions.addCodeInstruction("dup");
-		codeInstructions.addCodeInstruction("aload 0");
+		codeInstructions.addCodeInstruction(String.format(";------------------Start new frame------------------"));
+		codeInstructions.addCodeInstruction(String.format("new f%d", currentFrameID));
+		codeInstructions.addCodeInstruction(String.format("dup"));
+		codeInstructions.addCodeInstruction(String.format("invokespecial f%d/<init>()V", currentFrameID));
+		codeInstructions.addCodeInstruction(String.format("dup"));
+		codeInstructions.addCodeInstruction(String.format("aload 0"));
 		
 		if(ancestorFrame == null) {
-			codeInstructions.addCodeInstruction("putfield f" + currentFrameID + "/sl Ljava/lang/Object;");
+			codeInstructions.addCodeInstruction(String.format("putfield f%d/sl Ljava/lang/Object;", currentFrameID));
 		}
 		else {
-			codeInstructions.addCodeInstruction("putfield f" + currentFrameID + "/sl Lf" + ancestorFrame.getHeapStackFrameID() + ";");
+			codeInstructions.addCodeInstruction(String.format("putfield f%d/sl Lf%d;",
+															  currentFrameID, ancestorFrame.getHeapStackFrameID()));
 		}
 		
-		codeInstructions.addCodeInstruction("astore 0");
-		codeInstructions.addCodeInstruction(";------------------End new frame------------------");
-		codeInstructions.addCodeInstruction("\n");
+		codeInstructions.addCodeInstruction(String.format("astore 0"));
+		codeInstructions.addCodeInstruction(String.format(";------------------End new frame------------------"));
+		codeInstructions.addCodeInstruction(String.format("\n"));
 		
-
 	}
 	
 	private void removeFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
+		
 		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
 		int currentFrameID = currentFrame.getHeapStackFrameID();
 		
-		codeInstructions.addCodeInstruction("\n");
-		codeInstructions.addCodeInstruction(";------------------Start remove frame------------------");
-		codeInstructions.addCodeInstruction("aload 0");
+		codeInstructions.addCodeInstruction(String.format("\n"));
+		codeInstructions.addCodeInstruction(String.format(";------------------Start remove frame------------------"));
+		codeInstructions.addCodeInstruction(String.format("aload 0"));
 		
 		if(ancestorFrame == null) {
-			codeInstructions.addCodeInstruction("getfield f" + currentFrameID + "/sl Ljava/lang/Object;");
+			codeInstructions.addCodeInstruction(String.format("getfield f%d/sl Ljava/lang/Object;", currentFrameID));
 		}
 		else {
-			codeInstructions.addCodeInstruction("getfield f" + currentFrameID + "/sl Lf" + ancestorFrame.getHeapStackFrameID() + ";");
+			codeInstructions.addCodeInstruction(String.format("getfield f%d/sl Lf%d;",
+															  currentFrameID, ancestorFrame.getHeapStackFrameID()));
 		}
 		
-		codeInstructions.addCodeInstruction("astore 0\n");
-		codeInstructions.addCodeInstruction(";------------------End remove frame------------------");
-		codeInstructions.addCodeInstruction("\n");
+		codeInstructions.addCodeInstruction(String.format("astore 0\n"));
+		codeInstructions.addCodeInstruction(String.format(";------------------End remove frame------------------"));
+		codeInstructions.addCodeInstruction(String.format("\n"));	
 	}
 
 

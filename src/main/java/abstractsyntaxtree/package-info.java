@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the AbstractSyntaxTree.
+ * Package for the Main.Java.AbstractSyntaxTree.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

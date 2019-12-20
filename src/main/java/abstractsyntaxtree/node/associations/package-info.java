@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the AbstractSyntaxTree.Node.Associations.
+ * Package for the Main.Java.AbstractSyntaxTree.Node.Associations.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

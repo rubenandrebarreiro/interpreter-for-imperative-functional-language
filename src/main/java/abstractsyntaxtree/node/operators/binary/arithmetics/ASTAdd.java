@@ -1,5 +1,20 @@
 package main.java.abstractsyntaxtree.node.operators.binary.arithmetics;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
@@ -112,10 +127,10 @@ public class ASTAdd implements ASTNode {
 	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
 	 * in order to, perform an Addition in the Evaluation Stack.
 	 * 
-	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
+	 * @param environmentCompiler the Environment (Scope/Frame), where the current Code Instructions of
 	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
 	 * 
-	 * @param codeInstructions the List of the Code Instructions to be compiled
+	 * @param codeInstructionsSet the List of the Code Instructions to be compiled
 	 * 
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
@@ -138,6 +153,34 @@ public class ASTAdd implements ASTNode {
 		codeBlockInstructionsSet.addCodeInstruction(instructionAddition);
 	}
 
+	/**
+	 * Performs the Typechecking for the Type associated to this A.S.T. Node Identifier,
+	 * performing the Typecheking on it and in its descendants A.S.T. Nodes,
+	 * verifying the Type of the Values of all the A.S.T. Nodes.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the types of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be evaluated,
+	 *        in a Static Typechecking, before runtime of the program
+	 * 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of a Type used for in Typechecking of an A.S.T. Node it's
+	 * 		   wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 
+	 * @throws NumberArgumentsErrorException a Number of Arguments Error Exception thrown,
+	 *         in the case of the Number of Arguments used in the Typechecking,
+	 *         wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *         
+	 * @throws ASTDuplicatedIdentifierException a Duplicated Identifier Exception thrown,
+	 * 		   in the case of more than one certain Identifier it's found,
+	 *         in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
+	 * 
+	 */
 	@Override
 	public IType typecheck(Environment<IType> environment)
 		   throws TypeErrorException,

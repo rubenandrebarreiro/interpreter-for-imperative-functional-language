@@ -1,5 +1,22 @@
 package main.java.abstractsyntaxtree.node.associations;
 
+import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
+
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.scopes.Environment;
@@ -9,11 +26,12 @@ import main.java.scopes.structures.heap.HeapStackFrame;
 import main.java.scopes.structures.heap.utils.FieldAddress;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
+import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
- * performing the keeping of an identifier for an expression.
+ * performing the keeping of an Identifier for an Expression.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -24,6 +42,7 @@ import main.java.values.utils.exceptions.TypeErrorException;
 public class ASTID implements ASTNode {
 	
 	// Global Variables:
+	
 	/**
 	 * The Expression's Identifier
 	 */
@@ -31,19 +50,20 @@ public class ASTID implements ASTNode {
 	
 	
 	// Constructors:
+	
 	/**
 	 * Constructor #1:
-	 * - The Constructor of a Node of an Abstract Syntax Tree (A.S.T.).
+	 * - The Constructor of a Node of an Identifier for this Abstract Syntax Tree ID (A.S.T. ID).
 	 * 
-	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
-	 * @param rightASTNodeDescedant the left side Descendant of the A.S.T. Node
+	 * @param expressionID the identifier of the A.S.T. Node, representing a variable
 	 */
 	public ASTID(String expressionID) {
 		this.expressionID = expressionID;
 	}
 	
 	
-	// Methods:
+	// Methods/Functions:
+	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside, performing its association.
@@ -98,29 +118,66 @@ public class ASTID implements ASTNode {
 			// If it was no found the pretended value and there's no more Ancestors in
 			// the Heap Stack of Environments (Scopes/Frames)
 			if(heapStackFrame.getStaticLinkAncestorHeapFrame() == null) {
-				throw new ASTInvalidIdentifierException("Invalid Identifier!!!\n"
-						+ "It was used an free occurrence not defined at any Heap Stack Frame!!!\n\n");
+
+				throw new ASTInvalidIdentifierException(String.format("Invalid Identifier!!!\n"
+						+ "It was used an free occurrence not defined at any Heap Stack Frame!!!\n\n"));
 			}
 			
-			codeBlockInstructions.addCodeInstruction("getfield f" + heapStackFrame.getHeapStackFrameID() + 
-					 "/sl Lf" + (heapStackFrame.getHeapStackFrameID() - 1) + ";");
+			codeBlockInstructions.addCodeInstruction(String.format("getfield f%d/sl Lf%d;",
+													 heapStackFrame.getHeapStackFrameID(), 
+													(heapStackFrame.getHeapStackFrameID() - 1)));
+			
 			heapStackFrame = heapStackFrame.getStaticLinkAncestorHeapFrame();
 			
 			valueFieldAddress = heapStackFrame.findOffsetLocation(this.expressionID);
 		}
 		
-		codeBlockInstructions.addCodeInstruction("getfield f" + valueFieldAddress.getHeapStackFrameLevel() + 
-				 "/x" + valueFieldAddress.getOffsetField() + " I");
+		codeBlockInstructions.addCodeInstruction(String.format("getfield f%d/x%d I",
+												 valueFieldAddress.getHeapStackFrameLevel(),
+												 valueFieldAddress.getOffsetField()));
+		
 	}
 
-
+	
+	/**
+	 * Performs the Typechecking for the Type associated to this A.S.T. Node Identifier,
+	 * performing the Typecheking on it and in its descendants A.S.T. Nodes,
+	 * verifying the Type of the Values of all the A.S.T. Nodes.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the types of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be evaluated,
+	 *        in a Static Typechecking, before runtime of the program
+	 * 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of a Type used for in Typechecking of an A.S.T. Node it's
+	 * 		   wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 
+	 * @throws NumberArgumentsErrorException a Number of Arguments Error Exception thrown,
+	 *         in the case of the Number of Arguments used in the Typechecking,
+	 *         wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *         
+	 * @throws ASTDuplicatedIdentifierException a Duplicated Identifier Exception thrown,
+	 * 		   in the case of more than one certain Identifier it's found,
+	 *         in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
+	 * 
+	 */
 	@Override
 	public IType typecheck(Environment<IType> environment)
-		   throws TypeErrorException, ASTInvalidIdentifierException {
+		   throws TypeErrorException,
+			      ASTInvalidIdentifierException,
+			      ASTDuplicatedIdentifierException,
+			      NumberArgumentsErrorException {
 		
 		// Returns the type associated to the Expression's ID,
 		// in the current Environment (Scope)
 		return environment.find(this.expressionID);
 		
 	}
+	
 }

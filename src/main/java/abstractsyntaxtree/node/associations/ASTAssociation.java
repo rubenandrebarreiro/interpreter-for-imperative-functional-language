@@ -1,5 +1,20 @@
 package main.java.abstractsyntaxtree.node.associations;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
@@ -14,7 +29,7 @@ import main.java.values.utils.exceptions.TypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
- * performing the Subtraction of its descendants.
+ * performing an Association of a Variable.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -51,20 +66,30 @@ public class ASTAssociation<T> implements ASTNode {
 	}
 	
 	/**
-	 * Evaluates the expression value of the expression, from an A.S.T. Association Node.
+	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
 	 * 
-	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
+	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
 	 * 
+	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside        
+	 *
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames)
 	 * 
-	 * @throws TypeErrorException 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of the Type of a Value it's completely unknown to
+	 * 		   the recognised and acceptable Types for Values
 	 * 
-	 * @throws NumberArgumentsErrorException 
+	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception,
+	 * 		   in the case of the Number of Arguments used in the Evaluation,
+	 *         wrong in the current Environment of Values (Scope/Frame) being evaluated
+	 *         
 	 */
 	@Override
-	public IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
+	public IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException, TypeErrorException,
+															   NumberArgumentsErrorException {
 		
 		environment.addAssoc(nodeID, ( (IValue) this.nodeValue.eval(environment) ));
 		
@@ -77,8 +102,7 @@ public class ASTAssociation<T> implements ASTNode {
 	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
 	 * the List of the Code Instructions of the current Node of an
-	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
-	 * in order to, perform Association.
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions.
 	 * 
 	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
 	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
@@ -88,6 +112,7 @@ public class ASTAssociation<T> implements ASTNode {
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
@@ -100,8 +125,8 @@ public class ASTAssociation<T> implements ASTNode {
 		
 		// Start a new assignment Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
-		codeBlockInstructions.addCodeInstruction(";------------------Start new association------------------");
-		codeBlockInstructions.addCodeInstruction("aload 0");
+		codeBlockInstructions.addCodeInstruction(String.format(";------------------Start new association------------------"));
+		codeBlockInstructions.addCodeInstruction(String.format("aload 0"));
 		
 		// Compile the assignment Java Byte Code, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack,
@@ -111,14 +136,45 @@ public class ASTAssociation<T> implements ASTNode {
 
 		// Assigns the Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
-		codeBlockInstructions.addCodeInstruction("putfield f" + heapStackFrame.getHeapStackFrameID() + "/x" + (heapStackFrame.getCurrentFieldLocation() - 1) + " I");
+		codeBlockInstructions.addCodeInstruction(String.format("putfield f%d/x%d I",
+												 heapStackFrame.getHeapStackFrameID(),
+												(heapStackFrame.getCurrentFieldLocation() - 1)));
 				
 		// End a new assignment Java Byte Code instruction, written in J.V.M.,
 		// for an A.S.T. Association, placed in the Execution Stack
-		codeBlockInstructions.addCodeInstruction(";------------------End new association------------------");
-		codeBlockInstructions.addCodeInstruction("\n");
+		codeBlockInstructions.addCodeInstruction(String.format(";------------------End new association------------------"));
+		codeBlockInstructions.addCodeInstruction(String.format("\n"));
+	
 	}
-
+	
+	/**
+	 * Performs the Typechecking for the Type associated to this A.S.T. Node Identifier,
+	 * performing the Typecheking on it and in its descendants A.S.T. Nodes,
+	 * verifying the Type of the Values of all the A.S.T. Nodes.
+	 * 
+	 * @param environment the Environment (Scope/Frame), where the types of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be evaluated,
+	 *        in a Static Typechecking, before runtime of the program
+	 * 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of a Type used for in Typechecking of an A.S.T. Node it's
+	 * 		   wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 
+	 * @throws NumberArgumentsErrorException a Number of Arguments Error Exception thrown,
+	 *         in the case of the Number of Arguments used in the Typechecking,
+	 *         wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *         
+	 * @throws ASTDuplicatedIdentifierException a Duplicated Identifier Exception thrown,
+	 * 		   in the case of more than one certain Identifier it's found,
+	 *         in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
+	 * 
+	 */
 	@Override
 	public IType typecheck(Environment<IType> environment)
 		   throws TypeErrorException,
@@ -126,9 +182,18 @@ public class ASTAssociation<T> implements ASTNode {
 	   		      ASTDuplicatedIdentifierException,
 	   		      NumberArgumentsErrorException {
 		
+		/**
+		 * Add the Type for the value of this A.S.T. Association to
+		 * the current Environment (Scope/Frame) for types
+		 */
 		environment.addAssoc(nodeID, ( (IType) this.nodeValue.typecheck(environment) ));
 		
+		/**
+		 * Returns the Typechecking for the value of the A.S.T. Node,
+		 * associated to this A.S.T. Association
+		 */
 		return this.nodeValue.typecheck(environment);
 		
 	}
+
 }

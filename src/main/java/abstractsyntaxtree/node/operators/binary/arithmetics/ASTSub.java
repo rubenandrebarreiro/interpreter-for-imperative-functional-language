@@ -1,5 +1,20 @@
 package main.java.abstractsyntaxtree.node.operators.binary.arithmetics;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
@@ -7,6 +22,7 @@ import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
+import main.java.types.mathematics.TInt;
 import main.java.types.mathematics.TNegativeInt;
 import main.java.types.mathematics.TPositiveInt;
 import main.java.values.atomics.IValue;
@@ -146,16 +162,16 @@ public class ASTSub implements ASTNode {
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
 		
 		if(leftASTNodeDescedantType instanceof TPositiveInt && rightASTNodeDescedantType instanceof TPositiveInt) {
-			return new TPositiveInt();
+			return new TInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return new TNegativeInt();
+			return new TInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TPositiveInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return new TPositiveInt(); //TODO
+			return new TPositiveInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TPositiveInt) {
-			return new TPositiveInt(); //TODO
+			return new TNegativeInt();
 		}
 		else {
 			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
