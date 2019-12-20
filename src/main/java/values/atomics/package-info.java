@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Values.Atomic.
+ * Package for the Main.Java.Values.Atomics.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

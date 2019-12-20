@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Values.
+ * Package for the Main.Java.Values.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
