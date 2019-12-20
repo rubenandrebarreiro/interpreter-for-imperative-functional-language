@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the AbstractSyntaxTree.Node.Atomic.
+ * Package for the Main.Java.AbstractSyntaxTree.Node.Values.Logics.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

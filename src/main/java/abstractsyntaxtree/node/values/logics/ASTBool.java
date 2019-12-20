@@ -1,5 +1,20 @@
 package main.java.abstractsyntaxtree.node.values.logics;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
@@ -14,7 +29,7 @@ import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
 
 /**
- * Class for the Node of an Abstract Syntax Tree, representing an Atomic Number.
+ * Class for the Node of an Abstract Syntax Tree, representing an Atomic Boolean.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -42,7 +57,7 @@ public class ASTBool implements ASTNode {
 
 	/**
 	 * Constructor #1:
-	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Boolean.
+	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Boolean;
 	 * 
 	 * @param boolASTNodeValue the value of the A.S.T. Node, representing an Atomic Boolean
 	 */
