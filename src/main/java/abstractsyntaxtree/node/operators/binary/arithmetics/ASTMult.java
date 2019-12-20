@@ -1,5 +1,20 @@
 package main.java.abstractsyntaxtree.node.operators.binary.arithmetics;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
@@ -147,13 +162,13 @@ public class ASTMult implements ASTNode {
 			return new TPositiveInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return new TNegativeInt();
+			return new TPositiveInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TPositiveInt && rightASTNodeDescedantType instanceof TNegativeInt) {
-			return new TPositiveInt(); //TODO
+			return new TNegativeInt();
 		}
 		else if(leftASTNodeDescedantType instanceof TNegativeInt && rightASTNodeDescedantType instanceof TPositiveInt) {
-			return new TPositiveInt(); //TODO
+			return new TNegativeInt();
 		}
 		else {
 			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
