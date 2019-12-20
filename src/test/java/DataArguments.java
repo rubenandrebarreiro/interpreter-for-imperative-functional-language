@@ -88,7 +88,18 @@ public class DataArguments {
 			{ "if Let x=1 y=2 z=3 in Let q=x+y+z in Let x=x in q+q end end end > 10 then true else false", "true" }, // #64
 			{ "if true ^ true then 9001 else true || false", "true"}, // #65
 			{ "if true ^ true then 9001 else true && false", "false"}, // #66
-			{ "if true ^ true then 9001 else 2==2 ^ 3<=Let y=3 in y+y+3 end", "false"} // #67
+			{ "if true ^ true then 9001 else 2==2 ^ 3<=Let y=3 in y+y+3 end", "false"}, // #67
+			
+			// Sequences
+			{"2+2", "4"}, // #68
+			{"2+2;2+2", "4"}, // #69
+			{"2+2;4+4", "8"}, // #70
+			{"2+2;8-4", "4"}, // #71
+			{"4+4;2+2", "4"}, // #72
+			{"2+2;10>5", "true"}, // #73
+			{"10>5;5*2", "10"}, // #74
+			{"10+10;2==3;6/3;2+2;5>10", "false"}, // #75
+			{"(2+2;5>2)", "true"}, // #76
 			
 		});
 	}
