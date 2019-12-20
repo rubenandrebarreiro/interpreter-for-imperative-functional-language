@@ -197,14 +197,14 @@ public class HeapStackFrame {
 	}
 	
 	public void addAssoc(String id) {
-		this.stackFrameFieldLocations.addAssoc(id, this.heapStackFrameID, this.stackFrameFieldLocations.getCurrentFieldLocation());
+		this.stackFrameFieldLocations.addAssoc(id, this.heapStackFrameID, this.stackFrameFieldLocations.getCurrentFieldOffsetLocation());
 	}
 	
 	public int getCurrentFieldLocation() {
-		return this.stackFrameFieldLocations.getCurrentFieldLocation();
+		return this.stackFrameFieldLocations.getCurrentFieldOffsetLocation();
 	}
 	
 	public FieldAddress findOffsetLocation(String expressionID) {
-		return this.stackFrameFieldLocations.findOffsetLocation(expressionID);
+		return this.stackFrameFieldLocations.findFieldOffsetLocation(expressionID);
 	}
 }
