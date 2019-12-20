@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Values.Exceptions.
+ * Package for the Main.Java.Values.Utils.Exceptions.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
