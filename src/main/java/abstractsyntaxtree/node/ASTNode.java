@@ -1,5 +1,20 @@
 package main.java.abstractsyntaxtree.node;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.scopes.Environment;
@@ -22,6 +37,7 @@ import main.java.values.utils.exceptions.TypeErrorException;
 public interface ASTNode {
 	
 	// Methods/Functions:
+	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
@@ -39,10 +55,13 @@ public interface ASTNode {
 	 * 		   in the case of the Type of a Value it's completely unknown to
 	 * 		   the recognised and acceptable Types for Values
 	 * 
-	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception
+	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception,
+	 * 		   in the case of the Number of Arguments used in the Evaluation,
+	 *         wrong in the current Environment of Values (Scope/Frame) being evaluated
+	 *         
 	 */
 	IValue eval(Environment<IValue> environment) throws ASTInvalidIdentifierException,
-	                                                  TypeErrorException, NumberArgumentsErrorException;
+	                                                    TypeErrorException, NumberArgumentsErrorException;
 	
 	/**
 	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
@@ -58,29 +77,42 @@ public interface ASTNode {
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 
 	 */
 	void compile(EnvironmentCompiler environmentCompiler,
 			     CodeBlockInstructionsSet codeBlockInstructionsSet)
 			    		 			throws ASTInvalidIdentifierException;
 	
 	/**
-	 * Returns the Type of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * performing its TypeChecking.
+	 * Performs the Typechecking for the Type associated to this A.S.T. Node Identifier,
+	 * performing the Typecheking on it and in its descendants A.S.T. Nodes,
+	 * verifying the Type of the Values of all the A.S.T. Nodes.
 	 * 
-	 * @param environment the Environment (Scope/Frame), where the TypeChecking of
-	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be made
+	 * @param environment the Environment (Scope/Frame), where the types of
+	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be evaluated,
+	 *        in a Static Typechecking, before runtime of the program
 	 * 
-	 * @return the Type for the A.S.T. Node, after the typechecking
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of a Type used for in Typechecking of an A.S.T. Node it's
+	 * 		   wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
 	 * 
-	 * @throws TypeErrorException an Exception raised for a Type Error occurred/found
-	 * 
-	 * @throws ASTInvalidIdentifierException an Exception raised for an Invalid Identifier found
-	 * 
-	 * @throws ASTDuplicatedIdentifierException an Exception raised for an Duplicated Identifier found
-	 * 
-	 * @throws NumberArgumentsErrorException 
+	 * @throws NumberArgumentsErrorException a Number of Arguments Error Exception thrown,
+	 *         in the case of the Number of Arguments used in the Typechecking,
+	 *         wrong in the current Environment of Types (Scope/Frame) being evaluated
+	 *         
+	 * @throws ASTDuplicatedIdentifierException a Duplicated Identifier Exception thrown,
+	 * 		   in the case of more than one certain Identifier it's found,
+	 *         in the current Environment of Types (Scope/Frame) being evaluated
+	 *
+	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
 	 * 
 	 */
 	IType typecheck(Environment<IType> environment)
-		  throws TypeErrorException, ASTInvalidIdentifierException, NumberArgumentsErrorException, ASTDuplicatedIdentifierException;
+		  throws TypeErrorException, ASTInvalidIdentifierException,
+		         NumberArgumentsErrorException, ASTDuplicatedIdentifierException;
+	
 }

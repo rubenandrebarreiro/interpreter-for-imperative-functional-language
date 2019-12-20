@@ -15,8 +15,19 @@ package main.java.abstractsyntaxtree.exceptions;
  * 
  */
 
+/**
+ * Exception Class for the Invalid Identifier Exception of an Abstract Syntax Tree.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
 public class ASTInvalidIdentifierException extends Exception {
 
+	// Constants:
+	
 	/**
 	 * The default serial version UID
 	 */
