@@ -1,7 +1,27 @@
 package main.java.values.strings;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.values.atomics.IValue;
 
+/**
+ * 
+ * @author rubenandrebarreiro
+ *
+ */
 public class VString implements IValue {
 	
 	// Global Instance Variables:
@@ -25,7 +45,7 @@ public class VString implements IValue {
 	}
 	
 	
-	// Methods:
+	// Methods/Functions:
 	
 	/**
 	 * Returns the value of a String Value.
@@ -42,6 +62,5 @@ public class VString implements IValue {
 	@Override
 	public void show() {
 		System.out.println(this.value);
-	}
-	
+	}	
 }

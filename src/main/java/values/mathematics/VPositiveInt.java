@@ -1,6 +1,5 @@
 package main.java.values.mathematics;
 
-
 /**
  * Interpreter for Imperative/Functional Language
  * 

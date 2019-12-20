@@ -1,5 +1,20 @@
 package main.java.values.closures;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import java.util.List;
 
 import main.java.abstractsyntaxtree.node.ASTNode;
@@ -10,7 +25,7 @@ import main.java.values.atomics.IValue;
 public class VClosure implements IValue {
 
 	// TODO generic type of Env
-	private Environment<?> closureEnvironment;
+	private Environment<IValue> closureEnvironment;
 	
 	private List<String> functionArgumentsNames;
 	
@@ -18,7 +33,8 @@ public class VClosure implements IValue {
 	
 	
 	public VClosure(Environment<IValue> closureEnvironment,
-			       List<String> functionArgumentsNames, ASTNode functionBodyExpression) {
+			        List<String> functionArgumentsNames,
+			        ASTNode functionBodyExpression) {
 	
 		this.closureEnvironment = closureEnvironment;
 		this.functionArgumentsNames = functionArgumentsNames;
@@ -26,7 +42,7 @@ public class VClosure implements IValue {
 		
 	}
 
-	public Environment<?> getClosureEnvironment() {
+	public Environment<IValue> getClosureEnvironment() {
 		return closureEnvironment;
 	}
 
@@ -38,11 +54,11 @@ public class VClosure implements IValue {
 		return functionBodyExpression;
 	}
 
+	/**
+	 * Show a String representation of the Value.
+	 */
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		// change or create show function
 		System.out.println("fun(" + this.functionBodyExpression.toString() + ")");
 	}
-
 }

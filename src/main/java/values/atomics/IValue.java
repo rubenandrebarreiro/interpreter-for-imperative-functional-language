@@ -26,5 +26,11 @@ package main.java.values.atomics;
  *
  */
 public interface IValue {
+	
+	// Methods/Functions:
+	
+	/**
+	 * Show a String representation of the Value.
+	 */
 	void show();
 }
