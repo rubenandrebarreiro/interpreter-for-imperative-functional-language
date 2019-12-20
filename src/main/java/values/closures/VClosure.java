@@ -34,6 +34,16 @@ public class VClosure implements IValue {
 	private ASTNode functionBodyExpression;
 	
 	
+	// Constructors:
+	
+	/**
+	 * Constructor:
+	 * - Constructor of a Closure
+	 * 
+	 * @param closureEnvironment
+	 * @param functionArgumentsNames
+	 * @param functionBodyExpression
+	 */
 	public VClosure(Environment<IValue> closureEnvironment,
 			        List<String> functionArgumentsNames,
 			        ASTNode functionBodyExpression) {
