@@ -349,7 +349,7 @@ ASTNode Let() :
 		<LET>
       	associations = Association()
 	  	<IN>
-	  	expressionNode = NumExp()
+	  	expressionNode = Sequence()
 	  	<END>
 	  	{
 	  	  letNode = new ASTLet(associations, expressionNode);
@@ -390,11 +390,11 @@ ASTNode Conditional():
 {
 	(
 		<IF>
-      	ifASTNode = BoolExp()
+      	ifASTNode = Sequence()
 	  	<THEN>
-	  	thenASTNode = BoolExp()
+	  	thenASTNode = Sequence()
 	  	<ELSE>
-	  	elseASTNode = BoolExp()
+	  	elseASTNode = Sequence()
 	  	{
 	  	  ifThenElseNode = new ASTIfThenElse(ifASTNode, thenASTNode, elseASTNode);
 	  	}
@@ -412,7 +412,7 @@ ASTNode Sequence():
 	(
 		headSequenceInstruction = BoolExp()
 	  	(	  	  <SEQ_DELIMETER>
-	  	tailSequenceInstructions = BoolExp()
+	  	tailSequenceInstructions = Sequence()
 	  	{
 	  	  sequenceInstructions = new ASTSeq(headSequenceInstruction, tailSequenceInstructions);
 	  	}
@@ -433,7 +433,7 @@ ASTNode Loop() :
 {
 	(
 		<WHILE>
-      	conditionWhileNode = BoolExp()
+      	conditionWhileNode = Sequence()
 	  	<DO>
 	  	instructionSetWhileNode = Sequence()
 	  	<END>
