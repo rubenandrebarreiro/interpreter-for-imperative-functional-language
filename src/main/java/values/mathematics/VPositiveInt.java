@@ -16,7 +16,7 @@ package main.java.values.mathematics;
  */
 
 /**
- * Class for the VInt, implementing IValue interface.
+ * Class for Positive Integer Value, implementing an Integer Value.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -25,7 +25,6 @@ package main.java.values.mathematics;
  *
  */
 public class VPositiveInt extends VInt {
-	
 	
 	// Constructors:
 
@@ -38,6 +37,4 @@ public class VPositiveInt extends VInt {
 	public VPositiveInt(int value) {
 		super(value);
 	}
-	
-	
 }

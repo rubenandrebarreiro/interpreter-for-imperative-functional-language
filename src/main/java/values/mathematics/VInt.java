@@ -17,6 +17,15 @@ package main.java.values.mathematics;
 
 import main.java.values.atomics.IValue;
 
+/**
+ * Class for Integer Value, implementing a Value.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
 public class VInt implements IValue {
 	
 	// Global Instance Variables:
@@ -40,7 +49,7 @@ public class VInt implements IValue {
 	}
 	
 	
-	// Methods:
+	// Methods/Functions:
 	
 	/**
 	 * Returns the value of an Integer Value.
@@ -52,7 +61,7 @@ public class VInt implements IValue {
 	}
 
 	/**
-	 * Prints the value of a Negative Integer Value representation in String.
+	 * Shows/Prints a String representation of the Value.
 	 */
 	@Override
 	public void show() {

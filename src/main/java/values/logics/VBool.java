@@ -64,7 +64,7 @@ public class VBool implements IValue {
 	}
 	
 	
-	// Methods:
+	// Methods/Functions:
 	
 	/**
 	 * Returns the value of a Boolean Value.
@@ -76,10 +76,11 @@ public class VBool implements IValue {
 	}
 	
 	/**
-	 * Prints the value of an Boolean Value representation in String.
+	 * Shows/Prints a String representation of the Value.
 	 */
 	@Override
 	public void show() {
 		System.out.println(this.value);
 	}
+	
 }

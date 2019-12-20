@@ -30,7 +30,7 @@ public interface IValue {
 	// Methods/Functions:
 	
 	/**
-	 * Show a String representation of the Value.
+	 * Shows/Prints a String representation of the Value.
 	 */
 	void show();
 }

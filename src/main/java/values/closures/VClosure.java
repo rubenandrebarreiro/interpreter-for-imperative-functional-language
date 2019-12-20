@@ -24,6 +24,8 @@ import main.java.values.atomics.IValue;
 
 public class VClosure implements IValue {
 
+	// Global Instance Variables:
+	
 	// TODO generic type of Env
 	private Environment<IValue> closureEnvironment;
 	
@@ -42,23 +44,39 @@ public class VClosure implements IValue {
 		
 	}
 
+	
+	// Methods/Functions:
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public Environment<IValue> getClosureEnvironment() {
 		return closureEnvironment;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getFunctionArgumentsNames() {
 		return functionArgumentsNames;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ASTNode getFunctionBodyExpression() {
 		return functionBodyExpression;
 	}
 
 	/**
-	 * Show a String representation of the Value.
+	 * Shows/Prints a String representation of the Value.
 	 */
 	@Override
 	public void show() {
 		System.out.println("fun(" + this.functionBodyExpression.toString() + ")");
 	}
+	
 }

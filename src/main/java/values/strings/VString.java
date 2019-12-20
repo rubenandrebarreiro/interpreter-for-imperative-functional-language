@@ -18,8 +18,12 @@ package main.java.values.strings;
 import main.java.values.atomics.IValue;
 
 /**
+ * Class for String Value, implementing a Value.
  * 
- * @author rubenandrebarreiro
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
 public class VString implements IValue {
@@ -57,7 +61,7 @@ public class VString implements IValue {
 	}
 
 	/**
-	 * Prints the value of a String Value representation in String.
+	 * Shows/Prints a String representation of the Value.
 	 */
 	@Override
 	public void show() {

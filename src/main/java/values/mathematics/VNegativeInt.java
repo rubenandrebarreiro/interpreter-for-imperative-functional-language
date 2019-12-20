@@ -18,22 +18,7 @@ package main.java.values.mathematics;
 import main.java.values.atomics.IValue;
 
 /**
- * Interpreter for Imperative/Functional Language
- * 
- * Interpretation and Compilation of Programming Languages
- * 
- * Faculty of Science and Technology of New University of Lisbon
- * (FCT NOVA | FCT/UNL)
- * 
- * Integrated Master of Computer Science and Engineering
- * (BSc. + MSc. Bologna Degree)
- * 
- * Academic Year 2019/2020
- * 
- */
-
-/**
- * Class for the VNegativeInt, implementing IValue interface.
+ * Class for Negative Integer Value, implementing an Integer Value.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -55,6 +40,5 @@ public class VNegativeInt extends VInt implements IValue {
 	public VNegativeInt(int value) {
 		super((-1) * value);
 	}
-	
-	
+
 }
