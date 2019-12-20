@@ -46,8 +46,8 @@ public class ASTDeReference implements ASTNode {
 		this.referenceValueToBeDeReferenced.compile(environmentCompiler, codeBlockInstructionsSet);
 		
 		
-		String stackRefName = this.referenceType.getStackRefName();
-		String stackFrameName = this.referenceType.getStackFrameName();
+		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
+		String stackFrameName = this.referenceType.getHeapStackFrameName();
 		
 		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
 		codeBlockInstructionsSet.addCodeInstruction( String.format("getfield %s/v %s", stackRefName, stackFrameName) );

@@ -44,8 +44,8 @@ public class ASTAssignment implements ASTNode {
 		
 		this.assignmentID.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		String stackRefName = this.assignmentValueType.getStackRefName();
-		String stackFrameName = this.assignmentValueType.getStackFrameName();
+		String stackRefName = this.assignmentValueType.getHeapStackFrameReferenceName();
+		String stackFrameName = this.assignmentValueType.getHeapStackFrameName();
 		
 		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
 		

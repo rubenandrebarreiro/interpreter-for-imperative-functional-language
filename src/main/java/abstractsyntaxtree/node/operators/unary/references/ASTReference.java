@@ -40,8 +40,8 @@ public class ASTReference<T> implements ASTNode {
 		   throws ASTInvalidIdentifierException {
 		
 		
-		String stackRefName = this.referenceType.getStackRefName();
-		String stackFrameName = this.referenceType.getStackFrameName();
+		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
+		String stackFrameName = this.referenceType.getHeapStackFrameName();
 		
 		codeBlockInstructionsSet.addCodeInstruction( String.format("new %s", stackRefName) );
 		
