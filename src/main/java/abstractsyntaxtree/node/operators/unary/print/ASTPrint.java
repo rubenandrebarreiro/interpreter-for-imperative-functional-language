@@ -40,11 +40,20 @@ public class ASTPrint implements ASTNode {
 	// Global Instance Variables:
 	
 	/**
-	 * The A
+	 * The A.S.T. Node representing a String to be printed.
 	 */
 	private ASTNode stringToPrint;
 	
 	
+	// Constructors:
+	
+	/**
+	 * Constructor #1:
+	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Operation
+	 *   to responsible to print a String;
+	 * 
+	 * @param stringToPrint the A.S.T. Node representing a String to be printed
+	 */
 	public ASTPrint(ASTNode stringToPrint) {
 		this.stringToPrint = stringToPrint;
 	}
