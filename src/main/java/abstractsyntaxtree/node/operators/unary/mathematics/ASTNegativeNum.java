@@ -18,12 +18,14 @@ package main.java.abstractsyntaxtree.node.operators.unary.mathematics;
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.node.values.mathematics.ASTNum;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.types.mathematics.TNegativeInt;
 import main.java.values.atomics.IValue;
+import main.java.values.mathematics.VInt;
 import main.java.values.mathematics.VNegativeInt;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
@@ -42,12 +44,12 @@ public class ASTNegativeNum implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The value of  A.S.T. Node, representing an Atomic Negative Number
+	 * The A.S.T. Node, representing an Atomic Negative Number
 	 */
-	private VNegativeInt negativeNumASTNodeValue;
+	private ASTNum negativeNumASTNode;
 	
 	/**
-	 * The type of  A.S.T. Node, representing an Atomic Negative Number
+	 * The type of the A.S.T. Node, representing an Atomic Negative Number
 	 */	
 	private TNegativeInt negativeNumASTNodeType;
 	
@@ -58,10 +60,10 @@ public class ASTNegativeNum implements ASTNode {
 	 * Constructor #1:
 	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent an Atomic Negative Number;
 	 * 
-	 * @param negativeNumASTNodeValue the value of the A.S.T. Node, representing an Atomic Negative Number
+	 * @param negativeNumASTNode the A.S.T. Node, representing an Atomic Negative Number
 	 */
-	public ASTNegativeNum(VNegativeInt negativeNumASTNodeValue) {
-		this.negativeNumASTNodeValue = negativeNumASTNodeValue;
+	public ASTNegativeNum(ASTNum negativeNumASTNode) {
+		this.negativeNumASTNode = negativeNumASTNode;
 	}
 	
 	
@@ -94,7 +96,8 @@ public class ASTNegativeNum implements ASTNode {
 		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		// Returns A.S.T. Node, representing an Atomic Negative Number
-		return this.negativeNumASTNodeValue;
+		return new VNegativeInt( ( (VInt) this.negativeNumASTNode.eval(environment) ).getValue() );
+		
 	}
 
 	/**
@@ -116,9 +119,8 @@ public class ASTNegativeNum implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
 		
-		codeBlockInstructionsSet.addCodeInstruction
-								("sipush " + String.valueOf(Math.abs(this.negativeNumASTNodeValue.getValue())));
-								codeBlockInstructionsSet.addCodeInstruction("ineg");
+		this.negativeNumASTNode.compile(environmentCompiler, codeBlockInstructionsSet);
+		codeBlockInstructionsSet.addCodeInstruction("ineg");
 		
 	}
 
