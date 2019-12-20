@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Interpreter.
+ * Package for the Main.Java.Interpreter.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
