@@ -58,9 +58,9 @@ public class ASTNotBool implements ASTNode {
 	// Global Instance Variables:
 
 	/**
-	 * The value of the A.S.T. Node, representing a Negated Atomic Boolean
+	 * The A.S.T. Node, representing an Atomic Boolean to be negated
 	 */
-	private VBool boolASTNodeValue;
+	private ASTNode boolASTNodeToBeNegated;
 	
 	/**
 	 * The type of the A.S.T. Node, representing a Negated Atomic Boolean
@@ -74,10 +74,10 @@ public class ASTNotBool implements ASTNode {
 	 * Constructor #1:
 	 * - The Constructor of a Node of an Abstract Syntax Tree, to represent a Negated Atomic Boolean.
 	 * 
-	 * @param boolASTNodeValue the value of the A.S.T. Node, representing a Negated Atomic Boolean
+	 * @param boolASTNodeToBeNegated the value of the A.S.T. Node, representing a Negated Atomic Boolean
 	 */
-	public ASTNotBool(VBool boolASTNodeValue) {
-		this.boolASTNodeValue = new VBool(!boolASTNodeValue.getValue());
+	public ASTNotBool(ASTNode boolASTNodeToBeNegated) {
+		this.boolASTNodeToBeNegated = boolASTNodeToBeNegated;
 	}
 	
 	
@@ -106,10 +106,13 @@ public class ASTNotBool implements ASTNode {
 	 *         
 	 */
 	@Override
-	public IValue eval(Environment<IValue> environment) {
+	public IValue eval(Environment<IValue> environment)
+		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		// Returns A.S.T. Node, representing an Atomic Boolean
-		return this.boolASTNodeValue;
+		IValue boolASTNodeToBeNegatedEvaluated = this.boolASTNodeToBeNegated.eval(environment);
+		
+		return new VBool( !( (VBool) boolASTNodeToBeNegatedEvaluated ).getValue() );
 	}
 	
 	/**
@@ -129,12 +132,11 @@ public class ASTNotBool implements ASTNode {
 	 * 
 	 */
 	@Override
-	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
+	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
+		   throws ASTInvalidIdentifierException {
 		
-		int heapStackFrameJVMBooleanRepresentation = !this.boolASTNodeValue.getValue() ? 1 : 0;
+		this.boolASTNodeToBeNegated.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		codeBlockInstructionsSet.addCodeInstruction("sipush " + String.valueOf(heapStackFrameJVMBooleanRepresentation));
-
 		// Push the Code Instruction of Atomic Number 1 (One) to the Execution Stack,
 		// in order to perform the Negation of the A.S.T. Node
 		String instructionAtomicNumberOne = "sipush " + String.valueOf(1);
