@@ -54,6 +54,9 @@ public class HeapStackFrame {
 	 */
 	private int numberOfFields;
 	
+	/**
+	 * TODO
+	 */
 	private HeapStackFrameFieldOffsetLocations stackFrameFieldLocations;
 	
 	
@@ -75,6 +78,9 @@ public class HeapStackFrame {
 		this.numberOfFields = numberOfFields;
 		this.stackFrameFieldLocations = new HeapStackFrameFieldOffsetLocations();
 	}
+	
+	
+	// Methods/Functions:
 	
 	/**
 	 * Returns the ID of the Heap Stack Frame.

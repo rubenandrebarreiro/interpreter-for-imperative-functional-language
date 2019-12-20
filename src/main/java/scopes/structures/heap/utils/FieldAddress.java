@@ -62,7 +62,7 @@ public class FieldAddress {
 	}
 	
 	
-	// Methods:
+	// Methods/Functions:
 	
 	/**
 	 * Returns the level of Heap Stack Frame (Scope/Frame).

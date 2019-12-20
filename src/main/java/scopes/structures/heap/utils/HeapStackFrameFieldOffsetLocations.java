@@ -47,6 +47,9 @@ public class HeapStackFrameFieldOffsetLocations {
 		this.fieldOffsetLocations = new HashMap<String, FieldAddress>();
 	}
 	
+	
+	// Methods/Functions:
+	
 	/**
 	 * Adds a new Field Offset Location to the Heap Stack Frame (Scope/Frame).
 	 * 
@@ -85,4 +88,5 @@ public class HeapStackFrameFieldOffsetLocations {
 	public int getCurrentFieldOffsetLocation() {
 		return this.fieldOffsetLocations.size();
 	}
+
 }
