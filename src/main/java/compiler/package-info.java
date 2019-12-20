@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Compiler.
+ * Package for the Main.Java.Compiler.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

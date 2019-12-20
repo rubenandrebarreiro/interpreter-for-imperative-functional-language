@@ -23,8 +23,7 @@ import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 
 /**
- * Class for the Node of an Abstract Syntax Tree (A.S.T.),
- * performing the Multiplication of its descendants.
+ * Class for the Compiler.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -70,7 +69,7 @@ public class Compiler {
 	}
 	
 	
-	// Methods:
+	// Methods/Functions:
 	
 	/**
 	 * Generates a file, where will be written the Java Byte Code, based on J.V.M. Instructions set.
@@ -83,4 +82,5 @@ public class Compiler {
 	public void generateJavaByteCodeJVMInstructions(String filename) throws IOException {
 		this.codeBlockIntructions.dump(filename);
 	}
+	
 }
