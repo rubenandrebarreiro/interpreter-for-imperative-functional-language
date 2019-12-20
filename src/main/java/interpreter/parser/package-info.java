@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Interpreter.Parser.
+ * Package for the Main.Java.Interpreter.Parser.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
