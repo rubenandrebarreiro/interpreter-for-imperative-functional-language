@@ -17,7 +17,16 @@ package main.java.types.logics;
 
 import main.java.types.IType;
 
-public class TBool implements IType{
+/**
+ * Class for Type of a Boolean Value.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
+public class TBool implements IType {
 
 	private static final TBool INSTANCE = new TBool();
 	

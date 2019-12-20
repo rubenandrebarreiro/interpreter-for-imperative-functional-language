@@ -18,7 +18,7 @@ package main.java.types.functions;
 import main.java.types.IType;
 
 /**
- * Interface for Type of a Function Value.
+ * Class for Type of a Function Value.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

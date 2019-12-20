@@ -17,6 +17,15 @@ package main.java.types.strings;
 
 import main.java.types.IType;
 
+/**
+ * Class for Type of a String Value, implementing a Type of a Value.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
 public class TString implements IType {
 	
 	private static final TString INSTANCE = new TString();

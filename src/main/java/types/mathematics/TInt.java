@@ -17,6 +17,15 @@ package main.java.types.mathematics;
 
 import main.java.types.IType;
 
+/**
+ * Class for Type of an Integer Value.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
 public class TInt implements IType {
 
 	private static final TInt INSTANCE = new TInt();
