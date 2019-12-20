@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the AbstractSyntaxTree.Scopes.
+ * Package for the Main.Java.Scopes.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
