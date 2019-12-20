@@ -16,12 +16,12 @@ public class TString implements IType {
 	}
 
 	@Override
-	public String getStackFrameName() {
+	public String getHeapStackFrameName() {
 		return "Ljava/lang/String"; //TODO object confirmar
 	}
 
 	@Override
-	public String getStackRefName() {
+	public String getHeapStackFrameReferenceName() {
 		return "ref_class";
 	}
 

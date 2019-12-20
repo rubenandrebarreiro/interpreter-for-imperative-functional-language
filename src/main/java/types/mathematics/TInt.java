@@ -16,12 +16,12 @@ public class TInt implements IType {
 	}
 
 	@Override
-	public String getStackFrameName() {
+	public String getHeapStackFrameName() {
 		return "I";
 	}
 
 	@Override
-	public String getStackRefName() {
+	public String getHeapStackFrameReferenceName() {
 		return "ref_int";
 	}
 

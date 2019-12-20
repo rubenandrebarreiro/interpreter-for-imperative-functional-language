@@ -17,12 +17,12 @@ public class TRef implements IType {
 	}
 
 	@Override
-	public String getStackFrameName() {
+	public String getHeapStackFrameName() {
 		return "Ljava/lang/Object";
 	}
 
 	@Override
-	public String getStackRefName() {
+	public String getHeapStackFrameReferenceName() {
 		return "ref_class";
 	}
 	
