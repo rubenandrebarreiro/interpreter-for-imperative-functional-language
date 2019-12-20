@@ -14,7 +14,7 @@
  */
 
 /**
- * Package for the Main.Java.AbstractSyntaxTree.Node.Operators.N-ary.
+ * Package for the Main.Java.AbstractSyntaxTree.Node.Operators.N-ary.Lists.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 
@@ -22,4 +22,4 @@
  * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
  *
  */
-package main.java.abstractsyntaxtree.node.operators.nary;
+package main.java.abstractsyntaxtree.node.operators.nary.lists;

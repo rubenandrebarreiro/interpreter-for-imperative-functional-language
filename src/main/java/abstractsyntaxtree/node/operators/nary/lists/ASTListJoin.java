@@ -1,4 +1,4 @@
-package main.java.abstractsyntaxtree.node.operators.lists;
+package main.java.abstractsyntaxtree.node.operators.nary.lists;
 
 import java.util.ArrayList;
 import java.util.List;
