@@ -315,13 +315,13 @@ ASTNode Fact() :
 			node = new ASTNum(new VInt(Integer.parseInt(num.image)));
 		}
 		| <MINUS> num = <NUM> {
-		  	node = new ASTNegativeNum(new VNegativeInt(Integer.parseInt(num.image)));
+		  	node = new ASTNegativeNum(new ASTNum(new VInt(Integer.parseInt(num.image))));
 		}
 		| booleanValue = <BOOL_VALUE> {
      	  	node = new ASTBool(new VBool(Boolean.parseBoolean(booleanValue.image)));
      	}
         | <NOT> booleanValue = <BOOL_VALUE> {
-		  	node = new ASTNotBool(new VBool(Boolean.parseBoolean(booleanValue.image)));
+		  	node = new ASTNotBool(new ASTBool(new VBool(Boolean.parseBoolean(booleanValue.image))));
         } 
      	| id = <ID> {
 		  	node = new ASTID(id.image);
