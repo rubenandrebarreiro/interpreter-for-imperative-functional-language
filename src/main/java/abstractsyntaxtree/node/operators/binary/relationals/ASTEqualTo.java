@@ -42,6 +42,14 @@ import main.java.values.utils.exceptions.TypeErrorException;
  */
 public class ASTEqualTo implements ASTNode {
 
+	// Constants:
+	
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Equality
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to == (equal to) operator!!!";
+	
+	
 	// Global Variables:
 	
 	/**
@@ -53,11 +61,6 @@ public class ASTEqualTo implements ASTNode {
 	 * The right A.S.T. Node descendant
 	 */
 	private ASTNode rightASTNodeDescendant;
-	
-	/**
-	 * The TypeCheck Error Message for the A.S.T. Node for Equality
-	 */
-	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to = (equal to) operator!!!";
 	
 	
 	// Constructors:

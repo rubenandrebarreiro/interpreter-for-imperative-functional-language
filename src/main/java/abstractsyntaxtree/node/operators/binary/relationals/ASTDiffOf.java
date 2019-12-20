@@ -58,6 +58,14 @@ import main.java.values.utils.exceptions.TypeErrorException;
  */
 public class ASTDiffOf implements ASTNode {
 
+	// Constants:
+	
+	/**
+	 * The TypeCheck Error Message for the A.S.T. Node for Disequality
+	 */
+	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to <> (not equal to) operator!!!";
+	
+	
 	// Global Variables:
 	
 	/**
@@ -69,11 +77,6 @@ public class ASTDiffOf implements ASTNode {
 	 * The right A.S.T. Node descendant
 	 */
 	private ASTNode rightASTNodeDescendant;
-	
-	/**
-	 * The TypeCheck Error Message for the A.S.T. Node for Disequality
-	 */
-	private static final String TYPE_ERROR_MESSAGE = "Illegal arguments to <> (not equal to) operator!!!";
 	
 	
 	// Constructors:
