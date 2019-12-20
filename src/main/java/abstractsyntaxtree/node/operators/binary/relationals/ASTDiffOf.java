@@ -1,5 +1,20 @@
 package main.java.abstractsyntaxtree.node.operators.binary.relationals;
 
+/**
+ * Interpreter for Imperative/Functional Language
+ * 
+ * Interpretation and Compilation of Programming Languages
+ * 
+ * Faculty of Science and Technology of New University of Lisbon
+ * (FCT NOVA | FCT/UNL)
+ * 
+ * Integrated Master of Computer Science and Engineering
+ * (BSc. + MSc. Bologna Degree)
+ * 
+ * Academic Year 2019/2020
+ * 
+ */
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 
 /**
@@ -24,7 +39,7 @@ import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.types.logics.TBool;
-import main.java.types.mathematics.TPositiveInt;
+import main.java.types.mathematics.TInt;
 import main.java.values.atomics.IValue;
 import main.java.values.logics.VBool;
 import main.java.values.mathematics.VInt;
@@ -70,38 +85,43 @@ public class ASTDiffOf implements ASTNode {
 	 * @param leftASTNodeDescedant the left side Descendant of the A.S.T. Node
 	 * 
 	 * @param rightASTNodeDescedant the right side Descendant of the A.S.T. Node
+	 * 
 	 */
 	public ASTDiffOf(ASTNode leftASTNodeDescedant, ASTNode rightASTNodeDescedant) {
+		
 		this.leftASTNodeDescendant = leftASTNodeDescedant;
 		this.rightASTNodeDescendant = rightASTNodeDescedant;
+	
 	}
 	
 	
-	// Methods:
+	// Methods/Functions:
 	
 	/**
 	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 * performing the Not Equal To Comparison.
+	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
 	 * 
-	 * @param environment the Environment (Scope/Frame), where the current A.S.T. Node it's inside
+	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
 	 * 
 	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
-	 *  	   given the Environment (Scope/Frame), where the current A.S.T. Node it's inside,
-	 *  	   performing the Not Equal To Comparison
-	 *  
+	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside        
+	 *
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
-	 * 		   Environment's ancestor on the Heap Stack of Environments (Scopes/Frames)
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames)
 	 * 
 	 * @throws TypeErrorException a Type Error Exception thrown,
 	 * 		   in the case of the Type of a Value it's completely unknown to
 	 * 		   the recognised and acceptable Types for Values
-	 * @throws NumberArgumentsErrorException 
+	 * 
+	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception,
+	 * 		   in the case of the Number of Arguments used in the Evaluation,
+	 *         wrong in the current Environment of Values (Scope/Frame) being evaluated
+	 *         
 	 */
 	@Override
 	public IValue eval(Environment<IValue> environment)
-				throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
+		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
 		
 		IValue leftASTNodeDescendantValue = leftASTNodeDescendant.eval(environment);
 		IValue rightASTNodeDescedantValue = rightASTNodeDescendant.eval(environment);
@@ -109,8 +129,16 @@ public class ASTDiffOf implements ASTNode {
 		if(leftASTNodeDescendantValue instanceof VInt && rightASTNodeDescedantValue instanceof VInt) {
 
 			// Returns the Not Equal To Comparison of the A.S.T. Nodes Descendants
-			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() == ((VInt) rightASTNodeDescedantValue).getValue());
+			return new VBool( ((VInt) leftASTNodeDescendantValue).getValue() != ((VInt) rightASTNodeDescedantValue).getValue());
+		
 		}
+		else if(leftASTNodeDescendantValue instanceof VBool && rightASTNodeDescedantValue instanceof VBool) {
+
+			// Returns the Not Equal To Comparison of the A.S.T. Nodes Descendants
+			return new VBool( ((VBool) leftASTNodeDescendantValue).getValue() != ((VBool) rightASTNodeDescedantValue).getValue());
+		
+		}
+		
 		throw new TypeErrorException(TYPE_ERROR_MESSAGE);
 	}
 
@@ -118,23 +146,22 @@ public class ASTDiffOf implements ASTNode {
 	 * Compiles the List of Code Instructions of the current Node of an Abstract Syntax Tree (A.S.T.),
 	 * given the Environment (Scope/Frame), where the current A.S.T. Node it's inside and
 	 * the List of the Code Instructions of the current Node of an
-	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions,
-	 * in order to, perform a Not Equal To Comparison, in the Evaluation Stack.
+	 * Abstract Syntax Tree (A.S.T.) will be kept, writing J.V.M. instructions.
 	 * 
-	 * @param environmentCompiler the Environment (Scope/Frame),
-	 * 		  where the current Code Instructions Set of
+	 * @param environment the Environment (Scope/Frame), where the current Code Instructions of
 	 *        the current Node of an Abstract Syntax Tree (A.S.T.) will be kept
 	 * 
-	 * @param codeBlockInstructionsSet the List of the Code Instructions to be compiled
+	 * @param codeInstructions the List of the Code Instructions to be compiled
 	 * 
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * 
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler,
 						CodeBlockInstructionsSet codeBlockInstructionsSet)
-										throws ASTInvalidIdentifierException {
+											throws ASTInvalidIdentifierException {
 
 		// To Perform the Subtraction of the 2 A.S.T. Nodes,
 		// it's necessary to evaluate the both left and right descendants
@@ -178,6 +205,28 @@ public class ASTDiffOf implements ASTNode {
 		codeBlockInstructionsSet.addCodeInstruction(instructionL2Label);
 	}	
 	
+	/**
+	 * Evaluates the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 * given the Environment (Scope), where the current A.S.T. Node it's inside.
+	 * 
+	 * @param environment the Environment (Scope), where the current A.S.T. Node it's inside
+	 * 
+	 * @return the evaluation of the Expression of the current Node of an Abstract Syntax Tree (A.S.T.),
+	 *  	   given the Environment (Scope), where the current A.S.T. Node it's inside        
+	 *
+	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
+	 * 		   in the case of an Identifier it's completely unknown in the
+	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames)
+	 * 
+	 * @throws TypeErrorException a Type Error Exception thrown,
+	 * 		   in the case of the Type of a Value it's completely unknown to
+	 * 		   the recognised and acceptable Types for Values
+	 * 
+	 * @throws NumberArgumentsErrorException a raised Number of Arguments Error Exception,
+	 * 		   in the case of the Number of Arguments used in the Evaluation,
+	 *         wrong in the current Environment of Values (Scope/Frame) being evaluated
+	 *         
+	 */
 	@Override
 	public IType typecheck(Environment<IType> environment)
 			throws TypeErrorException,
@@ -189,7 +238,7 @@ public class ASTDiffOf implements ASTNode {
 		IType rightASTNodeDescedantType = this.rightASTNodeDescendant.typecheck(environment);
 		
 		if( (leftASTNodeDescedantType instanceof TBool && rightASTNodeDescedantType instanceof TBool) ||
-			(leftASTNodeDescedantType instanceof TPositiveInt && rightASTNodeDescedantType instanceof TPositiveInt) ) {
+			(leftASTNodeDescedantType instanceof TInt && rightASTNodeDescedantType instanceof TInt) ) {
 		
 			return new TBool();
 		
