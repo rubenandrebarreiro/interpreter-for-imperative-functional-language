@@ -21,7 +21,7 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.values.mathematics.ASTNum;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
-import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.scopes.compiler.instructions.codeblocks.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.types.mathematics.TInt;
 import main.java.values.atomics.IValue;

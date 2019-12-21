@@ -23,7 +23,7 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.operators.nary.functionals.ASTFun;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
-import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
+import main.java.scopes.compiler.instructions.codeblocks.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.types.functions.TFun;
 import main.java.values.atomics.IValue;
