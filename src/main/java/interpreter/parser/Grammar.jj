@@ -192,7 +192,7 @@ ASTNode Start():
   ASTNode t;
 }
 {
-	t = BoolExp() <EL>
+	t = Sequence() <EL>
    	{
    		return t;
    	}
@@ -327,7 +327,7 @@ ASTNode Fact() :
 		  	node = new ASTID(id.image);
 		} 
         | node = Let()
-		| <LPAR> node = BoolExp() <RPAR>
+		| <LPAR> node = Sequence() <RPAR>
 		| <NEW_REF> node = Fact()
 		| <EXCLAMATION_DREF> node = Fact()
 	    | node = Conditional()
@@ -349,7 +349,7 @@ ASTNode Let() :
 		<LET>
       	associations = Association()
 	  	<IN>
-	  	expressionNode = NumExp()
+	  	expressionNode = Sequence()
 	  	<END>
 	  	{
 	  	  letNode = new ASTLet(associations, expressionNode);
@@ -390,11 +390,11 @@ ASTNode Conditional():
 {
 	(
 		<IF>
-      	ifASTNode = BoolExp()
+      	ifASTNode = Sequence()
 	  	<THEN>
-	  	thenASTNode = BoolExp()
+	  	thenASTNode = Sequence()
 	  	<ELSE>
-	  	elseASTNode = BoolExp()
+	  	elseASTNode = Sequence()
 	  	{
 	  	  ifThenElseNode = new ASTIfThenElse(ifASTNode, thenASTNode, elseASTNode);
 	  	}
@@ -406,19 +406,22 @@ ASTNode Conditional():
 
 ASTNode Sequence():
 {
-	ASTNode headSequenceInstruction, tailSequenceInstructions, sequenceInstructions;
+	ASTNode headSequenceInstruction, tailSequenceInstructions = null, sequenceInstructions = null;
 }
 {
 	(
 		headSequenceInstruction = BoolExp()
-	  	<SEQ_DELIMETER>
-	  	tailSequenceInstructions = BoolExp()
+	  	(	  	  <SEQ_DELIMETER>
+	  	tailSequenceInstructions = Sequence()
 	  	{
 	  	  sequenceInstructions = new ASTSeq(headSequenceInstruction, tailSequenceInstructions);
 	  	}
+	 	)*
 	)
 	{
-	  return sequenceInstructions;
+	  if(tailSequenceInstructions == null)
+	  	return headSequenceInstruction;
+	  else return sequenceInstructions;
 	}
 }
 
@@ -430,7 +433,7 @@ ASTNode Loop() :
 {
 	(
 		<WHILE>
-      	conditionWhileNode = BoolExp()
+      	conditionWhileNode = Sequence()
 	  	<DO>
 	  	instructionSetWhileNode = Sequence()
 	  	<END>

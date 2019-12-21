@@ -223,8 +223,7 @@ public class ASTLet implements ASTNode {
 		
 		codeInstructions.addCodeInstruction(String.format("astore 0\n"));
 		codeInstructions.addCodeInstruction(String.format(";------------------End remove frame------------------"));
-		codeInstructions.addCodeInstruction(String.format("\n"));
-	
+		codeInstructions.addCodeInstruction(String.format("\n"));	
 	}
 
 

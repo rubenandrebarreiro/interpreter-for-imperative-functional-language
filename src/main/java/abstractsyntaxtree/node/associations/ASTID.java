@@ -118,6 +118,7 @@ public class ASTID implements ASTNode {
 			// If it was no found the pretended value and there's no more Ancestors in
 			// the Heap Stack of Environments (Scopes/Frames)
 			if(heapStackFrame.getStaticLinkAncestorHeapFrame() == null) {
+
 				throw new ASTInvalidIdentifierException(String.format("Invalid Identifier!!!\n"
 						+ "It was used an free occurrence not defined at any Heap Stack Frame!!!\n\n"));
 			}
