@@ -22,14 +22,14 @@ public class ASTFirst implements ASTNode {
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
-			throws ASTInvalidIdentifierException {
+		   throws ASTInvalidIdentifierException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException,
-			NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
+		   NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
 		// TODO Auto-generated method stub
 		return null;
 	}
