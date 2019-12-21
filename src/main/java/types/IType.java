@@ -51,6 +51,9 @@ public interface IType {
 	 */
 	public String getHeapStackFrameReferenceName();
 	
+	// TODO
+	public String getClosureInterfaceTypeName();
+	
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
 	 * 

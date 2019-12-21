@@ -70,6 +70,11 @@ public class TString implements IType {
 		return "ref_class";
 	}
 
+	// TODO
+	public String getClosureInterfaceTypeName() {
+		return "string";
+	}
+
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
 	 * 

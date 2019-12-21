@@ -79,6 +79,11 @@ public class TRef implements IType {
 	public String getHeapStackFrameReferenceName() {
 		return "ref_class";
 	}
+
+	// TODO
+	public String getClosureInterfaceTypeName() {
+		return "ref";
+	}
 	
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.

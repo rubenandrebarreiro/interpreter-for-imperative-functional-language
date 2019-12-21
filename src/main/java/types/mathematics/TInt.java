@@ -70,6 +70,11 @@ public class TInt implements IType {
 		return "ref_int";
 	}
 
+	// TODO
+	public String getClosureInterfaceTypeName() {
+		return "int";
+	}
+	
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
 	 * 
