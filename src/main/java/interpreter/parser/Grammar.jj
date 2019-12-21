@@ -253,8 +253,10 @@ ASTNode Relational() :
 					node1 = new ASTLessThan(node1, node2);
 				else if (operation.kind == LESS_OR_EQUAL)
 					node1 = new ASTLessOrEqualTo(node1, node2);
+				else if (operation.kind == EQUAL)
+					node1 = new ASTEqualTo(node1, node2);
 				else
-					node1 = new ASTEqualTo(node1, node2);	
+					node1 = new ASTDiffOf(node1, node2);
 			}
      	)?
 	{
