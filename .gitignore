@@ -26,5 +26,5 @@ src/interpreter/parser/TokenMgrError.java
 *.class
 
 # Compiler results
-f*.j
-Main.j
+*.j
+
