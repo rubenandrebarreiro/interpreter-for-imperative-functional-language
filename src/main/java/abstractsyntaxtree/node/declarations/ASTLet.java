@@ -152,8 +152,8 @@ public class ASTLet implements ASTNode {
 		
 		HeapStackFrame currentFrame = null;
 		
-		if(codeBlockInstructions.getCurrentFrame() != null) {
-			currentFrame = codeBlockInstructions.getCurrentFrame();
+		if(codeBlockInstructions.getCurrentHeapStackFrame() != null) {
+			currentFrame = codeBlockInstructions.getCurrentHeapStackFrame();
 		}
 		
 		currentFrame = new HeapStackFrame(
@@ -174,13 +174,13 @@ public class ASTLet implements ASTNode {
 		
 		this.removeFrame(codeBlockInstructions, currentFrame);
 		
-		currentFrame = currentFrame.getStaticLinkAncestorHeapFrame();
+		currentFrame = currentFrame.getStaticLinkAncestorHeapStackFrame();
 		codeBlockInstructions.setCurrentFrame(currentFrame);
 	}
 	
 	private void createFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
 		
-		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
+		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapStackFrame();
 		int currentFrameID = currentFrame.getHeapStackFrameID();
 		
 		codeInstructions.addCodeInstruction(String.format(";------------------Start new frame------------------"));
@@ -206,7 +206,7 @@ public class ASTLet implements ASTNode {
 	
 	private void removeFrame(CodeBlockInstructionsSet codeInstructions, HeapStackFrame currentFrame) {
 		
-		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapFrame();
+		HeapStackFrame ancestorFrame = currentFrame.getStaticLinkAncestorHeapStackFrame();
 		int currentFrameID = currentFrame.getHeapStackFrameID();
 		
 		codeInstructions.addCodeInstruction(String.format("\n"));

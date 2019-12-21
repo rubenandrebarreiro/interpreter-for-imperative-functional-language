@@ -29,6 +29,7 @@ import main.java.types.functions.TFun;
 import main.java.values.atomics.IValue;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -50,6 +51,19 @@ public class ASTCall implements ASTNode {
 	 */
 	private static final String TYPE_ERROR_MESSAGE = "The Type for this Call it's not a Function/Procedure!";
 
+	/**
+	 * The Type Error Message to be showed,
+	 * in the case of the type of this A.S.T. Call have a wrong number of Arguments.
+	 */
+	private static final String NUMBER_ARGUMENTS_ERROR_MESSAGE = null;
+
+	/**
+	 * The Wrong Argument Type Error Message to be showed,
+	 * in the case of the type of this A.S.T. Call have, at least, one Argument Type wrong.
+	 */
+	private static final String WRONG_ARGUMENT_TYPE_ERROR_MESSAGE = null;
+
+	
 	
 	// Global Instance Variables:
 	
@@ -63,6 +77,11 @@ public class ASTCall implements ASTNode {
 	 * the Function/Procedure associated to this A.S.T. Call.
 	 */
 	private List<ASTNode> functionArguments;
+	
+	private IType functionType;
+	
+	
+	private StringBuilder heapStackFrameNamesCallStringBuilder;
 	
 	
 	// Constructors:
@@ -131,8 +150,27 @@ public class ASTCall implements ASTNode {
 
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
-			throws ASTInvalidIdentifierException {
-		// TODO Auto-generated method stub
+		   throws ASTInvalidIdentifierException {
+		
+		this.astFunction.compile(environmentCompiler, codeBlockInstructionsSet);
+		
+		codeBlockInstructionsSet
+				.addCodeInstruction
+						(String.format("checkcast closure_interface_type_t002")); //TODO
+		
+		for(ASTNode functionArgument : this.functionArguments) {
+			
+			functionArgument.compile(environmentCompiler, codeBlockInstructionsSet);
+			
+			
+			
+		}
+		
+		codeBlockInstructionsSet
+				.addCodeInstruction
+						(String.format("invokeinterface closure_interface_type_t002/%s%s",
+								this.heapStackFrameNamesCallStringBuilder.toString(),
+								( (TFun) this.functionType ).getFunctionReturnType().getHeapStackFrameName() )); //TODO
 		
 	}
 
@@ -155,6 +193,7 @@ public class ASTCall implements ASTNode {
 	 * @throws ASTInvalidIdentifierException an Invalid Identifier Exception thrown,
 	 * 		   in the case of an Identifier it's completely unknown in the
 	 * 		   Environment's ancestor on the Stack of Environments (Scopes/Frames) 
+	 * @throws WrongArgumentTypeErrorException 
 	 * 
 	 */
 	@Override
@@ -162,14 +201,49 @@ public class ASTCall implements ASTNode {
 			throws TypeErrorException,
 	   		       ASTInvalidIdentifierException,
 	   		       ASTDuplicatedIdentifierException,
-	   		       NumberArgumentsErrorException {
+	   		       NumberArgumentsErrorException,
+	   		       WrongArgumentTypeErrorException {
 		
 		IType astFunctionType = this.astFunction.typecheck(environment);
 		
 		if(astFunctionType instanceof TFun) {
 			
-			return null;
+			List<IType> functionArgumentsTypes = ( (TFun) astFunctionType ).getFunctionArgumentsTypes();
 			
+			if( functionArgumentsTypes.size() == this.functionArguments.size()) {
+				
+				int argumentIndex = 0;
+				
+				this.heapStackFrameNamesCallStringBuilder
+					.append(String.format("call("));
+				
+				for(IType functionArgumentType : functionArgumentsTypes) {
+					
+					IType otherFunctionArgumentType = 
+							this.functionArguments.get(argumentIndex).typecheck(environment);
+					
+					if( !(functionArgumentType.equals(otherFunctionArgumentType)) ) {
+						
+						throw new WrongArgumentTypeErrorException(WRONG_ARGUMENT_TYPE_ERROR_MESSAGE);
+						
+					}
+					
+					this.heapStackFrameNamesCallStringBuilder
+						.append(functionArgumentType.getHeapStackFrameName());
+					
+				}
+				
+				this.heapStackFrameNamesCallStringBuilder
+					.append(String.format(")"));
+				
+				return ( (TFun) astFunctionType ).getFunctionReturnType();
+				
+			}
+			else {
+				
+				throw new NumberArgumentsErrorException(NUMBER_ARGUMENTS_ERROR_MESSAGE);
+			
+			}
 		}
 		else {
 		
@@ -178,5 +252,4 @@ public class ASTCall implements ASTNode {
 		}
 		
 	}
-	
 }

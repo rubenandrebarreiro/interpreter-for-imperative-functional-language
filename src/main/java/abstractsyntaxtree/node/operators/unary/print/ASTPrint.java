@@ -25,6 +25,7 @@ import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree, representing a Print operation.
@@ -110,13 +111,13 @@ public class ASTPrint implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
 
-//		codeBlockInstructionsSet.addCodeInstruction
-//								(String.format("getstatic java/lang/System/out Ljava/io/PrintStream;"));
+		//codeBlockInstructionsSet.addCodeInstruction
+								//(String.format("getstatic java/lang/System/out Ljava/io/PrintStream;"));
 		
 		this.stringToPrint.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-//		codeBlockInstructionsSet.addCodeInstruction
-//								(String.format("invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V"));
+		//codeBlockInstructionsSet.addCodeInstruction
+								//(String.format("invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V"));
 		
 	}
 
@@ -144,6 +145,9 @@ public class ASTPrint implements ASTNode {
 	 * @throws ASTDuplicatedIdentifierException a Duplicated Identifier Exception thrown,
 	 * 		   in the case of more than one certain Identifier it's found,
 	 *         in the current Environment of Types (Scope/Frame) being evaluated
+	 * 
+	 * @throws WrongArgumentTypeErrorException a Wrong Argument Type Error Exception thrown,
+	 * 		   in the case of, at least, one argument of a Closure have a wrong Typechecked Type
 	 *
 	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
 	 * 
@@ -153,7 +157,8 @@ public class ASTPrint implements ASTNode {
 	       throws TypeErrorException,
 	   		      ASTInvalidIdentifierException,
 	   		      ASTDuplicatedIdentifierException,
-	   		      NumberArgumentsErrorException {
+	   		      NumberArgumentsErrorException,
+	   		      WrongArgumentTypeErrorException {
 	
 
 		return this.stringToPrint.typecheck(environment);

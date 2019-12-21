@@ -16,9 +16,9 @@ package main.java.values.utils.exceptions;
  */
 
 /**
- * The Class for the Number Arguments Error Exception, extending an Exception.
+ * The Class for the Wrong Argument Type Error Exception, extending an Exception.
  */
-public class NumberArgumentsErrorException extends Exception {
+public class WrongArgumentTypeErrorException extends Exception {
 	
 	// Constants:
 	
@@ -32,11 +32,11 @@ public class NumberArgumentsErrorException extends Exception {
 	
 	/**
 	 * Constructor #1:
-	 * - The constructor of a Number Arguments Error Exception;
+	 * - The constructor of a Wrong Argument Type Error Exception;
 	 * 
-	 * @param exceptionMessage a Number Arguments Error Exception message to be showed
+	 * @param exceptionMessage a Wrong Argument Type Error Exception message to be showed
 	 */
-	public NumberArgumentsErrorException(String exceptionMessage) {
+	public WrongArgumentTypeErrorException(String exceptionMessage) {
 		super(exceptionMessage);
 	}
 	

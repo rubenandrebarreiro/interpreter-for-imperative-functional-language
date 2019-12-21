@@ -122,10 +122,22 @@ public class ASTFun implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 			throws ASTInvalidIdentifierException {
 		
-		codeBlockInstructionsSet.addCodeInstruction(String.format("new closure_f000%d", 1 /* TODO */));
-		codeBlockInstructionsSet.addCodeInstruction(String.format("dup"));
-		codeBlockInstructionsSet.addCodeInstruction(String.format("aload SL"));
-		codeBlockInstructionsSet.addCodeInstruction(String.format("putfield closure_f000%d/SL type;", 1 /* TODO */));
+		codeBlockInstructionsSet.addCodeInstruction(String.format("new f000%d_frame", 1 /* TODO */));
+		codeBlockInstructionsSet.addCodeInstruction(String.format("dup"));		
+		codeBlockInstructionsSet.addCodeInstruction(String.format("aload 0"));
+		
+		int staticLinkAncestorHeapStackFrameID = 
+				codeBlockInstructionsSet.getCurrentHeapStackFrame()
+				.getStaticLinkAncestorHeapStackFrame().getHeapStackFrameID();
+		
+		codeBlockInstructionsSet.addCodeInstruction
+				(String.format("getfield closure_f000%d/%d %s",
+							   staticLinkAncestorHeapStackFrameID
+							   )); //TODO type
+		
+		codeBlockInstructionsSet.addCodeInstruction
+				(String.format("putfield f000%d_frame/%d %s",
+							   staticLinkAncestorHeapStackFrameID)); //TODO type
 		
 	}
 

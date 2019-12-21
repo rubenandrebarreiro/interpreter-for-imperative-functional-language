@@ -1,5 +1,7 @@
 package main.java.types.functions;
 
+import java.util.List;
+
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -28,6 +30,11 @@ import main.java.types.IType;
  */
 public class TFun implements IType {
 
+	private IType functionReturnType;
+	
+	private List<IType> functionArgumentsTypes;
+	
+	
 	// Methods/Functions:
 	
 	/**
@@ -73,4 +80,13 @@ public class TFun implements IType {
 	public boolean equals(IType other) {
 		return other instanceof TFun;
 	}
+	
+	public List<IType> getFunctionArgumentsTypes() {
+		return this.functionArgumentsTypes;
+	}
+	
+	public IType getFunctionReturnType() {
+		return this.functionReturnType;
+	}
+	
 }

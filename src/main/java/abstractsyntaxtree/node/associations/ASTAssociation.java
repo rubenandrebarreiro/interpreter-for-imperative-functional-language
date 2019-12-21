@@ -26,6 +26,7 @@ import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -120,7 +121,7 @@ public class ASTAssociation<T> implements ASTNode {
 		
 		// The counter of the current Field of
 		// the variables in the Scope of the Environment 
-		HeapStackFrame heapStackFrame = codeBlockInstructions.getCurrentFrame();
+		HeapStackFrame heapStackFrame = codeBlockInstructions.getCurrentHeapStackFrame();
 		heapStackFrame.addAssoc(nodeID);
 		
 		// Start a new assignment Java Byte Code instruction, written in J.V.M.,
@@ -171,6 +172,9 @@ public class ASTAssociation<T> implements ASTNode {
 	 * @throws ASTDuplicatedIdentifierException a Duplicated Identifier Exception thrown,
 	 * 		   in the case of more than one certain Identifier it's found,
 	 *         in the current Environment of Types (Scope/Frame) being evaluated
+	 * 
+	 * @throws WrongArgumentTypeErrorException a Wrong Argument Type Error Exception thrown,
+	 * 		   in the case of, at least, one argument of a Closure have a wrong Typechecked Type
 	 *
 	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
 	 * 
@@ -180,7 +184,8 @@ public class ASTAssociation<T> implements ASTNode {
 		   throws TypeErrorException,
 	   		      ASTInvalidIdentifierException,
 	   		      ASTDuplicatedIdentifierException,
-	   		      NumberArgumentsErrorException {
+	   		      NumberArgumentsErrorException,
+	   		      WrongArgumentTypeErrorException {
 		
 		/**
 		 * Add the Type for the value of this A.S.T. Association to

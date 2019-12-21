@@ -34,7 +34,7 @@ public class TypeErrorException extends Exception {
 	 * Constructor #1:
 	 * - The constructor of a Type Error Exception;
 	 * 
-	 * @param exceptionMessage
+	 * @param exceptionMessage a Type Error Exception message to be showed
 	 */
 	public TypeErrorException(String exceptionMessage) {
 		super(exceptionMessage);

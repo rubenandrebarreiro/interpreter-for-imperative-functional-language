@@ -27,6 +27,7 @@ import main.java.values.atomics.IValue;
 import main.java.values.logics.VBool;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -239,6 +240,9 @@ public class ASTIfThenElse implements ASTNode {
 	 * @throws ASTDuplicatedIdentifierException a Duplicated Identifier Exception thrown,
 	 * 		   in the case of more than one certain Identifier it's found,
 	 *         in the current Environment of Types (Scope/Frame) being evaluated
+	 * 
+	 * @throws WrongArgumentTypeErrorException a Wrong Argument Type Error Exception thrown,
+	 * 		   in the case of, at least, one argument of a Closure have a wrong Typechecked Type
 	 *
 	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
 	 * 
@@ -248,7 +252,8 @@ public class ASTIfThenElse implements ASTNode {
 		   throws TypeErrorException,
 	   		      ASTInvalidIdentifierException,
 	   		      ASTDuplicatedIdentifierException,
-	   		      NumberArgumentsErrorException {
+	   		      NumberArgumentsErrorException,
+	   		      WrongArgumentTypeErrorException {
 		
 		IType ifASTConditionalNodeDescendantType = 
 				this.ifASTConditionalNodeDescendant.typecheck(environment);

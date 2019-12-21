@@ -15,6 +15,7 @@ import main.java.values.atomics.IValue;
 import main.java.values.lists.VList;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
 
 public class ASTListJoin implements ASTNode {
 
@@ -61,8 +62,12 @@ public class ASTListJoin implements ASTNode {
 	}
 
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTInvalidIdentifierException,
-		   NumberArgumentsErrorException, ASTDuplicatedIdentifierException {
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException,
+		          ASTInvalidIdentifierException,
+		          NumberArgumentsErrorException,
+		          ASTDuplicatedIdentifierException,
+		          WrongArgumentTypeErrorException {
 		
 		IType elementToJoinType = this.elementToJoinASTNodeDescendant.typecheck(environment);
 		

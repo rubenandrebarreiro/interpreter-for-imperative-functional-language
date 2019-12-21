@@ -24,6 +24,7 @@ import main.java.types.IType;
 import main.java.values.atomics.IValue;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
 
 /**
  * Interface for the Node of an Abstract Syntax Tree.
@@ -110,9 +111,11 @@ public interface ASTNode {
 	 *
 	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
 	 * 
+	 * @throws WrongArgumentTypeErrorException 
+	 * 
 	 */
 	IType typecheck(Environment<IType> environment)
 		  throws TypeErrorException, ASTInvalidIdentifierException,
-		         NumberArgumentsErrorException, ASTDuplicatedIdentifierException;
+		         NumberArgumentsErrorException, ASTDuplicatedIdentifierException, WrongArgumentTypeErrorException;
 	
 }

@@ -121,7 +121,7 @@ public class CodeBlockInstructionsSet {
 	 * Returns the current Heap Stack Frame for
 	 * the Scope/Frame of this Code Block of Instructions.
 	 */
-	public HeapStackFrame getCurrentFrame() {
+	public HeapStackFrame getCurrentHeapStackFrame() {
 		return this.currentFrame;
 	}
 	

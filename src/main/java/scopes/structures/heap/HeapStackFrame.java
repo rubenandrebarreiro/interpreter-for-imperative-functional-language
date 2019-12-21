@@ -96,7 +96,7 @@ public class HeapStackFrame {
 	 * 
 	 * @return the Static Link pointer to its Heap Stack Frame Ancestor
 	 */
-	public HeapStackFrame getStaticLinkAncestorHeapFrame() {
+	public HeapStackFrame getStaticLinkAncestorHeapStackFrame() {
 		return this.staticLinkAncestorHeapFrame;
 	}
 	
@@ -130,9 +130,9 @@ public class HeapStackFrame {
 		int currentLevelHeapStackFrames = 0;
 		HeapStackFrame currentHeapStackFrame = this;
 		
-		while(currentHeapStackFrame.getStaticLinkAncestorHeapFrame() != null) {
+		while(currentHeapStackFrame.getStaticLinkAncestorHeapStackFrame() != null) {
 			
-			currentHeapStackFrame = currentHeapStackFrame.getStaticLinkAncestorHeapFrame();
+			currentHeapStackFrame = currentHeapStackFrame.getStaticLinkAncestorHeapStackFrame();
 			
 			currentLevelHeapStackFrames++;
 		}
@@ -166,7 +166,7 @@ public class HeapStackFrame {
 		// in Java Byte Code, writing J.V.M. instructions
 		String superClassReference = this.staticLinkAncestorHeapFrame == null ?
 				String.format("java/lang/Object") :
-					String.format("f%s", getStaticLinkAncestorHeapFrame().heapStackFrameID) ;
+					String.format("f%s", getStaticLinkAncestorHeapStackFrame().heapStackFrameID) ;
 		
 		// Write the code instruction, related to the superclass ID of the Heap Stack Frame,
 		// in Java Byte Code, writing J.V.M. instructions

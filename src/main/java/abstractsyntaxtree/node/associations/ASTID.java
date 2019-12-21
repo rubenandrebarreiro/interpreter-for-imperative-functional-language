@@ -108,7 +108,7 @@ public class ASTID implements ASTNode {
 		
 		FieldAddress valueFieldAddress = null;
 		
-		HeapStackFrame heapStackFrame = codeBlockInstructions.getCurrentFrame();
+		HeapStackFrame heapStackFrame = codeBlockInstructions.getCurrentHeapStackFrame();
 		codeBlockInstructions.addCodeInstruction("aload 0");
 		
 		valueFieldAddress = heapStackFrame.findOffsetLocation(this.expressionID);
@@ -117,7 +117,7 @@ public class ASTID implements ASTNode {
 			
 			// If it was no found the pretended value and there's no more Ancestors in
 			// the Heap Stack of Environments (Scopes/Frames)
-			if(heapStackFrame.getStaticLinkAncestorHeapFrame() == null) {
+			if(heapStackFrame.getStaticLinkAncestorHeapStackFrame() == null) {
 
 				throw new ASTInvalidIdentifierException(String.format("Invalid Identifier!!!\n"
 						+ "It was used an free occurrence not defined at any Heap Stack Frame!!!\n\n"));
@@ -127,7 +127,7 @@ public class ASTID implements ASTNode {
 													 heapStackFrame.getHeapStackFrameID(), 
 													(heapStackFrame.getHeapStackFrameID() - 1)));
 			
-			heapStackFrame = heapStackFrame.getStaticLinkAncestorHeapFrame();
+			heapStackFrame = heapStackFrame.getStaticLinkAncestorHeapStackFrame();
 			
 			valueFieldAddress = heapStackFrame.findOffsetLocation(this.expressionID);
 		}
