@@ -8,6 +8,7 @@ import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.values.atomics.IValue;
+import main.java.values.references.VRef;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
 
@@ -33,9 +34,19 @@ public class ASTAssignment implements ASTNode {
 	
 	@Override
 	public IValue eval(Environment<IValue> environment)
-			throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
-		// TODO Auto-generated method stub
-		return null;
+		   throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
+		
+		IValue assignmentEvaluated = this.assignmentID.eval(environment);
+		
+		if(assignmentEvaluated instanceof VRef) {
+			
+			return new VRef(this.assignmentValue.eval(environment));
+			
+		}
+		else {
+			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
+		}
+		
 	}
 
 	@Override
