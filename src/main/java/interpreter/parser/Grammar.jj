@@ -3,6 +3,7 @@ PARSER_BEGIN(InterpreterParser)
 package main.java.interpreter.parser;
 
 import main.java.scopes.Environment;
+import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.abstractsyntaxtree.node.*;
 import main.java.abstractsyntaxtree.node.associations.*;
 
@@ -16,6 +17,8 @@ import main.java.abstractsyntaxtree.node.operators.binary.arithmetics.*;
 import main.java.abstractsyntaxtree.node.operators.binary.logics.*;
 import main.java.abstractsyntaxtree.node.operators.binary.relationals.*;
 
+import main.java.abstractsyntaxtree.node.operators.nary.functionals.*;
+
 import main.java.abstractsyntaxtree.node.primitives.conditionals.*;
 import main.java.abstractsyntaxtree.node.primitives.loops.*;
 import main.java.abstractsyntaxtree.node.primitives.sequences.*;
@@ -25,7 +28,7 @@ import main.java.values.mathematics.*;
 
 import main.java.abstractsyntaxtree.node.declarations.*;
 import main.java.compiler.Compiler;
-import main.java.values.atomics.IValue;
+import main.java.values.atomics.*;
 import java.util.*;
 import java.io.*;
 
@@ -37,13 +40,14 @@ public class InterpreterParser {
 	/** Main entry point. */
   	public static void main(String args[]) {
 
-  	  	Environment<IValue> env = new Environment<IValue>();
-    	
+  	  	Environment env = new Environment();
+    	InterpreterParser interpreterParser = new InterpreterParser(System.in);
+
     	ASTNode Num_Exp;
     	
 		while(true) { 
     		try {
-    			Num_Exp = InterpreterParser.Start();
+    			Num_Exp = interpreterParser.Start();
     			Compiler compiler = new Compiler( Num_Exp );
     			compiler.generateJavaByteCodeJVMInstructions("Main.j");
     			Num_Exp.eval(env).show();
@@ -51,13 +55,13 @@ public class InterpreterParser {
     		catch (Exception exception) {
     		    exception.printStackTrace();
       			System.err.println ("Syntax Error!!!");
-      			InterpreterParser.ReInit(System.in);
+      			interpreterParser.ReInit(System.in);
     		}
     	}
 	}
 
 	public static void testInterpreter(InputStream in) {
-  	  	Environment<IValue> env = new Environment<IValue>();
+  	  	Environment env = new Environment();
 
   	  	if(parser == null) { 
     		parser = new InterpreterParser(in);
@@ -69,7 +73,7 @@ public class InterpreterParser {
     	ASTNode Num_Exp;
 
     	try {
-    	    Num_Exp = InterpreterParser.Start();
+    	    Num_Exp = parser.Start();
     		Num_Exp.eval(env).show();
     	}
     	catch (Exception e) {
@@ -78,7 +82,7 @@ public class InterpreterParser {
 	}
 
 	public static void testCompiler(InputStream in) {
-  	  	Environment<IValue> env = new Environment<IValue>();
+  	  	Environment env = new Environment();
 
   	  	if(parser == null) { 
     		parser = new InterpreterParser(in);
@@ -90,7 +94,7 @@ public class InterpreterParser {
         ASTNode Num_Exp;
 
     	try {
-    	    Num_Exp = InterpreterParser.Start();
+    	    Num_Exp = parser.Start();
 
     	    Compiler compiler = new Compiler( Num_Exp );
     		compiler.generateJavaByteCodeJVMInstructions("Main.j");
@@ -208,7 +212,7 @@ ASTNode BoolExp() :
                 else
                 	node1 = new ASTXor(node1, node2);
              } 
-        )
+        )*
      {
      	return node1;
      } 
@@ -302,7 +306,7 @@ ASTNode NumTerm() :
 
 ASTNode Fact() :
 {
-  Token id, num, booleanValue; 
+  Token id, value, bodyNum_Expression, num, booleanValue; 
   ASTNode node;
 }
 {
@@ -370,7 +374,7 @@ List<ASTNode> Association():
       	  valueNode = NumExp();
       	}
       	{
-        	associations.add(new ASTAssociation<IValue>(id.image, valueNode));
+        	associations.add(new ASTAssociation(id.image, valueNode));
       	}
     )+
     {
