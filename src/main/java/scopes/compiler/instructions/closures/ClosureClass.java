@@ -40,7 +40,8 @@ public class ClosureClass {
 		
 		this.fileOutputStream
 			.write(String.format(".field public sl Lframe_%d",
-				   this.heapStackFrame.getStaticLinkAncestorHeapStackFrame().getHeapStackFrameID())
+				   this.heapStackFrame.getStaticLinkAncestorHeapStackFrame()
+				   	   .getHeapStackFrameID())
 				   .getBytes());
 			
 		
@@ -65,10 +66,62 @@ public class ClosureClass {
 			.write(String.format(".end method").getBytes());
 
 		
-		
 		this.fileOutputStream
 			.write(String.format("\n").getBytes());
 	
+		
+		
+		this.fileOutputStream
+			.write(String.format(".method public %s",
+				                 this.closureInterface.getClosureCallDeclaration())
+								 .getBytes());
+		
+		this.fileOutputStream
+			.write(String.format(".limit locals 10").getBytes());
+		
+		this.fileOutputStream
+			.write(String.format("	.limit stack 256").getBytes());
+		
+		this.fileOutputStream
+			.write(String.format("	new frame_%d",
+								 this.heapStackFrame.getHeapStackFrameID())
+								 .getBytes());
+		
+		this.fileOutputStream.write(String.format("dup").getBytes());
+		
+		this.fileOutputStream
+			.write(String.format("	invokespecial frame_%d/<init>()V",
+								 this.heapStackFrame.getHeapStackFrameID())
+								 .getBytes());
+		
+		this.fileOutputStream.write(String.format("dup").getBytes());
+		
+		this.fileOutputStream.write(String.format("aload 0").getBytes());
+		
+		this.fileOutputStream.write(String.format("dup").getBytes());
+		
+		this.fileOutputStream
+			.write(String.format("getfield clousure_%d/sl Lframe_%d",
+							     this.closureID,
+							     this.heapStackFrame.getStaticLinkAncestorHeapStackFrame()
+							     	 .getHeapStackFrameID())
+								 .getBytes());
+		
+		this.fileOutputStream
+			.write(String.format("putfield frame_%d/sl Lframe_%d",
+								 this.heapStackFrame.getHeapStackFrameID(),
+						     	 this.heapStackFrame.getStaticLinkAncestorHeapStackFrame()
+						     	 	.getHeapStackFrameID())
+								 .getBytes());
+		
+		
+		
+		// TODO evaluation of instructions
+		
+		
+		this.fileOutputStream.write(String.format(".end method").getBytes());
+
+		
 		
 	}
 }
