@@ -28,12 +28,22 @@ import main.java.types.IType;
  */
 public class TList implements IType {
 
+	// Global Instance Variables:
 	
 	/**
-	 * 
+	 * The Type of Values for this List Type
 	 */
 	private IType listType;	
 	
+	
+	// Constructors:
+	
+	/***
+	 * Constructor #1:
+	 * - Constructor for the List Type;
+	 * 
+	 * @param listType the Type of values of this List Type
+	 */
 	public TList(IType listType) {
 		this.listType = listType;
 	}

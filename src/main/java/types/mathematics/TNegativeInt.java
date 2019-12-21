@@ -29,20 +29,44 @@ import main.java.types.IType;
  */
 public class TNegativeInt extends TInt implements IType {
 
-	private static final TNegativeInt INSTANCE = new TNegativeInt();
-
-	public static TNegativeInt getSingletonInstance() {
-		return INSTANCE;
-	}
+	// Constants:
 	
+	/**
+	 * The Singleton Instance of Negative Integer Type
+	 */
+	private static final TNegativeInt SINGLETON_INSTANCE = new TNegativeInt();
+
+	
+	// Methods/Functions:
+	
+	/**
+	 * Returns the name of this Type of Value.
+	 * 
+	 * @return the name of this Type of Value
+	 */
 	@Override
 	public String getTypeName() {
 		return "Negative Integer";
 	}
 
+	/**
+	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
+	 * 
+	 * @param otherType another Type of Value, to be compared with this one
+	 * 
+	 * @return true if this Type of Value it's equal to another one given and false, otherwise
+	 */
 	@Override
 	public boolean equals(IType otherType) {
 		return otherType instanceof TNegativeInt;
 	}
-
+	
+	/**
+	 * Returns the Singleton Instance of Negative Integer Type.
+	 * 
+	 * @return the Singleton Instance of Negative Integer Type
+	 */
+	public static TNegativeInt getSingletonInstance() {
+		return SINGLETON_INSTANCE;
+	}
 }

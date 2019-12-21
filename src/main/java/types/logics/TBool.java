@@ -90,4 +90,5 @@ public class TBool implements IType {
 	public static TBool getSingletonInstance() {
 		return SINGLETON_INSTANCE;
 	}
+	
 }

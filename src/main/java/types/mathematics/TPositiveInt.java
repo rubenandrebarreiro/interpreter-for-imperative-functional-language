@@ -29,20 +29,44 @@ import main.java.types.IType;
  */
 public class TPositiveInt extends TInt implements IType {
 
-	private static final TPositiveInt INSTANCE = new TPositiveInt();
+	// Constants:
 
-	public static TPositiveInt getInstance() {
-		return INSTANCE;
-	}
+	/**
+	 * The Singleton Instance of Positive Integer Type
+	 */
+	private static final TPositiveInt SINGLETON_INSTANCE = new TPositiveInt();
 	
+	
+	// Methods/Functions:
+	
+	/**
+	 * Returns the name of this Type of Value.
+	 * 
+	 * @return the name of this Type of Value
+	 */
 	@Override
 	public String getTypeName() {
 		return "Positive Integer";
 	}
 
+	/**
+	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
+	 * 
+	 * @param otherType another Type of Value, to be compared with this one
+	 * 
+	 * @return true if this Type of Value it's equal to another one given and false, otherwise
+	 */
 	@Override
 	public boolean equals(IType otherType) {
 		return otherType instanceof TPositiveInt;
 	}
 	
+	/**
+	 * Returns the Singleton Instance of Positive Integer Type.
+	 * 
+	 * @return the Singleton Instance of Positive Integer Type
+	 */
+	public static TPositiveInt getInstance() {
+		return SINGLETON_INSTANCE;
+	}
 }
