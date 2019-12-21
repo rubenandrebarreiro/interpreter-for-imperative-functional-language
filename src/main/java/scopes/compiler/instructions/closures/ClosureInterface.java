@@ -22,6 +22,15 @@ public class ClosureInterface {
 	
 	private String closureInterfaceName;
 	
+	public String getClosureInterfaceName() {
+		return closureInterfaceName;
+	}
+
+
+	public String getClosureCallDeclaration() {
+		return closureCallDeclaration;
+	}
+
 	private String closureCallDeclaration;
 	
 	
