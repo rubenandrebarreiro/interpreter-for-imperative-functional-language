@@ -106,8 +106,12 @@ public class DataArguments {
 			{"Let x=2 in x+2;x end", "2"}, // #80			
 			
 			// Strings
-			{"print hello", "hello"}, // #81
-			{"print hello world", "hello world"} // #82
+			{"print \"hello\"", "hello"}, // #81
+			{"print \"hello world\"", "hello world"}, // #82
+			{"print \"Hello amazing world! This is a test where we write more that what is available"
+					+ "on ID! Can even print operations, even if not their values! 2+2! No crash!\"",
+					"Hello amazing world! This is a test where we write more that what is available"
+							+ "on ID! Can even print operations, even if not their values! 2+2! No crash!"} // #83
 		});
 	}
 }
