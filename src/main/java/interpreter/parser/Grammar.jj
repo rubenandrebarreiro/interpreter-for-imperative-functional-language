@@ -41,6 +41,7 @@ import java.io.*;
 /** ID lister. */
 public class InterpreterParser {
 
+	private static final String mainCompileFilename = "CompilerParser.j";
 	static InterpreterParser parser = null;
 
 	/** Main entry point. */
@@ -55,7 +56,7 @@ public class InterpreterParser {
     		try {
     			Num_Exp = interpreterParser.Start();
     			Compiler compiler = new Compiler( Num_Exp );
-    			compiler.generateJavaByteCodeJVMInstructions("Main.j");
+    			compiler.generateJavaByteCodeJVMInstructions(mainCompileFilename);
     			Num_Exp.eval(env).show();
     		}
     		catch (Exception exception) {
@@ -103,7 +104,7 @@ public class InterpreterParser {
     	    Num_Exp = parser.Start();
 
     	    Compiler compiler = new Compiler( Num_Exp );
-    		compiler.generateJavaByteCodeJVMInstructions("Main.j");
+    		compiler.generateJavaByteCodeJVMInstructions(mainCompileFilename);
 
     		Num_Exp.eval(env).show();
     	}
@@ -124,6 +125,8 @@ SKIP :
 
 TOKEN :
 {
+  < STRING: "\"" (~["\\", "\""])* "\"" >
+  | 
   < PRINT: "print" >
   | 
   < BOOL_VALUE: "True" | "true" | "False" | "false" >
@@ -342,11 +345,24 @@ ASTNode Fact() :
 		| <EXCLAMATION_DREF> id = < ID > { node = new ASTDeReference(new ASTID(id.image)); }
 	    | node = Conditional()
 	    | node = Loop()
-	    | < PRINT > id = < ID > { node = new ASTPrint(new ASTString(new VString(id.image))); }
+	    | node = Print()
 	)
     {
       return node;
     }
+}
+
+ASTNode Print() :
+{
+  	Token string;
+	ASTNode node;
+	List<String> strings = new ArrayList<String>();
+}
+{
+   < PRINT > string = < STRING >
+ 	{
+ 	 node = new ASTPrint(new ASTString(new VString(string.image.substring(1, string.image.length() - 1))));
+ 	 return node;}
 }
 
 ASTNode Let() :
