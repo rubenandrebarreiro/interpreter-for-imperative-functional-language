@@ -116,20 +116,7 @@ public class ASTString implements ASTNode {
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet) {
 		
-		char[] stringCharArrayASTNodeValue = this.stringASTNodeValue.getValue().toCharArray();
-		
-		int charIndex = 0;
-		
-		//TODO ArrayRef
-		codeBlockInstructionsSet.addCodeInstruction(String.format("sipush %d"));
-		
-		for(char charFromStringCharArrayASTNodeValue : stringCharArrayASTNodeValue) {
-			
-			codeBlockInstructionsSet.addCodeInstruction(String.format("dup"));
-			codeBlockInstructionsSet.addCodeInstruction(String.format("sipush %d", charIndex));
-			codeBlockInstructionsSet.addCodeInstruction(String.format("sipush %d", ((int) charFromStringCharArrayASTNodeValue)));
-			
-		}
+		codeBlockInstructionsSet.addCodeInstruction(String.format("ldc \"%s\"", this.stringASTNodeValue.getValue()));
 		
 	}
 

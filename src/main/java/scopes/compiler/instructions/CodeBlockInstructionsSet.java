@@ -151,13 +151,13 @@ public class CodeBlockInstructionsSet {
 	 * @throws IOException an Input/Output raised,
 	 * 		   during the Dump process, in the Java Byte Code file
 	 */
-	public void dump(String filename) throws IOException {
+	public void dump(String filename, boolean isString) throws IOException {
 		
 		this.fileOutputStream = new FileOutputStream(filename);
 		
 		this.dumpHeader();
 		this.dumpCodeBlockInstructionsSetJavaByteCode();
-		this.dumpFooter();
+		this.dumpFooter(isString);
 		
 		for(HeapStackFrame stackFrame : heapStackFramesSet) {
 			stackFrame.generateAndDumpsHeapStackFrameFile();
@@ -244,7 +244,7 @@ public class CodeBlockInstructionsSet {
 	 * @throws IOException an Input/Output raised,
 	 * 		   during the Dump process of the Footer, in the Java Byte Code file
 	 */
-	private void dumpFooter() throws IOException {
+	private void dumpFooter(boolean isString) throws IOException {
 
 		// Writing of the Footer to the Output File of Compiler to be generated
 		
@@ -259,8 +259,12 @@ public class CodeBlockInstructionsSet {
 		
 		// The Epilogue Code
 		this.fileOutputStream.write(String.format("	; convert to String;\n").getBytes());
-		this.fileOutputStream
-			.write(String.format("   invokestatic java/lang/String/valueOf(I)Ljava/lang/String;\n").getBytes());
+		
+		// Verification of instance of ASTNode in the case of being a ASTPrint don't check integer value of a String
+		if(!isString) {
+			this.fileOutputStream
+				.write(String.format("   invokestatic java/lang/String/valueOf(I)Ljava/lang/String;\n").getBytes());
+		}
 		this.fileOutputStream.write(String.format("   ; call println\n").getBytes());
 		this.fileOutputStream
 			.write(String.format("   invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n")

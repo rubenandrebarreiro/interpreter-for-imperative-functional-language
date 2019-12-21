@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.node.operators.unary.print.ASTPrint;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.CodeBlockInstructionsSet;
 
@@ -45,6 +46,8 @@ public class Compiler {
 	 */
 	private CodeBlockInstructionsSet codeBlockIntructions;
 	
+	private boolean isString;
+	
 	
 	// Constructors:
 	
@@ -65,6 +68,8 @@ public class Compiler {
 		this.environment = new EnvironmentCompiler();
 		this.codeBlockIntructions = new CodeBlockInstructionsSet();
 		
+		if(rootNode instanceof ASTPrint)
+			isString = true;
 		rootNode.compile(environment, codeBlockIntructions);
 	}
 	
@@ -80,7 +85,7 @@ public class Compiler {
 	 * @throws IOException an Input/Output Exception to be thrown
 	 */
 	public void generateJavaByteCodeJVMInstructions(String filename) throws IOException {
-		this.codeBlockIntructions.dump(filename);
+		this.codeBlockIntructions.dump(filename, isString);
 	}
 	
 }

@@ -86,10 +86,8 @@ public class ASTPrint implements ASTNode {
 	@Override
 	public IValue eval(Environment<IValue> environment)
 			throws ASTInvalidIdentifierException, TypeErrorException, NumberArgumentsErrorException {
-		
-		System.out.println(this.stringToPrint.eval(environment)); // TODO
-		
-		return null;
+				
+		return this.stringToPrint.eval(environment);
 	}
 
 	/**
@@ -112,13 +110,13 @@ public class ASTPrint implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
 
-		codeBlockInstructionsSet.addCodeInstruction
-								(String.format("getstatic java/lang/System/out Ljava/io/PrintStream;"));
+//		codeBlockInstructionsSet.addCodeInstruction
+//								(String.format("getstatic java/lang/System/out Ljava/io/PrintStream;"));
 		
 		this.stringToPrint.compile(environmentCompiler, codeBlockInstructionsSet);
 		
-		codeBlockInstructionsSet.addCodeInstruction
-								(String.format("invokevirtual java/io/PrintStream/println(Ljava/lang/String)V"));
+//		codeBlockInstructionsSet.addCodeInstruction
+//								(String.format("invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V"));
 		
 	}
 

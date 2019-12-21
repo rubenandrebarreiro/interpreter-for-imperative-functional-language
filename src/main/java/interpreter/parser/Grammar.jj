@@ -9,12 +9,13 @@ import main.java.abstractsyntaxtree.node.associations.*;
 
 import main.java.abstractsyntaxtree.node.values.logics.*;
 import main.java.abstractsyntaxtree.node.values.mathematics.*;
+import main.java.abstractsyntaxtree.node.values.strings.*;
 
 import main.java.abstractsyntaxtree.node.operators.unary.logics.*;
 import main.java.abstractsyntaxtree.node.operators.unary.mathematics.*;
 import main.java.abstractsyntaxtree.node.operators.unary.assignment.*;
 import main.java.abstractsyntaxtree.node.operators.unary.references.*;
-
+import main.java.abstractsyntaxtree.node.operators.unary.print.*;
 
 import main.java.abstractsyntaxtree.node.operators.binary.arithmetics.*;
 import main.java.abstractsyntaxtree.node.operators.binary.logics.*;
@@ -29,6 +30,7 @@ import main.java.abstractsyntaxtree.node.primitives.sequences.*;
 
 import main.java.values.logics.*;
 import main.java.values.mathematics.*;
+import main.java.values.strings.*;
 
 import main.java.abstractsyntaxtree.node.declarations.*;
 import main.java.compiler.Compiler;
@@ -122,6 +124,8 @@ SKIP :
 
 TOKEN :
 {
+  < PRINT: "print" >
+  | 
   < BOOL_VALUE: "True" | "true" | "False" | "false" >
   |
   < NEW_REF: "New" | "new" >
@@ -338,6 +342,7 @@ ASTNode Fact() :
 		| <EXCLAMATION_DREF> id = < ID > { node = new ASTDeReference(new ASTID(id.image)); }
 	    | node = Conditional()
 	    | node = Loop()
+	    | < PRINT > id = < ID > { node = new ASTPrint(new ASTString(new VString(id.image))); }
 	)
     {
       return node;
