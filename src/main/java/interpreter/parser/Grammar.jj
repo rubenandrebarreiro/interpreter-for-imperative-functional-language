@@ -342,11 +342,33 @@ ASTNode Fact() :
 		| <EXCLAMATION_DREF> id = < ID > { node = new ASTDeReference(new ASTID(id.image)); }
 	    | node = Conditional()
 	    | node = Loop()
-	    | < PRINT > id = < ID > { node = new ASTPrint(new ASTString(new VString(id.image))); }
+	    | node = Print()
 	)
     {
       return node;
     }
+}
+
+ASTNode Print() :
+{
+  	Token string;
+	ASTNode node;
+	List<String> strings = new ArrayList<String>();
+}
+{
+   < PRINT > 
+ 	( 	 string = < ID >
+ 	 { strings.add(string.image); }
+ 	)+
+
+ 	{
+ 	 StringBuilder sb = new StringBuilder();
+	 for(int i = 0; i < strings.size() - 1; i++) {
+		sb.append(strings.get(i) + " ");
+	 }
+	 sb.append(strings.get(strings.size() - 1));
+ 	 node = new ASTPrint(new ASTString(new VString(sb.toString())));
+ 	 return node;}
 }
 
 ASTNode Let() :

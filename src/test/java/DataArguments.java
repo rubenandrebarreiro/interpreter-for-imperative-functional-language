@@ -106,7 +106,8 @@ public class DataArguments {
 			{"Let x=2 in x+2;x end", "2"}, // #80			
 			
 			// Strings
-			{"print hello", "hello"} // #81
+			{"print hello", "hello"}, // #81
+			{"print hello world", "hello world"} // #82
 		});
 	}
 }
