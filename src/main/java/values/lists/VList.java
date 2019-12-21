@@ -19,7 +19,15 @@ import java.util.List;
 
 import main.java.values.atomics.IValue;
 
-
+/**
+ * Class for the List Value, implementing Value interface.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
 public class VList implements IValue {
 	
 	// Global Instance Variables:

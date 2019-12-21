@@ -33,7 +33,7 @@ import main.java.values.atomics.IValue;
  */
 
 /**
- * Class for the VBool, implementing IValue interface.
+ * Class for the Boolean Value, implementing Value interface.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

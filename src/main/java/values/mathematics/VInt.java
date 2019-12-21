@@ -18,7 +18,7 @@ package main.java.values.mathematics;
 import main.java.values.atomics.IValue;
 
 /**
- * Class for Integer Value, implementing a Value.
+ * Class for Integer Value, implementing the Value Interface.
  * 
  * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
  * 

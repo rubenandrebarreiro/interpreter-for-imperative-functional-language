@@ -21,28 +21,46 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.scopes.Environment;
 import main.java.values.atomics.IValue;
 
-
+/**
+ * Class for the Closure Value, implementing Value interface.
+ * 
+ * @supervisor Prof. Luis Manuel Caires - lcaires@fct.unl.pt
+ * 
+ * @author Eduardo Bras Silva (no. 41798) - emf.silva@campus.fct.unl.pt
+ * @author Ruben Andre Barreiro (no. 42648) - r.barreiro@campus.fct.unl.pt
+ *
+ */
 public class VClosure implements IValue {
 
 	// Global Instance Variables:
 	
-	// TODO generic type of Env
+	/**
+	 * The Environment of this Closure Value
+	 */
 	private Environment<IValue> closureEnvironment;
 	
+	/**
+	 * The Names of Arguments of the Function
+	 */
 	private List<String> functionArgumentsNames;
 	
+	/**
+	 * The Function Body Expression (its procedures)
+	 */
 	private ASTNode functionBodyExpression;
 	
 	
 	// Constructors:
 	
 	/**
-	 * Constructor:
-	 * - Constructor of a Closure
+	 * Constructor #1:
+	 * - Constructor of a Closure Value;
 	 * 
-	 * @param closureEnvironment
-	 * @param functionArgumentsNames
-	 * @param functionBodyExpression
+	 * @param closureEnvironment the Environment of this Closure Value
+	 * 
+	 * @param functionArgumentsNames the Names of Arguments of the Function
+	 * 
+	 * @param functionBodyExpression the Function Body Expression (its procedures)
 	 */
 	public VClosure(Environment<IValue> closureEnvironment,
 			        List<String> functionArgumentsNames,
@@ -58,27 +76,30 @@ public class VClosure implements IValue {
 	// Methods/Functions:
 	
 	/**
+	 * Returns the Environment of this Closure Value.
 	 * 
-	 * @return
+	 * @return the Environment of this Closure Value
 	 */
 	public Environment<IValue> getClosureEnvironment() {
-		return closureEnvironment;
+		return this.closureEnvironment;
 	}
 
 	/**
+	 * Returns the Names of Arguments of the Function.
 	 * 
-	 * @return
+	 * @return the Names of Arguments of the Function
 	 */
 	public List<String> getFunctionArgumentsNames() {
-		return functionArgumentsNames;
+		return this.functionArgumentsNames;
 	}
 
 	/**
+	 * Returns the Function Body Expression (its procedures).
 	 * 
-	 * @return
+	 * @return the Function Body Expression (its procedures)
 	 */
 	public ASTNode getFunctionBodyExpression() {
-		return functionBodyExpression;
+		return this.functionBodyExpression;
 	}
 
 	/**
@@ -86,7 +107,7 @@ public class VClosure implements IValue {
 	 */
 	@Override
 	public void show() {
-		System.out.println("fun(" + this.functionBodyExpression.toString() + ")");
+		System.out.println(String.format("fun(%s)", this.functionBodyExpression.toString()));
 	}
 	
 }
