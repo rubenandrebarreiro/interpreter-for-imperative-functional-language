@@ -12,12 +12,16 @@ import main.java.abstractsyntaxtree.node.values.mathematics.*;
 
 import main.java.abstractsyntaxtree.node.operators.unary.logics.*;
 import main.java.abstractsyntaxtree.node.operators.unary.mathematics.*;
+import main.java.abstractsyntaxtree.node.operators.unary.assignment.*;
+import main.java.abstractsyntaxtree.node.operators.unary.references.*;
+
 
 import main.java.abstractsyntaxtree.node.operators.binary.arithmetics.*;
 import main.java.abstractsyntaxtree.node.operators.binary.logics.*;
 import main.java.abstractsyntaxtree.node.operators.binary.relationals.*;
 
 import main.java.abstractsyntaxtree.node.operators.nary.functionals.*;
+
 
 import main.java.abstractsyntaxtree.node.primitives.conditionals.*;
 import main.java.abstractsyntaxtree.node.primitives.loops.*;
@@ -142,7 +146,9 @@ TOKEN :
   |
   < NOT_EQUAL: "<>" >
   | 
-  < LET_ASSIGN: "=" >
+  < LET_ASSOC: "=" >
+  |
+  < REF_ASSIGN: ":=" > 
   |
   < IN: "In" | "in" >
   |
@@ -288,7 +294,7 @@ ASTNode NumExp() :
 
 ASTNode NumTerm() :
 {
-  Token operation;
+  Token id, operation;
   ASTNode node1, node2;
 }
 {
@@ -300,7 +306,7 @@ ASTNode NumTerm() :
 			  else
 				    node1 = new ASTDiv(node1, node2);	
 			}
-     	)?
+     	)? 
      {
        return node1;
      } 
@@ -309,7 +315,7 @@ ASTNode NumTerm() :
 ASTNode Fact() :
 {
   Token id, value, bodyNum_Expression, num, booleanValue; 
-  ASTNode node;
+  ASTNode node, valueNode=null;
 }
 {
    (
@@ -325,13 +331,11 @@ ASTNode Fact() :
         | <NOT> booleanValue = <BOOL_VALUE> {
 		  	node = new ASTNotBool(new ASTBool(new VBool(Boolean.parseBoolean(booleanValue.image))));
         } 
-     	| id = <ID> {
-		  	node = new ASTID(id.image);
-		} 
+     	| id = <ID> { node = new ASTID(id.image);}
         | node = Let()
 		| <LPAR> node = Sequence() <RPAR>
-		| <NEW_REF> node = Fact()
-		| <EXCLAMATION_DREF> node = Fact()
+		| <NEW_REF> id = < ID > { node = new ASTReference(new ASTID(id.image)); }
+		| <EXCLAMATION_DREF> id = < ID > { node = new ASTDeReference(new ASTID(id.image)); }
 	    | node = Conditional()
 	    | node = Loop()
 	)
@@ -371,7 +375,7 @@ List<ASTNode> Association():
 }
 {
     (
-      id = <ID> <LET_ASSIGN>
+      id = <ID> <LET_ASSOC>
       	{
       	  valueNode = NumExp();
       	}

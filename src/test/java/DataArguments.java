@@ -103,8 +103,7 @@ public class DataArguments {
 			{"10+10;2==3;6/3;2+2;5>10", "false"}, // #77
 			{"(2+2;5>2)", "true"}, // #78
 			{"if 2+2;2==2 then 4 else 0", "4"}, // #79
-			{"Let x=2 in x+2;x end", "2"}, // #80
-			
+			{"Let x=2 in x+2;x end", "2"} // #80			
 		});
 	}
 }
