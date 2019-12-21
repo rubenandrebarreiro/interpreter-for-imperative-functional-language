@@ -38,6 +38,8 @@ import main.java.values.utils.exceptions.TypeErrorException;
 public class ATSTTuple implements ASTNode {
 
 	
+	
+	
 	@Override
 	public IValue eval(Environment<IValue> environment)
 		   throws ASTInvalidIdentifierException, TypeErrorException,
