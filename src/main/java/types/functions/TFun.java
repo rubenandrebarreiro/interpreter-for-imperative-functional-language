@@ -74,6 +74,14 @@ public class TFun implements IType {
 		return "fun";
 	}
 	
+	public String getStoreJVMInstruction() {
+		return "astore";
+	}
+	
+	public String getLoadJVMInstruction() {
+		return "aload";
+	}
+	
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
 	 * 

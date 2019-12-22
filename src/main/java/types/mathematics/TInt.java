@@ -75,6 +75,14 @@ public class TInt implements IType {
 		return "int";
 	}
 	
+	public String getStoreJVMInstruction() {
+		return "istore";
+	}
+	
+	public String getLoadJVMInstruction() {
+		return "iload";
+	}
+	
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
 	 * 

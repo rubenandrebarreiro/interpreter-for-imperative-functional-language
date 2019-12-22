@@ -88,6 +88,14 @@ public class TList implements IType {
 		return "list";
 	}
 	
+	public String getStoreJVMInstruction() {
+		return "aastore";
+	}
+	
+	public String getLoadJVMInstruction() {
+		return "aaload";
+	}
+	
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
 	 * 

@@ -2,8 +2,11 @@ package main.java.scopes.compiler.instructions.closures;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import main.java.scopes.structures.heap.HeapStackFrame;
+import main.java.types.IType;
+import main.java.types.functions.TFun;
 
 public class ClosureClass {
 
@@ -15,6 +18,9 @@ public class ClosureClass {
 	 * 
 	 */
 	private FileOutputStream fileOutputStream;
+
+	private TFun functionType;
+	
 	private ClosureInterface closureInterface;
 	private int closureID;
 	private HeapStackFrame heapStackFrame;
@@ -117,6 +123,31 @@ public class ClosureClass {
 		
 		
 		// TODO evaluation of instructions
+		int currentFunctionArgumentTypeIndex = 0;
+		
+		List<IType> functionArgumentsTypes = this.functionType.getFunctionArgumentsTypes();
+		
+		for(IType functionArgumentType : functionArgumentsTypes) {
+			
+			this.fileOutputStream.write(String.format("dup").getBytes());
+			
+			// The Pointer for itself
+			this.fileOutputStream
+				.write(String.format("%s %d",
+									 functionArgumentType.getLoadJVMInstruction(),
+									 currentFunctionArgumentTypeIndex)
+					   .getBytes());
+			
+			this.fileOutputStream
+			.write(String.format("putfield frame_%d/arg%d %s",
+								 this.heapStackFrame.getHeapStackFrameID(),
+								 ( currentFunctionArgumentTypeIndex + 1 ),
+						     	 functionArgumentType.getHeapStackFrameName())
+				   .getBytes());
+			
+			currentFunctionArgumentTypeIndex++;
+		}
+		
 		
 		
 		this.fileOutputStream.write(String.format(".end method").getBytes());

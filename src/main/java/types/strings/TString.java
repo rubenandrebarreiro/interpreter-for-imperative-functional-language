@@ -74,6 +74,14 @@ public class TString implements IType {
 	public String getClosureInterfaceTypeName() {
 		return "string";
 	}
+	
+	public String getStoreJVMInstruction() {
+		return "castore";
+	}
+	
+	public String getLoadJVMInstruction() {
+		return "caload";
+	}
 
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.

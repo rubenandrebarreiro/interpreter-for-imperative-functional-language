@@ -54,6 +54,10 @@ public interface IType {
 	// TODO
 	public String getClosureInterfaceTypeName();
 	
+	public String getStoreJVMInstruction();
+	
+	public String getLoadJVMInstruction();
+	
 	/**
 	 * Returns true if this Type of Value it's equal to another one given and false, otherwise.
 	 * 
