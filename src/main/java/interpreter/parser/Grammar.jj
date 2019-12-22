@@ -411,9 +411,9 @@ List<ASTNode> Association():
 }
 {
     (
-      id = <ID>  <LET_ASSOC>
+      id = <ID> /* TODO <COLON> Type HERE!*/ <LET_ASSOC>
       	{
-      	  valueNode = NumExp();
+      	  valueNode = Sequence();
       	}
       	{
         	associations.add(new ASTAssociation(id.image, valueNode));
