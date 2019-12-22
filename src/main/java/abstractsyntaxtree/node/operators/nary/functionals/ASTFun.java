@@ -49,9 +49,12 @@ public class ASTFun implements ASTNode {
 	
 	
 	public ASTFun(List<String> functionArgumentsIDs, ASTNode functionBody) {
+		
 		this.functionArgumentsIDs = functionArgumentsIDs;
 		this.functionBody = functionBody;
+	
 	}
+	
 	
 	// Methods/Functions:
 	
@@ -120,7 +123,7 @@ public class ASTFun implements ASTNode {
 	 */
 	@Override
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
-			throws ASTInvalidIdentifierException {
+		   throws ASTInvalidIdentifierException {
 		
 		codeBlockInstructionsSet.addCodeInstruction(String.format("new f000%d_frame", 1 /* TODO */));
 		codeBlockInstructionsSet.addCodeInstruction(String.format("dup"));		

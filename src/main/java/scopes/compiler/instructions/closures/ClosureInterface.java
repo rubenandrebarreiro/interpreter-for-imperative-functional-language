@@ -22,15 +22,6 @@ public class ClosureInterface {
 	
 	private String closureInterfaceName;
 	
-	public String getClosureInterfaceName() {
-		return closureInterfaceName;
-	}
-
-
-	public String getClosureCallDeclaration() {
-		return closureCallDeclaration;
-	}
-
 	private String closureCallDeclaration;
 	
 	
@@ -42,6 +33,15 @@ public class ClosureInterface {
 	}
 	
 	
+	public String getClosureInterfaceName() {
+		return closureInterfaceName;
+	}
+
+
+	public String getClosureCallDeclaration() {
+		return closureCallDeclaration;
+	}
+	
 	public void buildClosureInterfaceNameAndCallDeclaration() {
 		
 		List<IType> functionArgumentsTypes = this.functionType.getFunctionArgumentsTypes();
@@ -49,6 +49,7 @@ public class ClosureInterface {
 		StringBuilder closureInterfaceNameStringBuilder = new StringBuilder();
 		StringBuilder closureCallDeclarationStringBuilder = new StringBuilder();
 		
+		closureInterfaceNameStringBuilder.append("closure_interface_");
 		closureCallDeclarationStringBuilder.append("call(");
 		
 		
@@ -64,13 +65,14 @@ public class ClosureInterface {
 		
 		IType functionReturnType = this.functionType.getFunctionReturnType();
 		
-		closureInterfaceNameStringBuilder.append(String.format("To"));
+		closureInterfaceNameStringBuilder.append(String.format("to_"));
 		closureInterfaceNameStringBuilder.append(functionReturnType.getClosureInterfaceTypeName());
 		
 		closureCallDeclarationStringBuilder.append(String.format(")"));
 		closureCallDeclarationStringBuilder.append(String.format(functionReturnType.getHeapStackFrameName()));
-		
+				
 		this.closureInterfaceName = closureInterfaceNameStringBuilder.toString();
+		this.closureCallDeclaration = closureCallDeclarationStringBuilder.toString();
 		
 	}
 	

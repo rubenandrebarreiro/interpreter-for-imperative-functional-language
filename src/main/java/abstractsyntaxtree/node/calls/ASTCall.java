@@ -23,6 +23,7 @@ import main.java.abstractsyntaxtree.node.ASTNode;
 import main.java.abstractsyntaxtree.node.operators.nary.functionals.ASTFun;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
+import main.java.scopes.compiler.instructions.closures.ClosureInterface;
 import main.java.scopes.compiler.instructions.codeblocks.CodeBlockInstructionsSet;
 import main.java.types.IType;
 import main.java.types.functions.TFun;
@@ -80,8 +81,9 @@ public class ASTCall implements ASTNode {
 	
 	private IType functionType;
 	
+		
+	private ClosureInterface clousureInterface;
 	
-	private StringBuilder heapStackFrameNamesCallStringBuilder;
 	
 	
 	// Constructors:
@@ -100,6 +102,7 @@ public class ASTCall implements ASTNode {
 	public ASTCall(ASTFun astFunction, List<ASTNode> functionArguments) {
 		this.astFunction = astFunction;
 		this.functionArguments = functionArguments;
+		
 	}
 	
 	
@@ -110,12 +113,7 @@ public class ASTCall implements ASTNode {
 		
 		this.astFunction.eval(environment);
 		
-		
-		Environment<IValue> newEnvironment = new Environment<>();
-		
-		
-		newEnvironment.beginScope();
-		
+		Environment<IValue> closureEnvironment = environment.beginScope();
 		
 		int sizeOfFunctionArgumentsIDs = this.astFunction.getFunctionArgumentsIDs().size();
 		
@@ -135,13 +133,13 @@ public class ASTCall implements ASTNode {
 			String argumentID = this.astFunction.getFunctionArgumentsIDs().get(currentArgument);
 			ASTNode argumentValue = this.functionArguments.get(currentArgument);
 			
-			newEnvironment.addAssoc(argumentID, argumentValue.eval(newEnvironment));
+			closureEnvironment.addAssoc(argumentID, argumentValue.eval(environment));
 			
 		}
 		
-		IValue functionBodyEvaluationValue = this.astFunction.getFunctionBody().eval(newEnvironment);
+		IValue functionBodyEvaluationValue = this.astFunction.getFunctionBody().eval(closureEnvironment);
 		
-		newEnvironment.endScope();
+		closureEnvironment.endScope();
 		
 		
 		return functionBodyEvaluationValue;
@@ -154,9 +152,12 @@ public class ASTCall implements ASTNode {
 		
 		this.astFunction.compile(environmentCompiler, codeBlockInstructionsSet);
 		
+		this.clousureInterface = new ClosureInterface((TFun) this.functionType);
+		
 		codeBlockInstructionsSet
 				.addCodeInstruction
-						(String.format("checkcast closure_interface_type_t002")); //TODO
+						(String.format("checkcast %s",
+									   this.clousureInterface.getClosureInterfaceName()));
 		
 		for(ASTNode functionArgument : this.functionArguments) {
 			
@@ -164,12 +165,18 @@ public class ASTCall implements ASTNode {
 			
 		}
 		
+		// The number of fields of a Closure it's
+		// the number of the respective Function's Arguments,
+		// plus the field with the Static Link of its Heap Stack Frame
+		int numberOfFieldsHeapStackFrame = 
+				( ( (TFun) this.functionType ).getFunctionArgumentsTypes().size() + 1 );
+		
 		codeBlockInstructionsSet
 				.addCodeInstruction
-						(String.format("invokeinterface closure_interface_type_t002/%s%s",
-								this.heapStackFrameNamesCallStringBuilder.toString(),
-								( (TFun) this.functionType ).getFunctionReturnType().getHeapStackFrameName() )); //TODO
-		
+						(String.format("invokeinterface %s/%s %d",
+								this.clousureInterface.getClosureInterfaceName(),
+								this.clousureInterface.getClosureCallDeclaration(),
+								numberOfFieldsHeapStackFrame));
 	}
 
 	
@@ -202,11 +209,11 @@ public class ASTCall implements ASTNode {
 	   		       NumberArgumentsErrorException,
 	   		       WrongArgumentTypeErrorException {
 		
-		IType astFunctionType = this.astFunction.typecheck(environment);
+		this.functionType = this.astFunction.typecheck(environment);
 		
-		if(astFunctionType instanceof TFun) {
+		if(this.functionType instanceof TFun) {
 			
-			List<IType> functionArgumentsTypes = ( (TFun) astFunctionType ).getFunctionArgumentsTypes();
+			List<IType> functionArgumentsTypes = ( (TFun) this.functionType ).getFunctionArgumentsTypes();
 			
 			if( functionArgumentsTypes.size() == this.functionArguments.size()) {
 				
@@ -226,7 +233,7 @@ public class ASTCall implements ASTNode {
 				}
 				
 				
-				return ( (TFun) astFunctionType ).getFunctionReturnType();
+				return ( (TFun) this.functionType ).getFunctionReturnType();
 				
 			}
 			else {
