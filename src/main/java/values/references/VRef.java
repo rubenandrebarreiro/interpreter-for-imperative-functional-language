@@ -66,7 +66,7 @@ public class VRef implements IValue {
 	@Override
 	public void show() {
 
-		System.out.print(String.format("Reference to the value ["));
+		System.out.println(String.format("Reference to the value ["));
 		this.value.show();
 		System.out.println(String.format("]"));
 		

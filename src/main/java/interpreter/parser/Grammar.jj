@@ -155,7 +155,9 @@ TOKEN :
   | 
   < LET_ASSOC: "=" >
   |
-  < REF_ASSIGN: ":=" > 
+  < COLON: ":" >
+  | 
+  < REF_ASSIGN: < COLON >"=" > 
   |
   < IN: "In" | "in" >
   |
@@ -197,6 +199,8 @@ TOKEN :
   |
   < BOOL: "bool" >
   |
+  < REF: "ref" >
+  | 
   < ID: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"] )* > 
 }
 
@@ -313,7 +317,9 @@ ASTNode NumTerm() :
 			  else
 				    node1 = new ASTDiv(node1, node2);	
 			}
-     	)? 
+		| node1 = Assignment(node1)
+     	)?
+
      {
        return node1;
      } 
@@ -341,8 +347,8 @@ ASTNode Fact() :
      	| id = <ID> { node = new ASTID(id.image);}
         | node = Let()
 		| <LPAR> node = Sequence() <RPAR>
-		| <NEW_REF> id = < ID > { node = new ASTReference(new ASTID(id.image)); }
-		| <EXCLAMATION_DREF> id = < ID > { node = new ASTDeReference(new ASTID(id.image)); }
+		| <NEW_REF> num = < NUM > { node = new ASTReference(new ASTNum(new VInt(Integer.parseInt(num.image)))); }
+		| <EXCLAMATION_DREF> num = < NUM > { node = new ASTDeReference(new ASTNum(new VInt(Integer.parseInt(num.image)))); }
 	    | node = Conditional()
 	    | node = Loop()
 	    | node = Print()
@@ -350,6 +356,15 @@ ASTNode Fact() :
     {
       return node;
     }
+}
+
+ASTNode Assignment(ASTNode idNode):
+{
+	ASTNode valueNode, node;
+}
+{
+	< REF_ASSIGN > valueNode = BoolExp() { node = new ASTAssignment(idNode, valueNode); }
+	{ return node; }
 }
 
 ASTNode Print() :
@@ -396,7 +411,7 @@ List<ASTNode> Association():
 }
 {
     (
-      id = <ID> <LET_ASSOC>
+      id = <ID>  <LET_ASSOC>
       	{
       	  valueNode = NumExp();
       	}

@@ -54,17 +54,17 @@ public class ASTAssignment implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
 		
-		this.assignmentID.compile(environmentCompiler, codeBlockInstructionsSet);
-		
-		String stackRefName = this.assignmentValueType.getHeapStackFrameReferenceName();
-		String stackFrameName = this.assignmentValueType.getHeapStackFrameName();
-		
-		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
-		
-		this.assignmentValue.compile(environmentCompiler, codeBlockInstructionsSet);
-		
-		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
-		
+//		this.assignmentID.compile(environmentCompiler, codeBlockInstructionsSet);
+//		
+//		String stackRefName = this.assignmentValueType.getHeapStackFrameReferenceName();
+//		String stackFrameName = this.assignmentValueType.getHeapStackFrameName();
+//		
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
+//		
+//		this.assignmentValue.compile(environmentCompiler, codeBlockInstructionsSet);
+//		
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
+//		
 	}
 
 	/**
