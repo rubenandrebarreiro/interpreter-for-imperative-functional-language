@@ -162,8 +162,6 @@ public class ASTCall implements ASTNode {
 			
 			functionArgument.compile(environmentCompiler, codeBlockInstructionsSet);
 			
-			
-			
 		}
 		
 		codeBlockInstructionsSet
@@ -213,10 +211,7 @@ public class ASTCall implements ASTNode {
 			if( functionArgumentsTypes.size() == this.functionArguments.size()) {
 				
 				int argumentIndex = 0;
-				
-				this.heapStackFrameNamesCallStringBuilder
-					.append(String.format("call("));
-				
+					
 				for(IType functionArgumentType : functionArgumentsTypes) {
 					
 					IType otherFunctionArgumentType = 
@@ -227,14 +222,9 @@ public class ASTCall implements ASTNode {
 						throw new WrongArgumentTypeErrorException(WRONG_ARGUMENT_TYPE_ERROR_MESSAGE);
 						
 					}
-					
-					this.heapStackFrameNamesCallStringBuilder
-						.append(functionArgumentType.getHeapStackFrameName());
-					
+						
 				}
 				
-				this.heapStackFrameNamesCallStringBuilder
-					.append(String.format(")"));
 				
 				return ( (TFun) astFunctionType ).getFunctionReturnType();
 				
@@ -252,4 +242,5 @@ public class ASTCall implements ASTNode {
 		}
 		
 	}
+	
 }
