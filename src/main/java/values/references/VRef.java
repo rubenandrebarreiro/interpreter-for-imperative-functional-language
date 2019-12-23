@@ -61,6 +61,13 @@ public class VRef implements IValue {
 	}
 	
 	/**
+	 * Sets the value of a Reference Value
+	 */
+	public void setValue(IValue value) {
+		this.value = value;
+	}
+	
+	/**
 	 * Shows/Prints a String representation of the Value.
 	 */
 	@Override

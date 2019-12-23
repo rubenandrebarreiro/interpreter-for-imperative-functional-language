@@ -40,9 +40,8 @@ public class ASTAssignment implements ASTNode {
 		IValue assignmentEvaluated = this.assignmentID.eval(environment);
 		
 		if(assignmentEvaluated instanceof VRef) {
-			
-			return new VRef(this.assignmentValue.eval(environment));
-			
+			((VRef) assignmentEvaluated).setValue(this.assignmentValue.eval(environment));
+			return assignmentEvaluated;
 		}
 		else {
 			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
