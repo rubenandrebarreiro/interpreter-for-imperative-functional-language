@@ -1,8 +1,11 @@
 package main.java.abstractsyntaxtree.node.operators.unary.references;
 
+import java.io.IOException;
+
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
 import main.java.abstractsyntaxtree.node.ASTNode;
+import main.java.abstractsyntaxtree.node.operators.unary.references.utils.ReferenceFileMaker;
 import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.codeblocks.CodeBlockInstructionsSet;
@@ -42,19 +45,28 @@ public class ASTReference<T> implements ASTNode {
 		   throws ASTInvalidIdentifierException {
 		
 		
-//		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
-//		String stackFrameName = this.referenceType.getHeapStackFrameName();
-//		
-//		codeBlockInstructionsSet.addCodeInstruction( String.format("new %s", stackRefName) );
-//		
-//		codeBlockInstructionsSet.addCodeInstruction("dup");
-//		codeBlockInstructionsSet.addCodeInstruction( String.format("invokespecial %s/<init>()V", stackRefName) );
-//		codeBlockInstructionsSet.addCodeInstruction("dup");
-//		
-//		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet);
-//		
-//		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
-//		
+		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
+		String stackFrameName = this.referenceType.getHeapStackFrameName();
+		int stackRefID = environmentCompiler.getCurrentReferenceNumber();
+		
+		ReferenceFileMaker refMaker = new ReferenceFileMaker(stackRefID, stackFrameName);
+		try {
+			refMaker.generateAndDumpsHeapStackFrameFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		codeBlockInstructionsSet.addCodeInstruction( String.format("new %s%d", stackRefName, stackRefID) );
+		
+		codeBlockInstructionsSet.addCodeInstruction("dup");
+		codeBlockInstructionsSet.addCodeInstruction( String.format("invokespecial %s%d/<init>()V", stackRefName, stackRefID) );
+		codeBlockInstructionsSet.addCodeInstruction("dup");
+		
+		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet);
+		
+		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s%d/v %s;", stackRefName, stackRefID, stackFrameName) );
+		
 	}
 
 	/**
@@ -95,7 +107,7 @@ public class ASTReference<T> implements ASTNode {
 	   		      ASTDuplicatedIdentifierException,
 	   		      NumberArgumentsErrorException, WrongArgumentTypeErrorException {
 		
-		this.referenceType = (TRef) this.referenceValue.typecheck(environment);
+        this.referenceType = new TRef(this.referenceValue.typecheck(environment));
 		
 		return this.referenceType;
 		
