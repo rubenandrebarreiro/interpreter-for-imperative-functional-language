@@ -55,7 +55,7 @@ public class InterpreterParser {
 		while(true) { 
     		try {
     			Num_Exp = interpreterParser.Start();
-    			Num_Exp.typecheck(env);
+//    			Num_Exp.typecheck(env);
     			Compiler compiler = new Compiler( Num_Exp );
     			compiler.generateJavaByteCodeJVMInstructions(mainCompileFilename);
     			Num_Exp.eval(env).show();
@@ -454,7 +454,8 @@ ASTNode Sequence():
 {
 	(
 		headSequenceInstruction = BoolExp()
-	  	(	  	  <SEQ_DELIMETER>
+	  	(
+	  	  <SEQ_DELIMETER>
 	  	tailSequenceInstructions = Sequence()
 	  	{
 	  	  sequenceInstructions = new ASTSeq(headSequenceInstruction, tailSequenceInstructions);
