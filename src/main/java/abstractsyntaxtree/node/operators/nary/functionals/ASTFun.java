@@ -1,5 +1,8 @@
 package main.java.abstractsyntaxtree.node.operators.nary.functionals;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Interpreter for Imperative/Functional Language
  * 
@@ -18,6 +21,7 @@ package main.java.abstractsyntaxtree.node.operators.nary.functionals;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import main.java.abstractsyntaxtree.exceptions.ASTDuplicatedIdentifierException;
 import main.java.abstractsyntaxtree.exceptions.ASTInvalidIdentifierException;
@@ -26,10 +30,12 @@ import main.java.scopes.Environment;
 import main.java.scopes.compiler.EnvironmentCompiler;
 import main.java.scopes.compiler.instructions.codeblocks.CodeBlockInstructionsSet;
 import main.java.types.IType;
+import main.java.types.functions.TFun;
 import main.java.values.atomics.IValue;
 import main.java.values.closures.VClosure;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
+import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
 
 /**
  * Class for the Node of an Abstract Syntax Tree (A.S.T.),
@@ -46,6 +52,8 @@ public class ASTFun implements ASTNode {
 	private List<String> functionArgumentsIDs;
 	
 	private ASTNode functionBody;
+	
+	private TFun functionType;
 	
 	
 	public ASTFun(List<String> functionArgumentsIDs, ASTNode functionBody) {
@@ -170,30 +178,50 @@ public class ASTFun implements ASTNode {
 	 *         in the current Environment of Types (Scope/Frame) being evaluated
 	 *
 	 * @return the Type for the A.S.T. Node, after the Typechecking be performed
+	 * @throws WrongArgumentTypeErrorException 
 	 * 
 	 */
 	@Override
-	public IType typecheck(Environment<IType> environment) throws TypeErrorException, ASTDuplicatedIdentifierException {
-		// TODO Auto-generated method stub
+	public IType typecheck(Environment<IType> environment)
+		   throws TypeErrorException, ASTDuplicatedIdentifierException, ASTInvalidIdentifierException, NumberArgumentsErrorException, WrongArgumentTypeErrorException {
 		
 		Set<String> argumentsTypecheckingVerified = new HashSet<>();
 		
-		for(String argumentID : this.functionArgumentsIDs) {
+		Set<String> foundArgumentsTypecheckingVerified =
+					argumentsTypecheckingVerified
+					.stream().filter(argument -> 
+								Collections.frequency(argumentsTypecheckingVerified,
+													  argument) > 1)
+					.collect(Collectors.toSet());
+		
+		if(!foundArgumentsTypecheckingVerified.isEmpty()) {		
+				
+			throw new ASTDuplicatedIdentifierException("Duplicated Identifier found in Function's declaration!!!");
 			
-			if(!argumentsTypecheckingVerified.contains(argumentID)) {
-				
-				argumentsTypecheckingVerified.add(argumentID);
-				
-			}
-			else {
-				
-				throw new ASTDuplicatedIdentifierException("Duplicated Identifier found in Function's declaration!!!");
-				
-			}
 		}
 		
+		Environment<IType> newEnvironment = environment.beginScope();
 		
 		
-		return null;
+		int numFunctionArgument = 0;
+		List<IType> newFunctionArgumentsTypes = new ArrayList<IType>();
+		
+		for(IType functionArgumentType : this.functionType.getFunctionArgumentsTypes()) { // TODO change structure of Function Arguments Types (????)
+			
+			String functionArgumentID = this.functionArgumentsIDs.get(numFunctionArgument);
+			
+			newEnvironment.addAssoc(functionArgumentID, functionArgumentType);
+			newFunctionArgumentsTypes.add(functionArgumentType);
+			
+		}
+		
+		IType functionBodyReturnType = this.functionBody.typecheck(newEnvironment);
+			
+		this.functionType = new TFun(newFunctionArgumentsTypes, functionBodyReturnType);
+		
+		newEnvironment.endScope();
+		
+		
+		return this.functionType;
 	}
 }

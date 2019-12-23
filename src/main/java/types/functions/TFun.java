@@ -30,10 +30,17 @@ import main.java.types.IType;
  */
 public class TFun implements IType {
 
+	private List<IType> functionArgumentsTypes;
+
 	private IType functionReturnType;
 	
-	private List<IType> functionArgumentsTypes;
 	
+	public TFun(List<IType> functionArgumentsTypes, IType functionReturnType) {
+	
+		this.functionArgumentsTypes = functionArgumentsTypes;
+		this.functionReturnType = functionReturnType;
+
+	}
 	
 	// Methods/Functions:
 	
