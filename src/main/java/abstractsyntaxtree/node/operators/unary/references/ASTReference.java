@@ -9,6 +9,7 @@ import main.java.scopes.compiler.instructions.codeblocks.CodeBlockInstructionsSe
 import main.java.types.IType;
 import main.java.types.references.TRef;
 import main.java.values.atomics.IValue;
+import main.java.values.references.VRef;
 import main.java.values.utils.exceptions.NumberArgumentsErrorException;
 import main.java.values.utils.exceptions.TypeErrorException;
 import main.java.values.utils.exceptions.WrongArgumentTypeErrorException;
@@ -32,7 +33,7 @@ public class ASTReference<T> implements ASTNode {
 		   throws ASTInvalidIdentifierException, TypeErrorException,
 		          NumberArgumentsErrorException {
 		
-		return this.referenceValue.eval(environment);
+		return new VRef(referenceValue.eval(environment));
 	
 	}
 
@@ -41,19 +42,19 @@ public class ASTReference<T> implements ASTNode {
 		   throws ASTInvalidIdentifierException {
 		
 		
-		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
-		String stackFrameName = this.referenceType.getHeapStackFrameName();
-		
-		codeBlockInstructionsSet.addCodeInstruction( String.format("new %s", stackRefName) );
-		
-		codeBlockInstructionsSet.addCodeInstruction("dup");
-		codeBlockInstructionsSet.addCodeInstruction( String.format("invokespecial %s/<init>()V", stackRefName) );
-		codeBlockInstructionsSet.addCodeInstruction("dup");
-		
-		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet);
-		
-		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
-		
+//		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
+//		String stackFrameName = this.referenceType.getHeapStackFrameName();
+//		
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("new %s", stackRefName) );
+//		
+//		codeBlockInstructionsSet.addCodeInstruction("dup");
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("invokespecial %s/<init>()V", stackRefName) );
+//		codeBlockInstructionsSet.addCodeInstruction("dup");
+//		
+//		this.referenceValue.compile(environmentCompiler, codeBlockInstructionsSet);
+//		
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
+//		
 	}
 
 	/**

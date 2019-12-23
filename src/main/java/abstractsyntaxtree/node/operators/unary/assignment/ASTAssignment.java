@@ -40,9 +40,8 @@ public class ASTAssignment implements ASTNode {
 		IValue assignmentEvaluated = this.assignmentID.eval(environment);
 		
 		if(assignmentEvaluated instanceof VRef) {
-			
-			return new VRef(this.assignmentValue.eval(environment));
-			
+			((VRef) assignmentEvaluated).setValue(this.assignmentValue.eval(environment));
+			return assignmentEvaluated;
 		}
 		else {
 			throw new TypeErrorException(TYPE_ERROR_MESSAGE);
@@ -54,17 +53,17 @@ public class ASTAssignment implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
 		
-		this.assignmentID.compile(environmentCompiler, codeBlockInstructionsSet);
-		
-		String stackRefName = this.assignmentValueType.getHeapStackFrameReferenceName();
-		String stackFrameName = this.assignmentValueType.getHeapStackFrameName();
-		
-		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
-		
-		this.assignmentValue.compile(environmentCompiler, codeBlockInstructionsSet);
-		
-		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
-		
+//		this.assignmentID.compile(environmentCompiler, codeBlockInstructionsSet);
+//		
+//		String stackRefName = this.assignmentValueType.getHeapStackFrameReferenceName();
+//		String stackFrameName = this.assignmentValueType.getHeapStackFrameName();
+//		
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
+//		
+//		this.assignmentValue.compile(environmentCompiler, codeBlockInstructionsSet);
+//		
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("putfield %s/v %s", stackRefName, stackFrameName) );
+//		
 	}
 
 	/**

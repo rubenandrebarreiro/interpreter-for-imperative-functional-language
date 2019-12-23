@@ -55,6 +55,7 @@ public class InterpreterParser {
 		while(true) { 
     		try {
     			Num_Exp = interpreterParser.Start();
+//    			Num_Exp.typecheck(env);
     			Compiler compiler = new Compiler( Num_Exp );
     			compiler.generateJavaByteCodeJVMInstructions(mainCompileFilename);
     			Num_Exp.eval(env).show();
@@ -155,7 +156,9 @@ TOKEN :
   | 
   < LET_ASSOC: "=" >
   |
-  < REF_ASSIGN: ":=" > 
+  < COLON: ":" >
+  | 
+  < REF_ASSIGN: < COLON >"=" > 
   |
   < IN: "In" | "in" >
   |
@@ -197,6 +200,8 @@ TOKEN :
   |
   < BOOL: "bool" >
   |
+  < REF: "ref" >
+  | 
   < ID: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"] )* > 
 }
 
@@ -313,7 +318,9 @@ ASTNode NumTerm() :
 			  else
 				    node1 = new ASTDiv(node1, node2);	
 			}
-     	)? 
+		| node1 = Assignment(node1)
+     	)?
+
      {
        return node1;
      } 
@@ -341,7 +348,7 @@ ASTNode Fact() :
      	| id = <ID> { node = new ASTID(id.image);}
         | node = Let()
 		| <LPAR> node = Sequence() <RPAR>
-		| <NEW_REF> id = < ID > { node = new ASTReference(new ASTID(id.image)); }
+		| <NEW_REF> node = Fact() { node = new ASTReference(node); }
 		| <EXCLAMATION_DREF> id = < ID > { node = new ASTDeReference(new ASTID(id.image)); }
 	    | node = Conditional()
 	    | node = Loop()
@@ -350,6 +357,15 @@ ASTNode Fact() :
     {
       return node;
     }
+}
+
+ASTNode Assignment(ASTNode idNode):
+{
+	ASTNode valueNode, node;
+}
+{
+	< REF_ASSIGN > valueNode = BoolExp() { node = new ASTAssignment(idNode, valueNode); }
+	{ return node; }
 }
 
 ASTNode Print() :
@@ -396,9 +412,9 @@ List<ASTNode> Association():
 }
 {
     (
-      id = <ID> <LET_ASSOC>
+      id = <ID> /* TODO <COLON> Type HERE!*/ <LET_ASSOC>
       	{
-      	  valueNode = NumExp();
+      	  valueNode = Sequence();
       	}
       	{
         	associations.add(new ASTAssociation(id.image, valueNode));
@@ -438,7 +454,8 @@ ASTNode Sequence():
 {
 	(
 		headSequenceInstruction = BoolExp()
-	  	(	  	  <SEQ_DELIMETER>
+	  	(
+	  	  <SEQ_DELIMETER>
 	  	tailSequenceInstructions = Sequence()
 	  	{
 	  	  sequenceInstructions = new ASTSeq(headSequenceInstruction, tailSequenceInstructions);

@@ -44,15 +44,15 @@ public class ASTDeReference implements ASTNode {
 	public void compile(EnvironmentCompiler environmentCompiler, CodeBlockInstructionsSet codeBlockInstructionsSet)
 		   throws ASTInvalidIdentifierException {
 		
-		this.referenceValueToBeDeReferenced.compile(environmentCompiler, codeBlockInstructionsSet);
-		
-		
-		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
-		String stackFrameName = this.referenceType.getHeapStackFrameName();
-		
-		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
-		codeBlockInstructionsSet.addCodeInstruction( String.format("getfield %s/v %s", stackRefName, stackFrameName) );
-		
+//		this.referenceValueToBeDeReferenced.compile(environmentCompiler, codeBlockInstructionsSet);
+//		
+//		
+//		String stackRefName = this.referenceType.getHeapStackFrameReferenceName();
+//		String stackFrameName = this.referenceType.getHeapStackFrameName();
+//		
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("checkcast %s", stackRefName) );
+//		codeBlockInstructionsSet.addCodeInstruction( String.format("getfield %s/v %s", stackRefName, stackFrameName) );
+//		
 	}
 
 	/**
