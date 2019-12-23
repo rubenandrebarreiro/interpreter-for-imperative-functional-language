@@ -55,6 +55,7 @@ public class InterpreterParser {
 		while(true) { 
     		try {
     			Num_Exp = interpreterParser.Start();
+    			Num_Exp.typecheck(env);
     			Compiler compiler = new Compiler( Num_Exp );
     			compiler.generateJavaByteCodeJVMInstructions(mainCompileFilename);
     			Num_Exp.eval(env).show();
