@@ -347,8 +347,8 @@ ASTNode Fact() :
      	| id = <ID> { node = new ASTID(id.image);}
         | node = Let()
 		| <LPAR> node = Sequence() <RPAR>
-		| <NEW_REF> num = < NUM > { node = new ASTReference(new ASTNum(new VInt(Integer.parseInt(num.image)))); }
-		| <EXCLAMATION_DREF> num = < NUM > { node = new ASTDeReference(new ASTNum(new VInt(Integer.parseInt(num.image)))); }
+		| <NEW_REF> node = Fact() { node = new ASTReference(node); }
+		| <EXCLAMATION_DREF> id = < ID > { node = new ASTDeReference(new ASTID(id.image)); }
 	    | node = Conditional()
 	    | node = Loop()
 	    | node = Print()
