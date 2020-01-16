@@ -2,6 +2,7 @@
 
 ## Contributors
 > [Eduardo Brás Silva](https://github.com/timeforagame/)
+
 > [Rúben André Barreiro](https://github.com/rubenandrebarreiro/)
 
 ## Contacts
