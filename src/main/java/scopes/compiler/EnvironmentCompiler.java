@@ -38,6 +38,11 @@ public class EnvironmentCompiler {
 	 */
 	private int currentLabelNumber;
 	
+	/**
+	 * The current number used for labels "ref_class"
+	 */
+	private int currentReferenceNumber;
+	
 	
 	// Constructors:
 	
@@ -49,6 +54,7 @@ public class EnvironmentCompiler {
 	public EnvironmentCompiler() {		
 		this.staticLinkAncestorHeapStackFrame = null;
 		this.currentLabelNumber = 0;
+		this.currentReferenceNumber = 0;
 	}
 
 	/**
@@ -93,4 +99,14 @@ public class EnvironmentCompiler {
 	public int getCurrentLabelNumber() {
 		return currentLabelNumber++;
 	}
+
+	/**
+	 * Returns the current number used for labels "ref_class".
+	 * 
+	 * @return the current number used for labels "ref_class"
+	 */
+	public int getCurrentReferenceNumber() {
+		return currentReferenceNumber++;
+	}
+
 }
